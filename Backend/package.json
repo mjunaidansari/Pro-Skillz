@@ -15,10 +15,15 @@
     "@graphql-tools/schema": "^10.0.0",
     "dotenv": "^16.3.1",
     "express": "^4.18.2",
+    "express-async-errors": "^3.1.1",
+    "fast-two-sms": "^3.0.0",
+    "fast2sms": "^1.0.3",
     "firebase": "^10.4.0",
     "firebase-admin": "^11.11.0",
     "graphql": "^16.8.1",
-    "lodash": "^4.17.21"
+    "lodash": "^4.17.21",
+    "mongoose": "^7.6.0",
+    "twilio": "^4.18.1"
   },
   "devDependencies": {
     "nodemon": "^3.0.1"

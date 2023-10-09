@@ -4,37 +4,33 @@ const schema = mongoose.Schema({
 
 	firstname: {
 		type: String,
-		required: true
 	},
 	lastname: {
 		type: String,
-		required: true
 	},
 	email: {
-		type: String,
-		required: true
+		type: String
 	},
 	phone: {
 		type: String,
 		required: true
 	},
 	passwordHash: {
-		type: String,
-		required: true
+		type: String
 	},
 	role: {
 		type: String,
-		required: true
+		required: true, 
+		enum: ['user', 'serviceProvider']
 	},
 	profilePicture: {
 		data: Buffer,
 		contentType: String
 	},
-	email: {
-		type: String,
-		required: true
-	},
 	address: {
+		type: String
+	},
+	otp: {
 		type: String
 	}
 
