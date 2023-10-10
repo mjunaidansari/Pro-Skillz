@@ -3,7 +3,7 @@ import React, { useEffect } from 'react';
 import { View, Text } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
-const SplashScreen = () => {
+const SplashScreenC = () => {
     const navigation = useNavigation();
 
     useEffect(() => {
@@ -20,4 +20,4 @@ const SplashScreen = () => {
     );
 };
 
-export default SplashScreen;
+export default SplashScreenC;
