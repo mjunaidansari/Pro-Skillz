@@ -1,7 +1,7 @@
 import { View, TextInput, StyleSheet } from 'react-native'
 import React, { useState } from 'react'
 
-const InputF = () => {
+const InputF = (props) => {
 
     const [isName, setName] = useState();
 
@@ -11,7 +11,7 @@ const InputF = () => {
                 style={styles.container}
                 onChangeText={setName}
                 value={isName}
-                placeholder="Enter Name"
+                placeholder={props.title}
                 keyboardType="default"
             />
         </View>
