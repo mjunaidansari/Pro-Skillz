@@ -8,6 +8,7 @@ const testRouter = require('../api/routers/test')
 const otpRouter = require('../api/routers/otp')
 const loginRouter = require('../api/routers/login')
 const serviceProviderRouter = require('../api/routers/serviceProvider')
+const userRouter = require('../api/routers/user')
 
 require('express-async-errors')
 
@@ -22,6 +23,7 @@ app.use(middleware.userExtractor)
 app.use('/api/test', testRouter)
 app.use('/api/otp', otpRouter)
 app.use('/api/login', loginRouter)
+app.use('/api/user', userRouter)
 app.use('/api/serviceProvider', serviceProviderRouter)
 
 app.use(middleware.unknownEndpoint)
