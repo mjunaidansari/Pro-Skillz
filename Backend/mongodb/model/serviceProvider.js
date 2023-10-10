@@ -10,8 +10,19 @@ const schema = mongoose.Schema({
 	description: {
 		type: String,
 	},
+	categories: [
+		{
+			type: String,
+		}
+	],
 	avgRating: {
 		type: Number
+	},
+	verified: {
+		type: Boolean
+	},
+	allowed: {
+		type: Boolean,
 	}
 
 })
