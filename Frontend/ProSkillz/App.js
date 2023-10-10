@@ -1,16 +1,26 @@
 import { NavigationContainer } from '@react-navigation/native';
 import { useState } from 'react';
-import AuthStack from './routes/AuthStack';
-import TabStack from './routes/TabStack';
+import UserProviderOpt from './screens/UserProviderOpt';
+import SplashScreen from './screens/SplashScreen';
+import MainStackU from './routes/user/MainStackU';
+import MainStackP from './routes/provider/MainStackP';
+import AuthState from './context/AuthState';
 
 export default function App() {
 
-  const [isLoggedIn, setIsLoggedIn] = useState(true);
+
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isUserorProvider, setIsUserorProvider] = useState(null);
 
   return (
-    <NavigationContainer>
-      {isLoggedIn == true ? <TabStack /> : <AuthStack />}
-    </NavigationContainer>
+    <AuthState>
+      <NavigationContainer>
+        {/* <SplashScreen /> */}
+
+        {isLoggedIn == true ? isUserorProvider == true ? <MainStackU /> : <MainStackP /> : <UserProviderOpt />}
+
+      </NavigationContainer>
+    </AuthState>
   );
 }
 

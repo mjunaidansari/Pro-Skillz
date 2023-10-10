@@ -1,11 +1,11 @@
 import React from 'react'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import SharedStack from './SharedStack';
-import UserAccountScreen from '../screens/UserAccountScreen';
-import SearchScreen from '../screens/SearchScreen';
-import MainStack from "./MainStack";
+import SharedStack from './SharedStackU';
+import UserAccountScreen from '../../screens/Customer/UserAccountScreen';
+import SearchScreen from '../../screens/Customer/SearchScreen';
+import MainStack from "./MainStackU";
 
-export default function AuthStack() {
+export default function TabStackU() {
 
     const Tab = createBottomTabNavigator();
 

@@ -1,25 +1,23 @@
-import { View, Text, Button } from 'react-native'
-import React from 'react'
-import { useNavigation } from '@react-navigation/core'
+// SplashScreen.js
+import React, { useEffect } from 'react';
+import { View, Text } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 
 const SplashScreen = () => {
-
     const navigation = useNavigation();
 
-    const loginSignUp = () => {
-        navigation.navigate("Login")
-    }
-
+    useEffect(() => {
+        // Simulate some loading or initial setup if needed
+        setTimeout(() => {
+            // navigation.navigate('User');
+        }, 2000); // Navigate to decision screen after 2 seconds
+    }, [navigation.navigate()]);
 
     return (
         <View>
-            <Button
-                onPress={loginSignUp}
-                title="Login/SignUp"
-                color="#841584"
-            />
+            <Text>Splash Screen</Text>
         </View>
-    )
-}
+    );
+};
 
-export default SplashScreen
+export default SplashScreen;

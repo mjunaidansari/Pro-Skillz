@@ -2,7 +2,7 @@ import { View, Text, Button } from 'react-native'
 import React from 'react'
 import { useNavigation } from '@react-navigation/core'
 
-const LoginSignUpScreen = () => {
+const Login = () => {
 
     const navigation = useNavigation();
 
@@ -17,8 +17,11 @@ const LoginSignUpScreen = () => {
                 title="Login/SignUp"
                 color="#841584"
             />
+            <Text>
+                Login Provider
+            </Text>
         </View>
     )
 }
 
-export default LoginSignUpScreen
+export default Login

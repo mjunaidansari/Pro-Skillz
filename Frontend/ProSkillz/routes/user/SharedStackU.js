@@ -1,8 +1,8 @@
 import React from 'react'
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import CategoryScreen from '../screens/CategoryScreen';
+import CategoryScreen from '../../screens/Customer/CategoryScreen';
 
-export default function AuthStack() {
+export default function SharedStackU() {
 
     const Stack = createNativeStackNavigator();
 
