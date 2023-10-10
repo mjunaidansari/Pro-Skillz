@@ -3,6 +3,8 @@ const twilio = require('twilio')
 
 const User = require('../../mongodb/model/user')
 
+const { TWILIO_AUTH_TOKEN, TWILIO_SID } = require('../../config/config') 
+
 const generateOtp = () => {
 	return Math.floor(100000 + Math.random() * 900000).toString();
 }
@@ -14,7 +16,7 @@ otpRouter.post('/generate', async (req, res) => {
 
 	const { phone } = req.body
 
-	const client = new twilio(process.env.TWILIO_SID, process.env.TWILIO_AUTH_TOKEN)
+	const client = new twilio(TWILIO_SID, TWILIO_AUTH_TOKEN)
 
 	const otp = generateOtp()
 
@@ -29,7 +31,17 @@ otpRouter.post('/generate', async (req, res) => {
 		const userExists = await User.findOne({phone})
 
 		if (userExists) {
-			res.status(200).end()
+
+			const updatedUser = {
+				...userExists._doc,
+				otp,
+			}
+
+			console.log(updatedUser)
+			const savedUser = await User.findByIdAndUpdate(userExists._id.toString(), updatedUser, {runValidators: true, new: true, context: 'query'})
+
+			res.status(200).json(savedUser)
+		
 		} else {
 
 			const user = new User({
