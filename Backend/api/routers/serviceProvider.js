@@ -25,7 +25,12 @@ serviceProviderRouter.post('/', async (req, res) => {
 
 	const { firstname, lastname, phone, email, password, categories, coordinates } = req.body
 
-	const userExists = await User.findOne({phone})
+	const userExists = await User.findOne({
+									phone, 
+									role: {
+										$in: ['serviceProvider']
+									}
+								})
 
 	if (userExists)
 		return res
