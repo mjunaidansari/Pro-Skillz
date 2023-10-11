@@ -14,7 +14,7 @@ const schema = mongoose.Schema({
 	description: {
 		type: String
 	},
-	serviceCharges: {
+	serviceCharge: {
 		type: Number,
 		required: true
 	}

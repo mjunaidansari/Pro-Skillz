@@ -9,6 +9,7 @@ const otpRouter = require('../api/routers/otp')
 const loginRouter = require('../api/routers/login')
 const serviceProviderRouter = require('../api/routers/serviceProvider')
 const userRouter = require('../api/routers/user')
+const serviceRouter = require('../api/routers/service')
 
 require('express-async-errors')
 
@@ -25,6 +26,7 @@ app.use('/api/otp', otpRouter)
 app.use('/api/login', loginRouter)
 app.use('/api/user', userRouter)
 app.use('/api/serviceProvider', serviceProviderRouter)
+app.use('/api/service', serviceRouter)
 
 app.use(middleware.unknownEndpoint)
 app.use(middleware.errorHandler)
