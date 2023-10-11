@@ -2,14 +2,11 @@ import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
 import React, { useContext } from 'react'
 import InputF from '../../components/InputF'
 import ButtonsPS from '../../components/ButtonsPS'
-import { useNavigation } from '@react-navigation/native'
 import AuthContext from '../../context/AuthContext'
 
 const GetNameScreen = () => {
 
-    const navigation = useNavigation()
-
-    const { afterLoginU, updateLoginStateU } = useContext(AuthContext);
+    const { updateLoginStateU } = useContext(AuthContext);
 
     const updateState = (val) => {
         updateLoginStateU(val)

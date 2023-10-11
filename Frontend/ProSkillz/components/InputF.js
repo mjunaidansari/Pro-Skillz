@@ -12,7 +12,9 @@ const InputF = (props) => {
                 onChangeText={setName}
                 value={isName}
                 placeholder={props.title}
+                inputMode={props.inpM}
                 keyboardType="default"
+                secureTextEntry={props.password}
             />
         </View>
     )
