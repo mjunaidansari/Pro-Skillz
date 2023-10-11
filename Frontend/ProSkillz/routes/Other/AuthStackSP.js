@@ -2,16 +2,28 @@ import React from 'react'
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Login from '../../screens/Provider/Login';
 import SignUp from '../../screens/Provider/SignUp';
+import { useContext } from 'react';
+import MainStackP from '../provider/MainStackP';
+import AuthContext from '../../context/AuthContext';
 
 const AuthStackSP = () => {
     const Stack = createNativeStackNavigator();
 
-    return (
-        <Stack.Navigator initialRouteName='Login' screenOptions={{ headerShown: false }}>
-            <Stack.Screen name="Login" component={Login} />
-            <Stack.Screen name="SignUp" component={SignUp} />
-        </Stack.Navigator>
-    )
+    const { afterLoginS } = useContext(AuthContext);
+
+    if (afterLoginS) {
+        return (
+            <MainStackP />
+        )
+    }
+    else if (!afterLoginS) {
+        return (
+            <Stack.Navigator initialRouteName='Login' screenOptions={{ headerShown: false }}>
+                <Stack.Screen name="Login" component={Login} />
+                <Stack.Screen name="SignUp" component={SignUp} />
+            </Stack.Navigator>
+        )
+    }
 }
 
 export default AuthStackSP

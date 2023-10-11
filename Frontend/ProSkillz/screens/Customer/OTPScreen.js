@@ -3,13 +3,39 @@ import React, { useRef, useState } from 'react'
 import OTPIcon from '../../assets/icons/OTPIcon.svg'
 import { useNavigation } from '@react-navigation/native'
 import ButtonsPS from '../../components/ButtonsPS'
-// import OTPInputView from '@twotalltotems/react-native-otp-input'
+
+import {
+    CodeField,
+    Cursor,
+    useBlurOnFulfill,
+    useClearByFocusCell,
+} from 'react-native-confirmation-code-field';
+
+const CELL_COUNT = 6;
 
 const OTPScreen = () => {
 
     const navigation = useNavigation()
 
-    const [state, setState] = useState()
+    const [value, setValue] = useState('');
+
+    const ref = useBlurOnFulfill({ value, cellCount: CELL_COUNT });
+    const [props, getCellOnLayoutHandler] = useClearByFocusCell({
+        value,
+        setValue,
+    });
+
+    console.log(value);
+
+    const checkOTP = () => {
+
+        console.log("Working");
+        if (value.toString() == "721930") {
+            navigation.navigate("Get-Name")
+        }
+    }
+
+
 
     return (
         <View style={styles.containerM}>
@@ -24,20 +50,29 @@ const OTPScreen = () => {
 
             <View style={styles.btmView}>
 
-                {/* <View>
+                <View style={{ width: "85%" }}>
 
-                    <OTPInputView
-                        style={{ width: '80%', height: 200 }}
-                        pinCount={6}
-                        code={this.state} //You can supply this prop or not. The component will be used as a controlled / uncontrolled component respectively.
-                        onCodeChanged={code => { this.setState({ code }) }}
-                        autoFocusOnLoad
-                        onCodeFilled={(code => {
-                            console.log(`Code is ${code}, you are good to go!`)
-                        })}
+                    <CodeField
+                        ref={ref}
+                        {...props}
+                        // Use `caretHidden={false}` when users can't paste a text value, because context menu doesn't appear
+                        value={value}
+                        onChangeText={setValue}
+                        cellCount={CELL_COUNT}
+                        rootStyle={styles.codeFieldRoot}
+                        keyboardType="number-pad"
+                        textContentType="oneTimeCode"
+                        renderCell={({ index, symbol, isFocused }) => (
+                            <Text
+                                key={index}
+                                style={[styles.cell, isFocused && styles.focusCell]}
+                                onLayout={getCellOnLayoutHandler(index)}>
+                                {symbol || (isFocused ? <Cursor /> : null)}
+                            </Text>
+                        )}
                     />
 
-                </View> */}
+                </View>
 
                 <Text style={styles.btmTxt}>Didn’t receive an OTP ?</Text>
 
@@ -48,7 +83,7 @@ const OTPScreen = () => {
                 </TouchableHighlight>
 
                 <View style={{ width: "100%", alignItems: "center", margin: 25 }}>
-                    <TouchableOpacity style={styles.btns} onPress={() => { navigation.navigate("Get-Name") }}>
+                    <TouchableOpacity style={styles.btns} onPress={checkOTP}>
                         <ButtonsPS title="Submit" />
                     </TouchableOpacity>
                 </View>
@@ -101,6 +136,34 @@ const styles = StyleSheet.create({
         height: "45%",
         alignItems: "center",
         justifyContent: "center"
-    }
+    },
+
+    root: {
+        flex: 1,
+        padding: 20
+    },
+
+    title: {
+        textAlign: 'center',
+        fontSize: 30
+    },
+
+    codeFieldRoot: {
+        marginTop: 20
+    },
+
+    cell: {
+        width: 40,
+        height: 40,
+        lineHeight: 38,
+        fontSize: 24,
+        borderWidth: 2,
+        borderColor: '#00000030',
+        textAlign: 'center',
+    },
+
+    focusCell: {
+        borderColor: '#000',
+    },
 
 })

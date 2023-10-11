@@ -4,12 +4,11 @@ import UserLoginSignUp from '../../screens/Customer/UserLoginSignUp';
 import OTPScreen from '../../screens/Customer/OTPScreen';
 import GetNameScreen from '../../screens/Customer/GetNameScreen';
 import AuthContext from '../../context/AuthContext';
-import MainStackU from '../user/MainStackU';
 import TabStackU from '../user/TabStackU';
 
 export default function AuthStackU() {
 
-    const { afterLoginU, updateLoginStateU } = useContext(AuthContext);
+    const { afterLoginU } = useContext(AuthContext);
 
     const Stack = createNativeStackNavigator();
 

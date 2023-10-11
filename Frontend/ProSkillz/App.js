@@ -30,6 +30,14 @@ export default function App() {
   }, [])
 
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  // true -  
+
+
+  const updateAuthState = () => {
+
+  }
+
   const [isUserorProvider, setIsUserorProvider] = useState(null);
 
   if (!fontsLoaded) {
@@ -59,6 +67,3 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff"
   }
 })
-
-
-
