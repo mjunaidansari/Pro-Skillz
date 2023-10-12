@@ -35,10 +35,7 @@ loginRouter.post('/user', async (req, res) => {
 
 	res
 		.status(200)
-		.send({
-			token,
-			phone: phone
-		})
+		.send({token})
 
 })
 
