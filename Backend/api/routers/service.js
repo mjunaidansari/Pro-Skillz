@@ -30,7 +30,7 @@ serviceRouter.post('/', async (req, res) => {
 				.json({
 					error: 'Invalid User!'
 				})
-	
+
 	const serviceProvider = await ServiceProvider.findOne({ user: user.id })
 
 	if (!serviceProvider)
@@ -52,6 +52,47 @@ serviceRouter.post('/', async (req, res) => {
 	res
 		.status(201)
 		.json(savedService)
+
+})
+
+serviceRouter.put('/:id', async (req, res) => {
+
+	const { name, description, serviceCharge } = req.body
+	const user = req.user
+
+	if (!user)
+		return res
+				.status(401)
+				.json({
+					error: 'Invalid User!'
+				})
+
+	const serviceProvider = await ServiceProvider.findOne({ user: user.id })
+
+	if (!serviceProvider)
+		return res
+				.status(401)
+				.json({
+					error: 'Service Provdier not found!'
+				})
+
+	const service = await Service.findById(req.params.id)
+
+	if (!service)
+		return res
+				.status(401)
+				.json({
+					error: 'Service not found!'
+				})
+	
+	if (name) service.name = name
+	if (description) service.description = description
+	if (serviceCharge) service.serviceCharge = serviceCharge
+
+	console.log(name, service)
+
+	const updatedService = await service.save()
+	res.json(updatedService)
 
 })
 

@@ -19,7 +19,7 @@ loginRouter.post('/user', async (req, res) => {
 										$in: ['user']
 									}
 								})
-	console.log(user)
+	console.log("user", user)
 
 	if (!(user && verifyOtp(userOtp, user.otp))) 
 		return res.status(401).json({

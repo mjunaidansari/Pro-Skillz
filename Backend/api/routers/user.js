@@ -4,8 +4,15 @@ const User = require('../../mongodb/model/user')
 
 userRouter.get('/', async (req, res) => {
 
+	const user = req.user
+
+	if (user)
+		return res.status(200).json(user)
+	
 	const users = await User.find({})
-	res.json(users)
+	res.status(200).json(users)
+
+
 
 })
 
