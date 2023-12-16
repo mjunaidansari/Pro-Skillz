@@ -10,7 +10,7 @@ cartRouter.get('/', async (req, res) => {
 	if(user) {
 		
 		const cart = await Cart.findOne({ user: user.id })
-		res.status(200).json(cart)
+		return res.status(200).json(cart)
 
 	}
 
@@ -53,16 +53,17 @@ cartRouter.put('/', async (req, res) => {
 	
 	if(!cart) 
 		return res
-				.status(401)
+				.status(404)
 				.json({
 					error: 'Cart Not Found!'
 				})
 
 	const service = await Service.findById(serviceId)
 
-	console.log('User: ', user)
-	console.log('Cart: ', cart)
-	console.log('Service: ', service)
+	// checking if the given service is already present in the cart
+	if(cart.services.includes(serviceId)){
+		return res.json(cart)
+	}
 
 	// adding service to the cart
 	cart.services.push(service)
@@ -72,6 +73,37 @@ cartRouter.put('/', async (req, res) => {
 	const updatedCart = await cart.save()
 
 	console.log(updatedCart)
+	res.json(updatedCart)
+
+})
+
+cartRouter.delete('/', async (req, res) => {
+
+	const user = req.user
+	const { serviceId } = req.body
+
+	if (!user) 
+		return res
+				.status(401)
+				.json('Invalid User!')
+
+	
+	const cart = await Cart.findOne({user: user.id})
+
+	if (!cart)
+		return res
+				.status(404)
+				.json('Cart Not Found!')
+
+	const service = await Service.findById(serviceId)
+	
+	// removing the specified service
+	const updatedServices = cart.services.filter(service => service.toString() !== serviceId)
+	cart.services = updatedServices
+	// decrementing its cost
+	cart.totalPrice -= service.serviceCharge
+
+	const updatedCart = await cart.save()
 	res.json(updatedCart)
 
 })
