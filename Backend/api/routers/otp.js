@@ -2,6 +2,7 @@ const otpRouter = require('express').Router()
 const twilio = require('twilio')
 
 const User = require('../../mongodb/model/user')
+const Cart = require('../../mongodb/model/cart')
 
 const { TWILIO_AUTH_TOKEN, TWILIO_SID } = require('../../config/config') 
 const { update } = require('lodash')
@@ -29,7 +30,12 @@ otpRouter.post('/generate', async (req, res) => {
 			to: phone
 		})
 
-		const userExists = await User.findOne({phone})
+		const userExists = await User.findOne({
+											phone,
+											role: {
+												$in: ['user']
+											}
+										})
 
 		if (userExists) {
 
@@ -46,7 +52,16 @@ otpRouter.post('/generate', async (req, res) => {
 			})
 	
 			const savedUser = await user.save()
-			console.log(savedUser)
+
+			const cart = new Cart({
+				user: savedUser._id,
+				services: [],
+				totalPrice: 0
+			})
+
+			const savedCart = await cart.save()
+
+			console.log(savedUser, savedCart)
 			res.status(201).json(savedUser)
 
 		}

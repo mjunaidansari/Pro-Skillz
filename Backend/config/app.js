@@ -11,6 +11,7 @@ const serviceProviderRouter = require('../api/routers/serviceProvider')
 const userRouter = require('../api/routers/user')
 const serviceRouter = require('../api/routers/service')
 const serviceCategoryRouter = require('../api/routers/serviceCatergory')
+const cartRouter = require('../api/routers/cart')
 
 require('express-async-errors')
 
@@ -29,6 +30,7 @@ app.use('/api/user', userRouter)
 app.use('/api/serviceProvider', serviceProviderRouter)
 app.use('/api/service', serviceRouter)
 app.use('/api/serviceCategory', serviceCategoryRouter)
+app.use('/api/carts', cartRouter)
 
 app.use(middleware.unknownEndpoint)
 app.use(middleware.errorHandler)

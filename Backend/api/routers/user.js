@@ -53,6 +53,7 @@ userRouter.put('/:id', async (req, res) => {
 	if (lastname) user.lastname = lastname;
 	if (email) user.email = email;
 	if (address) user.address = address;
+	user.updatedAt = Date.now()
 
 	const updatedUser = await user.save()
 	res.json(updatedUser)

@@ -2,11 +2,11 @@ POST http://localhost:3000/api/serviceProvider
 Content-Type: application/json
 
 {
-	"firstname": "Junaid",
-	"lastname": "Ansari",
+	"firstname": "Provider",
+	"lastname": "2",
 	"phone": 9653313082,
-	"email": "junaidshahid.ansari@gmail.com",
-	"password": "junaid123",
+	"email": "provider2@gmail.com",
+	"password": "provider2",
 	"categories": ["plumbers"],
 	"coordinates": [40.7128, -74.0060]
 
