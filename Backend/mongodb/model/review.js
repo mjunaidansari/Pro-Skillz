@@ -7,9 +7,9 @@ const schema = mongoose.Schema({
 		ref: 'User',
 		required: true
 	},
-	target: {
+	service: {
 		type: mongoose.Schema.Types.ObjectId,
-		ref: 'User',
+		ref: 'Service',
 		required: true
 	},
 	rating: {
