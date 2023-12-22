@@ -5,7 +5,7 @@ Content-Type: application/json
 {
 	"location": {
 		"type": "Point",
-		"coordinates": [-73.97, 40.77]
+		"coordinates": [18.934423, 72.827596]
 	},
-	"locationName": "Location1"
+	"locationName": "Churchgate"
 }

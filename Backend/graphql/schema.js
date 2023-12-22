@@ -9,10 +9,10 @@ const allObj = require('../graphql/queries/allObj')
 const objCount = require('../graphql/queries/objCount')
 const locationCount = require('../graphql/queries/location/locationCount')
 const allLocations = require('../graphql/queries/location/allLocations')
+const nearMe = require('../graphql/queries/location/nearMe')
 
 // mutations
 const editObj = require('../graphql/mutations/editObj')
-const { all } = require('../config/app')
 
 const typeDefs = [
 	test.typeDefs,
@@ -21,7 +21,8 @@ const typeDefs = [
 	editObj.typeDefs,
 	location.typeDefs,
 	locationCount.typeDefs,
-	allLocations.typeDefs
+	allLocations.typeDefs,
+	nearMe.typeDefs
 ]
 
 const resolvers = merge(
@@ -31,7 +32,8 @@ const resolvers = merge(
 	editObj.resolvers,
 	location.resolvers,
 	locationCount.resolvers,
-	allLocations.resolvers
+	allLocations.resolvers,
+	nearMe.resolvers
 )
 
 module.exports = {

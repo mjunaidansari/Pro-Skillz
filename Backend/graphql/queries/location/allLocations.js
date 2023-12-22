@@ -8,7 +8,9 @@ const typeDefs = `
 
 const resolvers = {
 	Query: {
-		allLocations: async () => Location.find({})
+		allLocations: async () => {
+			return Location.find({})
+		}
 	}
 }
 

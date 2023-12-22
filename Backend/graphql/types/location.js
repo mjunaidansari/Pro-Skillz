@@ -3,6 +3,8 @@ const typeDefs = `
 		id: ID!
 		user: String!
 		location: LocJson!
+		locationName: String!,
+		calcDistance: Float!
 	}
 
 	type LocJson {
