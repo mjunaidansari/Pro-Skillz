@@ -11,6 +11,7 @@ const resolvers = {
 		nearMe: async (root, args) => {
 			const coordinates = args.coordinates
 			console.log('Coordinates: ', coordinates)
+
 			return Location.aggregate([{
 				// location: {
 					$geoNear: {
@@ -18,7 +19,7 @@ const resolvers = {
 						spherical: true,
 						// maxDistance: 2000,
 						distanceField: 'calcDistance',
-						distanceMultiplier: 0.001 
+						distanceMultiplier: 0.001
 					}
 				// }
 			}])
@@ -35,6 +36,7 @@ const resolvers = {
 		}
 	}
 }
+
 module.exports = {
 	typeDefs,
 	resolvers

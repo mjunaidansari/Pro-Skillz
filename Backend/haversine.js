@@ -1,8 +1,11 @@
+coordinates1 = [18.974644581566924, 72.82998848192496]
+coordinates2 = [18.93286726780355, 72.82542792125072]
+
 const deg2rad = (degrees) => {
 	return degrees * (Math.PI/180)
 }
 
-const getDistance = (coordinates1, coordinates2) => {
+const getDistanceFromLatLonInKm = (coordinates1, coordinates2) => {
 
 	var lat1 = coordinates1[0]
 	var lon1 = coordinates1[1]
@@ -30,40 +33,7 @@ const getDistance = (coordinates1, coordinates2) => {
 	// Disance in KMs
 	const distance = R * c; 
 
-	return distance
+	console.log(distance)
 }
 
-const typeDefs = `
-	type Location {
-		id: ID!
-		user: String!
-		location: LocJson!
-		locationName: String!,
-		calcDistance(coordinates: [Float]!): Float!
-	}
-
-	type LocJson {
-		type: String!
-		coordinates: [Float]!
-	}
-`
-
-const resolvers = {
-	Location: {
-		location: (root, args) => root.location,
-		calcDistance: (root, args) => {
-
-			// getting the coordinates of the starting point from args
-			const { coordinates } = args
-			
-			const distance = getDistance(coordinates, root.location.coordinates)
-			return distance
-
-		}
-	}
-}
-
-module.exports = {
-	typeDefs,
-	resolvers
-}
+getDistanceFromLatLonInKm(coordinates1, coordinates2)
