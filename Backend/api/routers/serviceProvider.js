@@ -25,19 +25,19 @@ serviceProviderRouter.post('/', async (req, res) => {
 
 	const { firstname, lastname, phone, email, password, categories, coordinates } = req.body
 
-	const userExists = await User.findOne({
-									phone, 
-									role: {
-										$in: ['serviceProvider']
-									}
-								})
+	// const userExists = await User.findOne({
+	// 								phone, 
+	// 								role: {
+	// 									$in: ['serviceProvider']
+	// 								}
+	// 							})
 
-	if (userExists)
-		return res
-			.status(409)
-			.json({
-				error: "A user with this phone number already exists"
-			})
+	// if (userExists)
+	// 	return res
+	// 		.status(409)
+	// 		.json({
+	// 			error: "A user with this phone number already exists"
+	// 		})
 
 	const saltRounds = 10
 	const passwordHash = await bcrypt.hash(password, saltRounds)
@@ -66,7 +66,8 @@ serviceProviderRouter.post('/', async (req, res) => {
 		location: {
 			type: 'Point',
 			coordinates,
-		}
+		},
+		locationName: savedUser.firstname
 	})
 
 	const savedLocation = await location.save()

@@ -95,4 +95,41 @@ loginRouter.post('/verifyUser', async (req, res) => {
 	
 })
 
+loginRouter.post('/serviceProvider/alternate', async (req, res) => {
+
+	const { firstname, password } = req.body
+
+	const user = await User.findOne({
+									firstname,
+									role: {
+										$in: ['serviceProvider']
+									}
+								})
+	console.log(user)
+
+	const passwordCorrect = user === null
+		? false
+		: await bcrypt.compare(password, user.passwordHash)
+
+	if (!(user && passwordCorrect))
+		return res.status(401).json({
+			error: 'Invalid phone number or password'
+		})
+
+	const userForToken = {
+		phone: user.phone,
+		id: user._id
+	}
+
+	const token = jwt.sign(userForToken, JWT_SECRET, {expiresIn: '365d'})
+
+	res
+		.status(200)
+		.send({
+			token,
+			phone: user.phone
+		})
+
+})
+
 module.exports = loginRouter

@@ -80,8 +80,9 @@ serviceRouter.post('/', async (req, res) => {
 					error: 'Service Provdier not found!'
 				})
 
-	const serviceCategory = await serviceCategory.findOne({name: serviceCategoryName})
-				
+	const serviceCategoryNow = await serviceCategory.findOne({name: serviceCategoryName})
+	console.log			
+
 	const service = new Service({
 		provider: serviceProvider._id,
 		name,
@@ -90,8 +91,8 @@ serviceRouter.post('/', async (req, res) => {
 	})
 
 	const savedService = await service.save()
-	serviceCategory.services = serviceCategory,services.concat(savedService._id)
-	await serviceCategory.save()
+	serviceCategoryNow.services = serviceCategoryNow.services.concat(savedService._id)
+	await serviceCategoryNow.save()
 
 	res
 		.status(201)

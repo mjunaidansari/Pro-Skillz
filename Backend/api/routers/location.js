@@ -16,12 +16,12 @@ locationRouter.get('/:id', async (req, res) => {
 
 	// const user = req.user
 
-	// if (!user)
-	// 	return res
-	// 			.status(401)
-	// 			.json({
-	// 				error: 'Invalid User!'
-	// 			})
+	if (!user)
+		return res
+				.status(401)
+				.json({
+					error: 'Invalid User!'
+				})
 	
 	const location = await Location.findById(req.params.id)
 
@@ -62,14 +62,15 @@ locationRouter.put('/:id', async (req, res) => {
 	const user = req.user
 	const { location, locationName } = req.body
 
-	if (!user)
-		return res
-				.status(401)
-				.json({
-					error: 'Invalid User!'
-				})
+	// if (!user)
+	// 	return res
+	// 			.status(401)
+	// 			.json({
+	// 				error: 'Invalid User!'
+	// 			})
 	
 	const loc = await Location.findById(req.params.id)
+	console.log(loc)
 
 	if(!loc)
 		return res
@@ -81,7 +82,7 @@ locationRouter.put('/:id', async (req, res) => {
 	if (location) loc.location = location
 	if (locationName) loc.locationName = locationName
 
-	const updatedLocation = await location.save()
+	const updatedLocation = await loc.save()
 	res.json(updatedLocation)
 	
 })

@@ -1,11 +1,19 @@
 POST http://localhost:3000/api/service
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwaG9uZSI6Iis5MTk2NTMzMTMwODIiLCJpZCI6IjY1MjU2ZDNkZTZiOWM3MDM5YjU0MjBmNiIsImlhdCI6MTY5Njk1Mjg2NSwiZXhwIjoxNzI4NDg4ODY1fQ._tdQ-8zXuBjcVREcYMTDRRaSQC4vmzrFmT2MWFd_8u4
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwaG9uZSI6Ijk2NTMzMTMwODIiLCJpZCI6IjY1ODlhNzYzNDk4NTczNDdkYWUzNTZjZiIsImlhdCI6MTcwMzUyMTA4MywiZXhwIjoxNzM1MDU3MDgzfQ.tZiZvbwk1zsHCySSMwXL9qMYXzdT457yg58_EAWYzzU
 Content-Type: application/json
 
 {
-	"name": "Installation and Repair of Pipes",
-	"description":  "Any Pipe issue repairing and new pipe installation (will include extra charges)",
-	"serviceCharge": 500
+	"name": "Painting of Homes and Furnitures",
+	"description":  "Any type of painting work for homes and offices",
+	"serviceCharge": 6000,
+	"serviceCategoryName": "Painter"
 }
+
+# {
+# 	"name": "Installation and Repair of Pipes",
+# 	"description":  "Any Pipe issue repairing and new pipe installation (will include extra charges)",
+# 	"serviceCharge": 500,
+# 	"serviceCategoryName": "Plumber"
+# }
 # Service Provider userid: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwaG9uZSI6Iis5MTk2NTMzMTMwODIiLCJpZCI6IjY1MjU2ZDNkZTZiOWM3MDM5YjU0MjBmNiIsImlhdCI6MTY5Njk1Mjg2NSwiZXhwIjoxNzI4NDg4ODY1fQ._tdQ-8zXuBjcVREcYMTDRRaSQC4vmzrFmT2MWFd_8u4
 

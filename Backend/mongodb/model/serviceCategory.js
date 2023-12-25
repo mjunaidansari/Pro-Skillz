@@ -5,6 +5,7 @@ const schema = mongoose.Schema({
 	name: {
 		type: String,
 		required: true,
+		enum: ['Plumber', 'Painter', 'Technician']
 	},
 	services: [
 		{
