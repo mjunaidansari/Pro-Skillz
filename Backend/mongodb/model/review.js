@@ -24,7 +24,13 @@ const schema = mongoose.Schema({
 	timestamp: {
 		type: Date,
 		default: Date.now
-	}
+	},
+	images:[ 
+		{
+			data: Buffer,
+			contentType: String
+		}
+	]
 
 })
 

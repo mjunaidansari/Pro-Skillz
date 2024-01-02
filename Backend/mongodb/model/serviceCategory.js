@@ -16,6 +16,10 @@ const schema = mongoose.Schema({
 	icon: {
 		data: Buffer,
 		contentType: String,
+	},
+	image: {
+		data: Buffer,
+		contentType: String
 	}
 
 })

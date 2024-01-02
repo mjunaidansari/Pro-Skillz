@@ -1,6 +1,8 @@
 const express = require('express')
 const cors = require('cors')
 
+const bodyParser = require('body-parser')
+
 const middleware = require('../api/utils/middleware') 
 
 // routers
@@ -15,12 +17,17 @@ const cartRouter = require('../api/routers/cart')
 const reviewRouter = require('../api/routers/review')
 const locationRouter = require('../api/routers/location')
 
+const sampleImageRouter = require('../api/routers/sampleImage')
+
 require('express-async-errors')
 
 const app = express()
 
 app.use(cors())
 app.use(express.json())
+app.use(bodyParser.urlencoded({
+	extended: true
+}))
 app.use(middleware.requestLogger)
 app.use(middleware.tokenExtractor)
 app.use(middleware.userExtractor)
@@ -35,6 +42,8 @@ app.use('/api/serviceCategory', serviceCategoryRouter)
 app.use('/api/carts', cartRouter)
 app.use('/api/review', reviewRouter)
 app.use('/api/location', locationRouter)
+
+app.use('/api/image', sampleImageRouter)
 
 app.use(middleware.unknownEndpoint)
 app.use(middleware.errorHandler)

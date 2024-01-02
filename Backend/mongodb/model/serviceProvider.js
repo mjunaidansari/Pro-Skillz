@@ -23,6 +23,10 @@ const schema = mongoose.Schema({
 	},
 	allowed: {
 		type: Boolean,
+	},
+	profilePicture: {
+		data: Buffer,
+		contentType: String
 	}
 
 })

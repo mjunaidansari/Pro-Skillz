@@ -23,10 +23,6 @@ const schema = mongoose.Schema({
 		required: true, 
 		enum: ['user', 'serviceProvider']
 	},
-	profilePicture: {
-		data: Buffer,
-		contentType: String
-	},
 	address: {
 		type: String
 	},
