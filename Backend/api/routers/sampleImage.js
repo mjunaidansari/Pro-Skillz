@@ -19,6 +19,37 @@ const storage = multer.diskStorage({
 // const storage = multer.memoryStorage()
 const upload = multer({ storage })
 
+sampleImageRouter.get('/:id', async (req, res) => {
+
+	const imageId = req.params.id
+
+	try {
+		const bucket = new GridFSBucket(mongoose.connection.db, {
+			bucketName: 'SampleImage'
+		})
+		const downloadStream = bucket.openDownloadStream(new mongoose.Types.ObjectId(imageId))
+		
+		downloadStream.on('data', (chunks) => {
+			res.write(chunk)
+		})
+
+		downloadStream.on('end', () => {
+			res.end()
+		})
+
+		downloadStream.on('error', (error) => {
+			console.log('Error in fetching image')
+			console.log(error)
+			res.status(404).send('Image not found')
+		})
+	} catch (error) {
+		console.log('Error fetching image')
+		console.log(error)
+		res.status(500).send('Internal Server Error')
+	}
+
+})
+
 sampleImageRouter.post('/upload', upload.single('image'), async (req, res) => {
 
 	console.log('we start')
