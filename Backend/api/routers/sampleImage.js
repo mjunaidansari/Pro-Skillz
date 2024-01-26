@@ -53,28 +53,33 @@ sampleImageRouter.get('/:id', async (req, res) => {
 sampleImageRouter.post('/upload', upload.single('image'), async (req, res) => {
 
 	console.log('we start')
-	console.log(req.file)
-	const file = req.file
-	const filePath = req.file.path
 
-	try {
-		console.log('File Original Name: ', req.file.originalname)
-		console.log('File Path: ', filePath)
+	const { image } = req.body
 
-		await saveProfilePicture(filePath, req.file.originalname)
+	console.log(image)
 
-		fs.unlinkSync(filePath)
+	// console.log(req.file)
+	// const file = req.file
+	// const filePath = req.file.path
 
-		res.status(200).json({
-			message: 'Image Uploaded'
-		})
-	} catch (error) {
-		console.log('Error in Try-Catch')
-		console.log(error)
-		res.status(500).json({
-			message: 'Failure.'
-		})
-	}
+	// try {
+	// 	console.log('File Original Name: ', req.file.originalname)
+	// 	console.log('File Path: ', filePath)
+
+	// 	await saveProfilePicture(filePath, req.file.originalname)
+
+	// 	fs.unlinkSync(filePath)
+
+	// 	res.status(200).json({
+	// 		message: 'Image Uploaded'
+	// 	})
+	// } catch (error) {
+	// 	console.log('Error in Try-Catch')
+	// 	console.log(error)
+	// 	res.status(500).json({
+	// 		message: 'Failure.'
+	// 	})
+	// }
 
 })
 

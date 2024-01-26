@@ -22,6 +22,21 @@
 
 			function sendToServer(base64String) {
 				console.log('Base64 String: ', base64String);
+
+				fetch('http://localhost:3000/api/image/upload', {
+					method: 'POST',
+					headers: {
+						'Content-Type': 'application/json',
+					},
+					body: JSON.stringify({image: base64String})
+				})
+				.then(response => response.json())
+				.then(data => {
+					console.log('Server response: ', data)
+				})
+				.catch(error => {
+					console.error('Error: ', error);
+				})
 			}
 
 		</script>
