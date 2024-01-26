@@ -1,0 +1,29 @@
+<html>
+	<head>
+		<meta charset="UTF-8">
+	</head>
+	<body>
+		<h1>Image Picker and Uploader</h1>
+		<input type="file" accept="image/" id="imageInput" onchange="handleImageSelection()">
+		<script>
+			function handleImageSelection() {
+				const input = document.getElementById('imageInput');
+				const file = input.files[0];
+
+				if (file) {
+					const reader = new FileReader();
+					reader.onload = (e) => {
+						const base64String = e.target.result.split(',')[1];
+						sendToServer(base64String);
+					}
+					reader.readAsDataURL(file);
+				}
+			}
+
+			function sendToServer(base64String) {
+				console.log('Base64 String: ', base64String);
+			}
+
+		</script>
+	</body>
+</html>

@@ -1,5 +1,6 @@
 const express = require('express')
 const cors = require('cors')
+const path = require('path')
 
 const bodyParser = require('body-parser')
 
@@ -45,7 +46,14 @@ app.use('/api/location', locationRouter)
 
 app.use('/api/image', sampleImageRouter)
 
+// testing purpose
+app.get('/', async (req, res) => {
+	res.sendFile(path.join(__dirname, 'index.html'));
+})
+
 app.use(middleware.unknownEndpoint)
 app.use(middleware.errorHandler)
+
+
 
 module.exports = app

@@ -18,3 +18,4 @@ startStandaloneServer(apolloServer, {
 }).then(({url}) => {
 	console.log(`GraphQL Server running on port ${GRAPHQL_PORT}`)
 })
+
