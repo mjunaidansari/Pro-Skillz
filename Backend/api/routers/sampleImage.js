@@ -6,6 +6,7 @@ const fs = require('fs')
 const mongoose = require('mongoose')
 
 const ServiceProvider = require('../../mongodb/model/serviceProvider')
+const SampleImage = require('../../mongodb/model/sampleImage')
 
 // setting up multer storage to store uploaded files temporarily
 const storage = multer.diskStorage({
@@ -21,42 +22,69 @@ const upload = multer({ storage })
 
 sampleImageRouter.get('/:id', async (req, res) => {
 
-	const imageId = req.params.id
+	const image = await SampleImage.findById(req.params.id)
 
-	try {
-		const bucket = new GridFSBucket(mongoose.connection.db, {
-			bucketName: 'SampleImage'
-		})
-		const downloadStream = bucket.openDownloadStream(new mongoose.Types.ObjectId(imageId))
-		
-		downloadStream.on('data', (chunks) => {
-			res.write(chunk)
-		})
-
-		downloadStream.on('end', () => {
-			res.end()
-		})
-
-		downloadStream.on('error', (error) => {
-			console.log('Error in fetching image')
-			console.log(error)
-			res.status(404).send('Image not found')
-		})
-	} catch (error) {
-		console.log('Error fetching image')
-		console.log(error)
-		res.status(500).send('Internal Server Error')
+	const imageBase64  = {
+		data: image.file.toString('base64'),
+		contentType: image.contentType
 	}
+
+	if(image) {
+		res.json(imageBase64)
+		// const imageBase64 = image.data.toString('base64');
+		// console.log(imageBase64)
+	} else {
+		res.status(404)
+	}
+
+	// try {
+	// 	const bucket = new GridFSBucket(mongoose.connection.db, {
+	// 		bucketName: 'SampleImage'
+	// 	})
+	// 	const downloadStream = bucket.openDownloadStream(new mongoose.Types.ObjectId(imageId))
+		
+	// 	downloadStream.on('data', (chunks) => {
+	// 		res.write(chunk)
+	// 	})
+
+	// 	downloadStream.on('end', () => {
+	// 		res.end()
+	// 	})
+
+	// 	downloadStream.on('error', (error) => {
+	// 		console.log('Error in fetching image')
+	// 		console.log(error)
+	// 		res.status(404).send('Image not found')
+	// 	})
+	// } catch (error) {
+	// 	console.log('Error fetching image')
+	// 	console.log(error)
+	// 	res.status(500).send('Internal Server Error')
+	// }
 
 })
 
-sampleImageRouter.post('/upload', upload.single('image'), async (req, res) => {
+sampleImageRouter.post('/upload', async (req, res) => {
 
-	console.log('we start')
+	const { imageBase64, contentType } = req.body
+	console.log(imageBase64)
 
-	const { image } = req.body
+	const imageBuffer = Buffer.from(imageBase64, 'base64');
 
-	console.log(image)
+	const image = new SampleImage({
+		file: imageBuffer,
+		contentType
+		// contentType: 'image/jpeg',
+	})
+
+	try {
+		const savedImage = await image.save()
+		res.status(201).send(savedImage)
+	}
+	catch (error) {
+		console.log('Error: ', error)
+	}
+
 
 	// console.log(req.file)
 	// const file = req.file

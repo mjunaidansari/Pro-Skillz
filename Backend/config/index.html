@@ -5,6 +5,12 @@
 	<body>
 		<h1>Image Picker and Uploader</h1>
 		<input type="file" accept="image/" id="imageInput" onchange="handleImageSelection()">
+
+		<br><br>
+		<input type="text" id="imageId"/>
+		<button onclick="diplayImage()">Get Image</button>
+		<div id="imageContainer"></div>
+
 		<script>
 			function handleImageSelection() {
 				const input = document.getElementById('imageInput');
@@ -14,13 +20,15 @@
 					const reader = new FileReader();
 					reader.onload = (e) => {
 						const base64String = e.target.result.split(',')[1];
-						sendToServer(base64String);
+						const contentType = e.target.result.split(';')[0].replace('data:', '');
+						console.log('Content Type: ',base64String,  contentType)
+						sendToServer(base64String, contentType);
 					}
 					reader.readAsDataURL(file);
 				}
 			}
 
-			function sendToServer(base64String) {
+			function sendToServer(base64String, contentType) {
 				console.log('Base64 String: ', base64String);
 
 				fetch('http://localhost:3000/api/image/upload', {
@@ -28,7 +36,7 @@
 					headers: {
 						'Content-Type': 'application/json',
 					},
-					body: JSON.stringify({image: base64String})
+					body: JSON.stringify({imageBase64: base64String, contentType})
 				})
 				.then(response => response.json())
 				.then(data => {
@@ -37,6 +45,38 @@
 				.catch(error => {
 					console.error('Error: ', error);
 				})
+			}
+
+			async function diplayImage() {
+
+				const imageId = document.getElementById('imageId').value
+
+				try {
+					console.log(`http://localhost:3000/api/image/${imageId}`)
+					const response = await fetch(`http://localhost:3000/api/image/${imageId}`, {
+						method: 'GET',
+						headers: {
+							'Content-Type': 'application/json'
+						}
+					})
+
+					if(!response.ok) {
+						throw new Error('Failed to fetch image');
+					}
+
+					const imageData = await response.json();
+					const imageElement = document.createElement('img')
+
+					console.log(imageData)
+					console.log('data:image/jpeg;base64,' + imageData.data)
+					imageElement.src = 'data:' + imageData.contentType + ';base64,' + imageData.data;
+					// imageElement.src = 'data:image/jpeg;base64,' + imageData.data;
+
+					document.getElementById('imageContainer').appendChild(imageElement);
+
+				} catch (error) {
+					console.log('Error: ', error)
+				}
 			}
 
 		</script>
