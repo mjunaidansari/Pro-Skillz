@@ -31,4 +31,17 @@ const schema = mongoose.Schema({
 
 })
 
+// schema.set('toJSON', {
+	
+// 	transform: (document, returnedObject) => {
+// 		returnedObject.id = returnedObject._id.toString()
+// 		delete returnedObject._id
+// 		delete returnedObject.__v
+// 		imageData = returnedObject.profilePicture.data
+// 		returnedObject.image.data = imageData.toString('base64')
+// 		// returnedObject.image.data = returnedObject.profilePicture.data.toString('base64')
+// 	}
+
+// })
+
 module.exports = mongoose.model('ServiceProvider', schema)

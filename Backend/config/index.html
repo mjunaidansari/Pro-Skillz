@@ -37,10 +37,10 @@
 				console.log('Base64 String: ', base64String);
 				const jwtToken = document.getElementById('token').value
 
-				fetch('http://localhost:3000/api/serviceCategory/icon/'+jwtToken, {
+				fetch('http://localhost:3000/api/serviceProvider/image', {
 					method: 'PUT',
 					headers: {
-						// 'Authorization': 'Bearer ' + jwtToken,
+						'Authorization': 'Bearer ' + jwtToken,
 						'Content-Type': 'application/json',
 					},
 					body: JSON.stringify({imageBase64: base64String, contentType})

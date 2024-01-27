@@ -17,8 +17,23 @@ serviceCategoryRouter.get('/:id', async (req, res) => {
 									.findById(req.params.id)
 									.populate('services')
 	
-	if(serviceCategory) 
-		res.json(serviceCategory)
+	if(serviceCategory) {
+		
+		const serviceCategory64 = {
+			...serviceCategory.toObject(),
+			image: {
+				data: serviceCategory.image.data.toString('base64'),
+				contentType: serviceCategory.image.contentType
+			},
+			icon: {
+				data: serviceCategory.icon.data.toString('base64'),
+				contentType: serviceCategory.icon.contentType
+			},
+
+		}
+		res.json(serviceCategory64)
+
+	}
 	else 
 		res.status(400).end()
 
