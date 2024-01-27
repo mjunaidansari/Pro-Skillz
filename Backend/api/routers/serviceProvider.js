@@ -82,7 +82,7 @@ serviceProviderRouter.put('/image', async (req, res) => {
 
 	const user = req.user
 	const { imageBase64, contentType } = req.body
-	console.log('image works')
+
 	if(!user)
 		return res
 			.status(404)
@@ -107,7 +107,6 @@ serviceProviderRouter.put('/image', async (req, res) => {
 	}
 	
 	const updatedServiceProvider = await serviceProvider.save()
-	console.log('image saved')
 	res.json(updatedServiceProvider)
 
 })
