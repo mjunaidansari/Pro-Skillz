@@ -4,11 +4,16 @@
 	</head>
 	<body>
 		<h1>Image Picker and Uploader</h1>
+	
+		<br>
+		JWT Token: <input type="text" id="token"/>
+
+		<br><br>
 		<input type="file" accept="image/" id="imageInput" onchange="handleImageSelection()">
 
 		<br><br>
-		<input type="text" id="imageId"/>
-		<button onclick="diplayImage()">Get Image</button>
+		<!-- <input type="text" id="imageId"/> -->
+		<button onclick="displayImage()">Get Image</button>
 		<div id="imageContainer"></div>
 
 		<script>
@@ -30,10 +35,12 @@
 
 			function sendToServer(base64String, contentType) {
 				console.log('Base64 String: ', base64String);
+				const jwtToken = document.getElementById('token').value
 
-				fetch('http://localhost:3000/api/image/upload', {
-					method: 'POST',
+				fetch('http://localhost:3000/api/serviceProvider/image', {
+					method: 'PUT',
 					headers: {
+						'Authorization': 'Bearer ' + jwtToken,
 						'Content-Type': 'application/json',
 					},
 					body: JSON.stringify({imageBase64: base64String, contentType})
@@ -47,15 +54,17 @@
 				})
 			}
 
-			async function diplayImage() {
+			async function displayImage() {
 
-				const imageId = document.getElementById('imageId').value
+				const jwtToken = document.getElementById('token').value
 
 				try {
-					console.log(`http://localhost:3000/api/image/${imageId}`)
-					const response = await fetch(`http://localhost:3000/api/image/${imageId}`, {
+					// console.log(`http://localhost:3000/api/image/${imageId}`)
+					// const response = await fetch(`http://localhost:3000/api/image/${imageId}`, {
+					const response = await fetch(`http://localhost:3000/api/serviceProvider/image`, {
 						method: 'GET',
 						headers: {
+							'Authorization': 'Bearer ' + jwtToken,
 							'Content-Type': 'application/json'
 						}
 					})
@@ -70,8 +79,6 @@
 					console.log(imageData)
 					console.log('data:image/jpeg;base64,' + imageData.data)
 					imageElement.src = 'data:' + imageData.contentType + ';base64,' + imageData.data;
-					// imageElement.src = 'data:image/jpeg;base64,' + imageData.data;
-
 					document.getElementById('imageContainer').appendChild(imageElement);
 
 				} catch (error) {

@@ -78,5 +78,66 @@ serviceProviderRouter.post('/', async (req, res) => {
 
 })
 
+serviceProviderRouter.put('/image', async (req, res) => {
+
+	const user = req.user
+	const { imageBase64, contentType } = req.body
+	console.log('image works')
+	if(!user)
+		return res
+			.status(404)
+			.json({
+				error: 'User not found!'
+			})
+
+	const serviceProvider = await ServiceProvider.findOne({user: user.id})
+
+	if(!serviceProvider)
+		return res
+				.status(404)
+				.json({
+					error: 'User not found!'
+				})
+
+	const imageBuffer = Buffer.from(imageBase64, 'base64')
+
+	serviceProvider.profilePicture = {
+		data: imageBuffer,
+		contentType
+	}
+	
+	const updatedServiceProvider = await serviceProvider.save()
+	console.log('image saved')
+	res.json(updatedServiceProvider)
+
+})
+
+serviceProviderRouter.get('/image', async (req, res) => {
+
+	const user = req.user
+	if(!user)
+		return res
+			.status(404)
+			.json({
+				error: 'User not found!'
+			})
+
+	const serviceProvider = await ServiceProvider.findOne({user: user.id})
+
+	if(!serviceProvider)
+		return res
+				.status(404)
+				.json({
+					error: 'User not found!'
+				})
+
+	const imageData = {
+		data: serviceProvider.profilePicture.data.toString('base64'),
+		contentType: serviceProvider.profilePicture.contentType
+	}
+	
+	res.json(imageData)
+
+})
 
 module.exports = serviceProviderRouter
