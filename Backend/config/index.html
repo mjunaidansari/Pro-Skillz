@@ -7,6 +7,7 @@
 	
 		<br>
 		JWT Token: <input type="text" id="token"/>
+		id: <input type="text" id="id"/>
 
 		<br><br>
 		<input type="file" accept="image/" id="imageInput" onchange="handleImageSelection()">
@@ -36,8 +37,9 @@
 			function sendToServer(base64String, contentType) {
 				console.log('Base64 String: ', base64String);
 				const jwtToken = document.getElementById('token').value
+				const id = document.getElementById('id').value
 
-				fetch('http://localhost:3000/api/serviceProvider/image', {
+				fetch('http://localhost:3000/api/service/image/'+id, {
 					method: 'PUT',
 					headers: {
 						'Authorization': 'Bearer ' + jwtToken,
@@ -59,7 +61,6 @@
 				const jwtToken = document.getElementById('token').value
 
 				try {
-					// console.log(`http://localhost:3000/api/image/${imageId}`)
 					// const response = await fetch(`http://localhost:3000/api/image/${imageId}`, {
 					const response = await fetch(`http://localhost:3000/api/serviceProvider/image`, {
 						method: 'GET',

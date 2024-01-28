@@ -9,9 +9,26 @@ serviceRouter.get('/', async (req, res) => {
 
 	const services = await Service
 							.find({})
-							.populate({
-								path: 'provider'
-							})
+							// .populate({
+							// 	path: 'provider'
+							// })
+
+	const services64 = services.map(service => {
+
+		if (service.image.data) {
+			const service64 = {
+				...service.toObject(),
+				image: {
+					data: service.image.data.toString('base64'),
+					contentType: service.image.contentType
+				}
+			}
+			return service64
+		} else {
+			return service
+		}
+
+	})
 
 	res.json(services)
 
@@ -24,8 +41,17 @@ serviceRouter.get('/:id', async (req, res) => {
 							.populate({
 								path: 'provider'
 							})
-	if (service)
-		res.json(service)
+	if (service){
+
+		const service64 = {
+			...service.toObject(),
+			image: {
+				data: service.image.data.toString('base64'),
+				contentType: service.image.contentType
+			}
+		}
+		res.json(service64)
+	}
 	else
 		res.status(400).end()
 
@@ -135,6 +161,48 @@ serviceRouter.put('/:id', async (req, res) => {
 	if (serviceCharge) service.serviceCharge = serviceCharge
 
 	console.log(name, service)
+
+	const updatedService = await service.save()
+	res.json(updatedService)
+
+})
+
+serviceRouter.put('/image/:id', async (req, res) => {
+
+	const { imageBase64, contentType } = req.body
+	const user = req.user
+
+	if (!user)
+		return res
+				.status(401)
+				.json({
+					error: 'Invalid User!'
+				})
+
+	const serviceProvider = await ServiceProvider.findOne({ user: user.id })
+
+	if (!serviceProvider)
+		return res
+				.status(401)
+				.json({
+					error: 'Service Provdier not found!'
+				})
+
+	const service = await Service.findById(req.params.id)
+
+	if (!service)
+		return res
+				.status(401)
+				.json({
+					error: 'Service not found!'
+				})
+
+	const imageBuffer = Buffer.from(imageBase64, 'base64')
+	
+	service.image = {
+		data: imageBuffer,
+		contentType
+	}
 
 	const updatedService = await service.save()
 	res.json(updatedService)
