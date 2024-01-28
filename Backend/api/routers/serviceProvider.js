@@ -9,15 +9,32 @@ serviceProviderRouter.get('/', async (req, res) => {
 
 	const serviceProviders = await ServiceProvider
 								.find({})
-								.populate('user', {
-									firstame: 1,
-									lastname: 1,
-									email: 1,
-									phone: 1,
-									address: 1
-								})
+								// .populate('user', {
+								// 	firstame: 1,
+								// 	lastname: 1,
+								// 	email: 1,
+								// 	phone: 1,
+								// 	address: 1
+								// })
 
-	res.json(serviceProviders)
+	const serviceProviders64 = serviceProviders.map(serviceProvider => {
+
+		if(serviceProvider.profilePicture.data) {
+			const serviceProvider64 = {
+				...serviceProvider.toObject(),
+				profilePicture: {
+					data: serviceProvider.profilePicture.data.toString('base64'),
+					contentType: serviceProvider.profilePicture.contentType
+				}
+			}
+			return serviceProvider64
+		} else {
+			return serviceProvider
+		}
+
+	})
+
+	res.json(serviceProviders64)
 
 })
 
