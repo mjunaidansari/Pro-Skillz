@@ -43,15 +43,18 @@ serviceProviderRouter.get('/:id', async (req, res) => {
 	const serviceProvider = await ServiceProvider.findById(req.params.id)
 
 	if (serviceProvider){
-		const serviceProvider64 = {
-			...serviceProvider.toObject(),
-			profilePicture: {
-				data: serviceProvider.profilePicture.data.toString('base64'),
-				contentType: serviceProvider.profilePicture.contentType
+		if(serviceProvider.profilePicture){
+			const serviceProvider64 = {
+				...serviceProvider.toObject(),
+				profilePicture: {
+					data: serviceProvider.profilePicture.data.toString('base64'),
+					contentType: serviceProvider.profilePicture.contentType
+				}
 			}
+			res.json(serviceProvider64)
+		} else {
+			res.json(serviceProvider)
 		}
-
-		res.json(serviceProvider64)
 	}
 	else 
 		res.status(400).end()

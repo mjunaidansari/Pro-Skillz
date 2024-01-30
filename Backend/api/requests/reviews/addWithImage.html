@@ -1,0 +1,98 @@
+<html>
+	<head>
+		<meta charset="UTF-8">
+	</head>
+	<body>
+		<h1>Image Picker and Uploader</h1>
+	
+		<br>
+		JWT Token: <input type="text" id="token"/>
+
+		<br><br>
+		<input type="file" accept="image/" multiple id="imageInput" onchange="handleImageSelection()">
+
+		<br><br>
+		<button id="sendMultiple" onclick="sendMultipleToServer()">Send multiple</button>
+
+		<br><br>
+		<input type="text" id="id"/>
+		<button onclick="displayImage()">Get Image</button>
+		<div id="imageContainer"></div>
+
+		<script>
+
+			const images = []
+
+			// for multiple images
+			function handleImageSelection() {
+				const input = document.getElementById('imageInput')
+				
+				for (const file of input.files) {
+					const reader = new FileReader()
+					reader.onload = e => {
+						const data = e.target.result.split(',')[1];
+						const contentType = e.target.result.split(';')[0].replace('data:', '');
+						// console.log(base64String, contentType)
+						images.push({data, contentType})
+					}
+					reader.readAsDataURL(file)
+				}
+				console.log(images)
+
+			}
+
+			// for sending multiple images to server
+			function sendMultipleToServer() {
+				const body = {
+					service: "6589b3d9061f07a797b12e69",
+					rating: 4,
+					comment: "good service",
+					images: images
+				}
+				
+				const jwtToken = document.getElementById('token').value
+				fetch('http://localhost:3000/api/review', {
+					method: 'POST',
+					headers: {
+						'Authorization': 'Bearer ' + jwtToken,
+						'Content-Type': 'application/json',
+					},
+					body: JSON.stringify(body)
+				})
+				.then(response => response.json())
+				.then(data => console.log('server response: ', data))
+				.catch(error => console.error('error: ', error))
+
+			}
+
+			async function displayImage() {
+
+				const id = document.getElementById('id').value
+
+				try {
+					const response = await fetch(`http://localhost:3000/api/review/${id}`, {
+						method: 'GET',
+						headers: {
+							'Content-Type': 'application/json'
+						}
+					})
+
+					if(!response.ok) {
+						throw new Error('Failed to fetch image');
+					}
+
+					const data = await response.json();
+					data.images.forEach(image => {
+						const imageElement = document.createElement('img')
+						imageElement.src = 'data:' + image.contentType + ';base64,' + image.data;
+						document.getElementById('imageContainer').appendChild(imageElement);
+					});
+
+				} catch (error) {
+					console.log('Error: ', error)
+				}
+			}
+
+		</script>
+	</body>
+</html>
