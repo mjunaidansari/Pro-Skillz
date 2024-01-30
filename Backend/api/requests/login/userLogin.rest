@@ -3,5 +3,5 @@ Content-Type: application/json
 
 {
 	"phone": "+919653313082",
-	"userOtp": "663221"
+	"userOtp": "628181"
 }

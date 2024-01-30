@@ -10,7 +10,10 @@
 		id: <input type="text" id="id"/>
 
 		<br><br>
-		<input type="file" accept="image/" id="imageInput" onchange="handleImageSelection()">
+		<input type="file" accept="image/" multiple id="imageInput" onchange="handleImageSelection()">
+
+		<br><br>
+		<button id="sendMultiple" onclick="sendMultipleToServer()">Send multiple</button>
 
 		<br><br>
 		<!-- <input type="text" id="imageId"/> -->
@@ -18,20 +21,66 @@
 		<div id="imageContainer"></div>
 
 		<script>
-			function handleImageSelection() {
-				const input = document.getElementById('imageInput');
-				const file = input.files[0];
 
-				if (file) {
-					const reader = new FileReader();
-					reader.onload = (e) => {
-						const base64String = e.target.result.split(',')[1];
+			const images = []
+
+			// for single image
+			// function handleImageSelection() {
+			// 	const input = document.getElementById('imageInput');
+			// 	const file = input.files[0];
+
+			// 	if (file) {
+			// 		const reader = new FileReader();
+			// 		reader.onload = (e) => {
+			// 			const base64String = e.target.result.split(',')[1];
+			// 			const contentType = e.target.result.split(';')[0].replace('data:', '');
+			// 			console.log('Content Type: ',base64String,  contentType)
+			// 			sendToServer(base64String, contentType);
+			// 		}
+			// 		reader.readAsDataURL(file);
+			// 	}
+			// }
+
+			// for multiple images
+			function handleImageSelection() {
+				const input = document.getElementById('imageInput')
+				
+				for (const file of input.files) {
+					const reader = new FileReader()
+					reader.onload = e => {
+						const data = e.target.result.split(',')[1];
 						const contentType = e.target.result.split(';')[0].replace('data:', '');
-						console.log('Content Type: ',base64String,  contentType)
-						sendToServer(base64String, contentType);
+						// console.log(base64String, contentType)
+						images.push({data, contentType})
 					}
-					reader.readAsDataURL(file);
+					reader.readAsDataURL(file)
 				}
+				console.log(images)
+
+			}
+
+			// for sending multiple images to server
+			function sendMultipleToServer() {
+				const body = {
+					service: "6589b3d9061f07a797b12e69",
+					rating: 4,
+					comment: "good service",
+					images: images
+				}
+				
+				const jwtToken = document.getElementById('token').value
+				fetch('http://localhost:3000/api/review', {
+					method: 'POST',
+					headers: {
+						'Authorization': 'Bearer ' + jwtToken,
+						'Content-Type': 'application/json',
+					},
+					body: JSON.stringify(body)
+				})
+				.then(response => response.json())
+				.then(data => console.log('server response: ', data))
+				.catch(error => console.error('error: ', error))
+
 			}
 
 			function sendToServer(base64String, contentType) {

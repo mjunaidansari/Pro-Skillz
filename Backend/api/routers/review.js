@@ -56,7 +56,7 @@ reviewRouter.get('/user/:id', async (req, res) => {
 reviewRouter.post('/', async(req, res) => {
 
 	const user = req.user
-	const {service, rating, comment} = req.body
+	const {service, rating, comment, images} = req.body
 
 	if (!user)
 	return res
@@ -65,11 +65,19 @@ reviewRouter.post('/', async(req, res) => {
 				error: 'Invalid User!'
 			})
 
+	const imagesBuffer = images.map(image => {
+		return {
+			data: Buffer.from(image.data, 'base64'),
+			contentType: image.contentType
+		}
+	})
+
 	const review = new Review({
 		reviewer: user.id,
 		service,
 		rating,
-		comment
+		comment,
+		images: imagesBuffer
 	})
 
 	const savedReview = await review.save()
