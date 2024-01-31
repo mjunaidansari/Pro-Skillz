@@ -13,6 +13,6 @@ const setToken = newToken => {
 const user = async credentials => {
 	const response = await axios.post(`${baseUrl}/user`, credentials)
 	return response.data
-} 
+}
 
 export default { setToken, user }

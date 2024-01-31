@@ -54,8 +54,6 @@ const OTPScreen = (props) => {
 
     }
 
-
-
     return (
         <View style={styles.containerM}>
             <View style={styles.topView}>
