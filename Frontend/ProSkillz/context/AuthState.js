@@ -18,7 +18,6 @@ const AuthState = (props) => {
         setAfterLoginS(val);
     }
 
-
     return (
         <AuthContext.Provider value={{ authType, updateAuthState, afterLoginU, updateLoginStateU, afterLoginS, updateLoginStateS }}>
             {props.children}
