@@ -13,23 +13,23 @@ const UserLoginSignUp = () => {
 
     const phoneInput = useRef(null);
 
-	console.log('worked')
+    console.log('worked')
 
     // const [phone, setPhone] = useState("");
     const [value, setValue] = useState("")
-	const [phone, setPhone] = useState("");
+    const [phone, setPhone] = useState("");
 
-	const hanldeLogin = async () => {
+    const hanldeLogin = async () => {
 
-		try {
-			await otpServices.generate(phone)
-			navigation.navigate('OTP', {phone})
-		}
-		catch (error) {
-			console.log(error)
-		}
-	
-	}
+        try {
+            await otpServices.generate(phone)
+            navigation.navigate('OTP', { phone })
+        }
+        catch (error) {
+            console.log(error)
+        }
+
+    }
 
 
     return (
