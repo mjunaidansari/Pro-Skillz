@@ -9,8 +9,9 @@ export default function MainStackU() {
 
     return (
         <Stack.Navigator initialRouteName='HomeScreen'>
-            <Stack.Screen name="HomeScreen" component={HomeScreen} />
+            <Stack.Screen name="HomeScreen" component={HomeScreen} options={{ headerShown: false }}/>
             <Stack.Screen name="CategoryM" component={SharedStack} options={{ headerShown: false }} />
+            {/* <Stack.Screen name="CategoryM" component={SharedStack} options={{ headerShown: false }} /> */}
         </Stack.Navigator>
     )
 }
