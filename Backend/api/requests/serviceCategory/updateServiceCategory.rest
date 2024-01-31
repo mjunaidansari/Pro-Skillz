@@ -1,0 +1,7 @@
+PUT  http://localhost:3000/api/serviceCategory/652aad87aa192e1c2264dbfd
+Content-Type: application/json
+
+{
+	"name": "Plumbing",
+	"service": "6526ca714ffeb3daaae6839c"
+}
