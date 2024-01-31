@@ -1,9 +1,12 @@
-const baseUrl = 'http://192.168.215.192:3000/api/user'
+import axios from "axios"
+
+const baseUrl = 'http://192.168.29.78:3000/api/user'
+
 
 let token = null
 
 const setToken = newToken => {
-	token = `Bearer ${token}`
+	token = `Bearer ${newToken}`
 }
 
 export default { setToken }

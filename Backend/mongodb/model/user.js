@@ -23,15 +23,19 @@ const schema = mongoose.Schema({
 		required: true, 
 		enum: ['user', 'serviceProvider']
 	},
-	profilePicture: {
-		data: Buffer,
-		contentType: String
-	},
 	address: {
 		type: String
 	},
 	otp: {
 		type: String
+	},
+	createdAt: {
+		type: Date,
+		default: Date.now
+	},
+	updatedAt: {
+		type: Date,
+		default: Date.now
 	}
 
 })

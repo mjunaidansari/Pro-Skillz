@@ -4,8 +4,15 @@ const User = require('../../mongodb/model/user')
 
 userRouter.get('/', async (req, res) => {
 
+	// const user = req.user
+
+	// if (user)
+	// 	return res.status(200).json(user)
+	
 	const users = await User.find({})
-	res.json(users)
+	res.status(200).json(users)
+
+
 
 })
 
@@ -46,6 +53,7 @@ userRouter.put('/:id', async (req, res) => {
 	if (lastname) user.lastname = lastname;
 	if (email) user.email = email;
 	if (address) user.address = address;
+	user.updatedAt = Date.now()
 
 	const updatedUser = await user.save()
 	res.json(updatedUser)

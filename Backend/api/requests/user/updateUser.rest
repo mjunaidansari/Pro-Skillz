@@ -1,0 +1,6 @@
+PUT  http://localhost:3000/api/user/657c624c7537967ceefa9b47
+Content-Type: application/json
+
+{
+	"firstname": "provider"
+}

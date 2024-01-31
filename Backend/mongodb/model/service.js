@@ -17,6 +17,10 @@ const schema = mongoose.Schema({
 	serviceCharge: {
 		type: Number,
 		required: true
+	},
+	image: {
+		data: Buffer,
+		contentType: String
 	}
 
 })

@@ -1,11 +1,12 @@
 import axios from "axios"
 
-const baseUrl = 'http://192.168.215.192:3000/api/otp'
+const baseUrl = 'http://192.168.29.78:3000/api/otp'
+
 
 let token = null
 
 const setToken = newToken => {
-	token = `Bearer ${token}`
+	token = `Bearer ${newToken}`
 }
 
 const generate = async phone => {

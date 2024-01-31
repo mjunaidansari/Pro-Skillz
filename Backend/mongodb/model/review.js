@@ -7,9 +7,9 @@ const schema = mongoose.Schema({
 		ref: 'User',
 		required: true
 	},
-	target: {
+	service: {
 		type: mongoose.Schema.Types.ObjectId,
-		ref: 'User',
+		ref: 'Service',
 		required: true
 	},
 	rating: {
@@ -24,7 +24,13 @@ const schema = mongoose.Schema({
 	timestamp: {
 		type: Date,
 		default: Date.now
-	}
+	},
+	images:[ 
+		{
+			data: Buffer,
+			contentType: String
+		}
+	]
 
 })
 
