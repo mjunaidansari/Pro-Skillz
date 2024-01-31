@@ -9,4 +9,3 @@ const apolloServer = new ApolloServer({
 })
 
 module.exports = apolloServer
-

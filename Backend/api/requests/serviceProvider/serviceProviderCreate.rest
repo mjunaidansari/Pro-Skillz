@@ -1,0 +1,13 @@
+POST http://localhost:3000/api/serviceProvider
+Content-Type: application/json
+
+{
+	"firstname": "Provider5",
+	"lastname": "Worli",
+	"phone": 9653313082,
+	"email": "provider5@gmail.com",
+	"password": "provider5",
+	"categories": ["Plumber"],
+	"coordinates": [18.999221942929235, 72.81735151343756]
+
+}
