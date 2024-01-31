@@ -2,7 +2,6 @@ import axios from "axios"
 
 const baseUrl = 'http://192.168.29.78:3000/api/otp'
 
-
 let token = null
 
 const setToken = newToken => {
