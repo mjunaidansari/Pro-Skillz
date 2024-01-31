@@ -1,3 +1,6 @@
+// change the routers of getting for service and for user
+
+
 const path = require('path')
 const reviewRouter = require('express').Router()
 
@@ -66,8 +69,26 @@ reviewRouter.get('/service/:id', async (req, res) => {
 	const reviews = await Review
 							.find({ service: req.params.id })
 
-	if(reviews)
-		res.json(reviews)
+	if(reviews){
+		
+		const reviews64 = reviews.map(review => {
+
+			if(review.images) {
+				const review64 = {
+					...review.toObject(),
+					images: review.images.map(image => {
+						return {data: image.data.toString('base64'), contentType: image.contentType}
+					})
+				}
+				return review64
+			} else {
+				return review
+			}
+
+		})
+
+		res.json(reviews64)
+	}
 	else
 		res.status(404).end()
 
@@ -79,8 +100,26 @@ reviewRouter.get('/user/:id', async (req, res) => {
 	const reviews = await Review 
 							.find({ reviewer: req.params.id })
 	
-	if(reviews)
-		res.json(reviews)
+	if(reviews){
+		
+		const reviews64 = reviews.map(review => {
+
+			if(review.images) {
+				const review64 = {
+					...review.toObject(),
+					images: review.images.map(image => {
+						return {data: image.data.toString('base64'), contentType: image.contentType}
+					})
+				}
+				return review64
+			} else {
+				return review
+			}
+
+		})
+
+		res.json(reviews64)
+	}
 	else
 		res.status(404).end()
 
