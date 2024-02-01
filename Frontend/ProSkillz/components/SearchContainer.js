@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Text, StyleSheet, TouchableWithoutFeedback } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
-import {Dimensions} from 'react-native';
+import { Dimensions } from 'react-native';
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
@@ -33,15 +33,14 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     padding: 12,
     elevation: 2,
-    marginVertical: 20,
-    // marginHorizontal: windowWidth * 0.01,
+    marginBottom: 20,
   },
   searchIcon: {
     marginRight: 8,
   },
   searchText: {
     fontSize: 16,
-    color: '#333',
+    color: '#888',
   },
 });
 

@@ -13,7 +13,7 @@ const UserLoginSignUp = () => {
 
     const phoneInput = useRef(null);
 
-    console.log('worked')
+    // console.log('worked')
 
     // const [phone, setPhone] = useState("");
     const [value, setValue] = useState("")

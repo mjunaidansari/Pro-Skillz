@@ -49,7 +49,7 @@ const MapScreen = ({ route }) => {
             key={location.id}
             coordinate={location.coordinates}
             title={location.title}
-            // pinColor='blue'
+          // pinColor='blue'
           >
             <Callout>
               <View style={styles.calloutContainer}>
@@ -94,7 +94,7 @@ const styles = StyleSheet.create({
     bottom: 90,
     left: 0,
     right: 0,
-    marginLeft: screenWidth*0.04,
+    marginLeft: screenWidth * 0.04,
   },
 
   calloutContainer: {

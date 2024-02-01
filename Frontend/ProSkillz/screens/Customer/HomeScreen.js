@@ -1,15 +1,17 @@
 import React from 'react';
-import { View, Text, FlatList, StyleSheet } from 'react-native';
+import { View, Text, FlatList, StyleSheet, TouchableOpacity, TouchableWithoutFeedback } from 'react-native';
 import serviceData from '../../constants/constants';
 import ServiceCard from '../../components/ServiceCard';
 import UserProfileHeader from '../../components/AppBar';
-import {Dimensions} from 'react-native';
+import { Dimensions } from 'react-native';
 import SearchContainer from '../../components/SearchContainer';
+import UserHomePageLocation from '../../components/UserHomePageLocation';
 
 const windowWidth = Dimensions.get('window').width;
-const windowHeight = Dimensions.get('window').height;
 
 const HomeScreen = () => {
+
+
   // Sample data for the bigger elements
   const featuredItems = [
     { id: '1', name: 'Featured Item 1', description: 'Description for Item 1' },
@@ -17,17 +19,13 @@ const HomeScreen = () => {
     // Add more featured items as needed
   ];
 
+
   const renderFeaturedItem = ({ item }) => (
     <View style={styles.featuredItem}>
       <Text style={styles.featuredItemTitle}>{item.name}</Text>
       <Text style={styles.featuredItemDescription}>{item.description}</Text>
     </View>
   );
-
-  const renderSeparator = () => (
-    <View style={styles.separator} />
-  );
-
 
   const renderCard = ({ item }) => (
     <ServiceCard title={item.title}
@@ -40,13 +38,11 @@ const HomeScreen = () => {
 
     <View style={styles.container}>
 
-      <UserProfileHeader/>
-      <View>
-        <Text style={styles.header}>Hello User!</Text>
-        <Text style={styles.greetings}>What service do you need ?</Text>
-      </View>
-      <SearchContainer/>
-      
+      <UserHomePageLocation />
+
+      <SearchContainer searchText={"Search for Services"} />
+
+
       {/* Featured Items FlatList */}
       <FlatList
         data={featuredItems}
@@ -60,12 +56,12 @@ const HomeScreen = () => {
 
       {/* Categories FlatList */}
       <FlatList
-          data={serviceData.slice(0,3)}
-          renderItem={renderCard}
-          keyExtractor={(item) => item.id}
-          horizontal
-          showsHorizontalScrollIndicator={false}
-        />
+        data={serviceData.slice(0, 3)}
+        renderItem={renderCard}
+        keyExtractor={(item) => item.id}
+        horizontal
+        showsHorizontalScrollIndicator={false}
+      />
     </View>
   );
 };
@@ -82,7 +78,7 @@ const styles = StyleSheet.create({
     // fontWeight: 'bold',
     // marginBottom: 10,
   },
-  greetings:  {
+  greetings: {
     fontSize: 28,
     fontWeight: 'bold',
     marginBottom: 16,
@@ -90,15 +86,15 @@ const styles = StyleSheet.create({
   },
 
   featuredItem: {
-    width: windowWidth*0.92,
+    width: windowWidth * 0.92,
     height: 150,
-    backgroundColor: '#ffcc00',
-    marginRight: windowWidth*0.02,
+    backgroundColor: '#3B37FF',
+    marginRight: windowWidth * 0.02,
     borderRadius: 8,
     padding: 16,
   },
   separator: {
-    marginLeft: windowWidth*0.02,
+    marginLeft: windowWidth * 0.02,
   },
   featuredItemTitle: {
     fontSize: 18,

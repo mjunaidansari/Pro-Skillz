@@ -4,47 +4,45 @@ import MapScreen from '../../screens/Customer/MapScreen';
 import ServiceGridScreen from '../../screens/Customer/ServicesGridScreen';
 
 import { Ionicons } from '@expo/vector-icons';
+import UserProfileScreen from '../../screens/Customer/UserProfileScreen';
+import CategoryScreen from '../../screens/Customer/CategoryScreen';
 
 const Tab = createBottomTabNavigator();
 
 const TabStackU = () => {
     return (
-    <Tab.Navigator
-        screenOptions={({ route }) => ({
-            headerShown: false,
-            tabBarIcon: ({ focused, color, size }) => {
-                let iconName;
+        <Tab.Navigator
+            screenOptions={({ route }) => ({
+                headerShown: false,
+                tabBarIcon: ({ focused, size }) => {
+                    let iconName;
 
-                if (route.name === 'Home') {
-                    iconName = focused ? 'home' : 'home-outline';
-                } else if (route.name === 'Search') {
-                    iconName = focused ? 'search' : 'search-outline';
-                } else if (route.name === 'Settings') {
-                    iconName = focused ? 'settings' : 'settings-outline';
-                } else if (route.name === 'Profile') {
-                    iconName = focused ? 'person' : 'person-outline';
-                }
+                    if (route.name === 'Home') {
+                        iconName = focused ? 'home' : 'home-outline';
+                    } else if (route.name === 'Category') {
+                        iconName = focused ? 'apps' : 'apps-outline';
+                    } else if (route.name === 'UserProfile') {
+                        iconName = focused ? 'person' : 'person-outline';
+                    }
 
-                return <Ionicons name={iconName} size={size} color={color} />;
-            },
-            tabBarStyle: {
-                position: 'absolute',
-                height: 60,
-                marginBottom: 20,
-                marginHorizontal: 18,
-                borderRadius: 18   
-            },
-            tabBarShowLabel: false
-            
-            
-        })}
+                    return <Ionicons name={iconName} size={size} color="#3B37FF" />;
+                },
+                tabBarStyle: {
+                    position: 'absolute',
+                    height: 60,
+                    marginBottom: 20,
+                    marginHorizontal: 18,
+                    borderRadius: 18
+                },
+                tabBarShowLabel: false
 
-    >
-        <Tab.Screen name="Home" component={HomeScreen} />
-        <Tab.Screen name="Search" component={ServiceGridScreen} />
-        <Tab.Screen name="Settings" component={HomeScreen} />
-        <Tab.Screen name="Profile" component={MapScreen} />
-    </Tab.Navigator>
+
+            })}
+        >
+            <Tab.Screen name="Home" component={HomeScreen} />
+            <Tab.Screen name="Category" component={CategoryScreen} />
+            <Tab.Screen name="UserProfile" component={UserProfileScreen} />
+        </Tab.Navigator>
     );
 };
 
