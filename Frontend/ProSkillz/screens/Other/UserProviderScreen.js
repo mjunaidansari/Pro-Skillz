@@ -6,7 +6,7 @@ import ButtonsPS from '../../components/ButtonsPS';
 
 const UserProviderScreen = () => {
 
-    const { authType, updateAuthState } = useContext(AuthContext);
+    const { updateAuthState } = useContext(AuthContext);
 
     const updateState = (val) => {
         updateAuthState(val);

@@ -14,14 +14,14 @@ loginRouter.post('/user', async (req, res) => {
 	const { phone, userOtp } = req.body
 
 	const user = await User.findOne({
-									phone, 
-									role: {
-										$in: ['user']
-									}
-								})
+		phone,
+		role: {
+			$in: ['user']
+		}
+	})
 	console.log("user: ", user)
 
-	if (!(user && verifyOtp(userOtp, user.otp))) 
+	if (!(user && verifyOtp(userOtp, user.otp)))
 		return res.status(401).json({
 			error: 'Invalid OTP'
 		})
@@ -31,11 +31,11 @@ loginRouter.post('/user', async (req, res) => {
 		id: user._id
 	}
 
-	const token = jwt.sign(userForToken, JWT_SECRET, {expiresIn: '365d'})
+	const token = jwt.sign(userForToken, JWT_SECRET, { expiresIn: '365d' })
 
 	res
 		.status(200)
-		.send({token})
+		.send({ token })
 
 })
 
@@ -44,11 +44,11 @@ loginRouter.post('/serviceProvider', async (req, res) => {
 	const { phone, password } = req.body
 
 	const user = await User.findOne({
-									phone, 
-									role: {
-										$in: ['serviceProvider']
-									}
-								})
+		phone,
+		role: {
+			$in: ['serviceProvider']
+		}
+	})
 
 	const passwordCorrect = user === null
 		? false
@@ -64,7 +64,7 @@ loginRouter.post('/serviceProvider', async (req, res) => {
 		id: user._id
 	}
 
-	const token = jwt.sign(userForToken, JWT_SECRET, {expiresIn: '365d'})
+	const token = jwt.sign(userForToken, JWT_SECRET, { expiresIn: '365d' })
 
 	res
 		.status(200)
@@ -79,7 +79,7 @@ loginRouter.post('/verifyUser', async (req, res) => {
 
 	const user = req.user
 
-	if(!user) 
+	if (!user)
 		return res
 			.status(401)
 			.json({
@@ -92,7 +92,7 @@ loginRouter.post('/verifyUser', async (req, res) => {
 			status: 'verified',
 			user
 		})
-	
+
 })
 
 loginRouter.post('/serviceProvider/alternate', async (req, res) => {
@@ -100,11 +100,11 @@ loginRouter.post('/serviceProvider/alternate', async (req, res) => {
 	const { firstname, password } = req.body
 
 	const user = await User.findOne({
-									firstname,
-									role: {
-										$in: ['serviceProvider']
-									}
-								})
+		firstname,
+		role: {
+			$in: ['serviceProvider']
+		}
+	})
 	console.log(user)
 
 	const passwordCorrect = user === null
@@ -121,7 +121,7 @@ loginRouter.post('/serviceProvider/alternate', async (req, res) => {
 		id: user._id
 	}
 
-	const token = jwt.sign(userForToken, JWT_SECRET, {expiresIn: '365d'})
+	const token = jwt.sign(userForToken, JWT_SECRET, { expiresIn: '365d' })
 
 	res
 		.status(200)

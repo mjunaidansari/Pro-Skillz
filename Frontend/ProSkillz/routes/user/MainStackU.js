@@ -1,7 +1,9 @@
 import React from 'react'
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import HomeScreen from '../../screens/Customer/HomeScreen';
-import SharedStack from './SharedStackU';
+import TabStackU from './TabStackU';
+import SearchScreen from '../../screens/Customer/SearchScreen';
+import CategorySlugScreen from '../../screens/Customer/CategorySlugScreen';
 
 export default function MainStackU() {
 
@@ -9,8 +11,9 @@ export default function MainStackU() {
 
     return (
         <Stack.Navigator initialRouteName='HomeScreen'>
-            <Stack.Screen name="HomeScreen" component={HomeScreen} />
-            <Stack.Screen name="CategoryM" component={SharedStack} options={{ headerShown: false }} />
+            <Stack.Screen name="HomeStack" component={TabStackU} options={{ headerShown: false }} />
+            <Stack.Screen name="Search" component={SearchScreen} options={{ headerShown: false }} />
+            <Stack.Screen name="SlugCategory" component={CategorySlugScreen} options={{ headerShown: false }} />
         </Stack.Navigator>
     )
 }

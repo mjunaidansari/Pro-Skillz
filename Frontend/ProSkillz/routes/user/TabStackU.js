@@ -1,20 +1,53 @@
-import React from 'react'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import SharedStack from './SharedStackU';
-import UserAccountScreen from '../../screens/Customer/UserAccountScreen';
-import SearchScreen from '../../screens/Customer/SearchScreen';
-import MainStack from "./MainStackU";
+import HomeScreen from '../../screens/Customer/HomeScreen';
+import MapScreen from '../../screens/Customer/MapScreen';
+import ServiceGridScreen from '../../screens/Customer/ServicesGridScreen';
 
-export default function TabStackU() {
+import { Ionicons } from '@expo/vector-icons';
+import UserProfileScreen from '../../screens/Customer/UserProfileScreen';
+import CategoryScreen from '../../screens/Customer/CategoryScreen';
+import Settings from '../../screens/Customer/Settings';
 
-    const Tab = createBottomTabNavigator();
+const Tab = createBottomTabNavigator();
 
+const TabStackU = () => {
     return (
-        <Tab.Navigator initialRouteName='Home'>
-            <Tab.Screen name="Home" component={MainStack} options={{ headerShown: false }} />
-            <Tab.Screen name="Category" component={SharedStack} options={{ headerShown: false }} />
-            <Tab.Screen name="Account" component={UserAccountScreen} />
-            <Tab.Screen name="Seacrh" component={SearchScreen} />
+        <Tab.Navigator
+            screenOptions={({ route }) => ({
+                headerShown: false,
+                tabBarIcon: ({ focused, size }) => {
+                    let iconName;
+
+                    if (route.name === 'Home') {
+                        iconName = focused ? 'home' : 'home-outline';
+                    } else if (route.name === 'Category') {
+                        iconName = focused ? 'apps' : 'apps-outline';
+                    } else if (route.name === 'UserProfile') {
+                        iconName = focused ? 'person' : 'person-outline';
+                    } else if (route.name === 'Settings') {
+                        iconName = focused ? 'settings' : 'settings-outline';
+                    }
+
+                    return <Ionicons name={iconName} size={size} color="#3B37FF" />;
+                },
+                tabBarStyle: {
+                    position: 'absolute',
+                    height: 60,
+                    marginBottom: 20,
+                    marginHorizontal: 18,
+                    borderRadius: 18
+                },
+                tabBarShowLabel: false
+
+
+            })}
+        >
+            <Tab.Screen name="Home" component={HomeScreen} />
+            <Tab.Screen name="Category" component={CategoryScreen} />
+            <Tab.Screen name="UserProfile" component={UserProfileScreen} />
+            <Tab.Screen name="Settings" component={Settings} />
         </Tab.Navigator>
-    )
-}
+    );
+};
+
+export default TabStackU;

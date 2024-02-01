@@ -1,7 +1,5 @@
 import { NavigationContainer } from '@react-navigation/native';
 import { useState, useEffect } from 'react';
-import UserProviderOpt from './screens/Other/UserProviderOpt';
-import SplashScreenC from './screens/Other/SplashScreenC';
 import MainStackU from './routes/user/MainStackU';
 import MainStackP from './routes/provider/MainStackP';
 import AuthState from './context/AuthState';
@@ -11,7 +9,10 @@ import {
 } from '@expo-google-fonts/inter';
 import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
-import { StyleSheet, View } from 'react-native';
+import { StatusBar, StyleSheet, View } from 'react-native';
+import UserProviderOpt from './screens/Other/UserProviderOpt';
+import TabStackU from './routes/user/TabStackU';
+import AuthStackU from './routes/Other/AuthStackU';
 
 SplashScreen.preventAutoHideAsync();
 
@@ -52,7 +53,10 @@ export default function App() {
         <NavigationContainer>
           {/* <SplashScreen /> */}
 
-          {isLoggedIn == true ? isUserorProvider == true ? <MainStackU /> : <MainStackP /> : <UserProviderOpt />}
+          {/* {isLoggedIn == true ? isUserorProvider == true ? <MainStackU /> : <MainStackP /> : <UserProviderOpt />} */}
+
+          <MainStackU />
+          {/* <TabStackU /> */}
 
         </NavigationContainer>
       </AuthState>
@@ -64,7 +68,8 @@ const styles = StyleSheet.create({
   container: {
     width: "100%",
     height: "100%",
-    backgroundColor: "#fff"
+    backgroundColor: "#fff",
+    paddingTop: StatusBar.currentHeight || 0,
   }
 })
 
