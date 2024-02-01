@@ -7,6 +7,7 @@ import { Dimensions } from 'react-native';
 import SearchContainer from '../../components/SearchContainer';
 import UserHomePageLocation from '../../components/UserHomePageLocation';
 import { useNavigation } from '@react-navigation/native';
+import Carousel from '../../components/Carousel';
 
 const windowWidth = Dimensions.get('window').width;
 
@@ -24,9 +25,11 @@ const HomeScreen = () => {
 
 
   const renderFeaturedItem = ({ item }) => (
-    <View style={styles.featuredItem}>
-      <Text style={styles.featuredItemTitle}>{item.name}</Text>
-      <Text style={styles.featuredItemDescription}>{item.description}</Text>
+    <View>
+      <View style={styles.featuredItem}>
+        <Text style={styles.featuredItemTitle}>{item.name}</Text>
+        <Text style={styles.featuredItemDescription}>{item.description}</Text>
+      </View>
     </View>
   );
 
@@ -96,19 +99,7 @@ const HomeScreen = () => {
       </View>
 
 
-
-      {/* Featured Items FlatList */}
-      <View>
-        <FlatList
-          data={featuredItems}
-          renderItem={renderFeaturedItem}
-          // ItemSeparatorComponent={renderSeparator}
-          keyExtractor={(item) => item.id}
-          horizontal
-          pagingEnabled
-          showsHorizontalScrollIndicator={false}
-        />
-      </View>
+      <Carousel />
 
       {/* Categories FlatList */}
       {/* <FlatList
@@ -145,7 +136,6 @@ const styles = StyleSheet.create({
     width: "100%",
     height: 150,
     backgroundColor: '#3B37FF',
-    marginRight: windowWidth * 0.02,
     borderRadius: 8,
     padding: 16,
   },

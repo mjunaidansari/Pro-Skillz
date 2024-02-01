@@ -18,7 +18,7 @@ const SearchContainer = ({ searchText }) => {
   return (
     <TouchableWithoutFeedback onPress={handlePress}>
       <View style={styles.container}>
-        <AntDesign name="search1" size={24} color="#333" style={styles.searchIcon} />
+        <AntDesign name="search1" size={24} color="#3B37FF" style={styles.searchIcon} />
         <Text style={styles.searchText}>{searchText}</Text>
       </View>
     </TouchableWithoutFeedback>
