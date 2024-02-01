@@ -3,6 +3,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import HomeScreen from '../../screens/Customer/HomeScreen';
 import TabStackU from './TabStackU';
 import SearchScreen from '../../screens/Customer/SearchScreen';
+import CategorySlugScreen from '../../screens/Customer/CategorySlugScreen';
 
 export default function MainStackU() {
 
@@ -12,6 +13,7 @@ export default function MainStackU() {
         <Stack.Navigator initialRouteName='HomeScreen'>
             <Stack.Screen name="HomeStack" component={TabStackU} options={{ headerShown: false }} />
             <Stack.Screen name="Search" component={SearchScreen} options={{ headerShown: false }} />
+            <Stack.Screen name="SlugCategory" component={CategorySlugScreen} options={{ headerShown: false }} />
         </Stack.Navigator>
     )
 }
