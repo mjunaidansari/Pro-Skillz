@@ -1,5 +1,5 @@
 import { NavigationContainer } from '@react-navigation/native';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import MainStackU from './routes/user/MainStackU';
 import MainStackP from './routes/provider/MainStackP';
 import AuthState from './context/AuthState';
@@ -13,6 +13,8 @@ import { StatusBar, StyleSheet, View } from 'react-native';
 import UserProviderOpt from './screens/Other/UserProviderOpt';
 import TabStackU from './routes/user/TabStackU';
 import AuthStackU from './routes/Other/AuthStackU';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import AuthContext from './context/AuthContext';
 
 SplashScreen.preventAutoHideAsync();
 
@@ -23,23 +25,38 @@ export default function App() {
     Inter_600SemiBold,
   });
 
+  const [isLoggedIn, setIsLoggedIn] = useState(null);
+
   useEffect(() => {
     async function prepare() {
       await SplashScreen.preventAutoHideAsync();
     }
     prepare()
+
+    if (AsyncStorage.getItem("loggedUser")) {
+      setIsLoggedIn(true)
+    }
+
   }, [])
 
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-
-  // true -  
-
-
-  const updateAuthState = () => {
-
+  const checkLoggedInOrNot = () => {
+    if (isLoggedIn == null) {
+      return (
+        <UserProviderOpt />
+      )
+    }
+    else if (isLoggedIn == true) {
+      return (
+        <MainStackU />
+      )
+    }
+    else if (isLoggedIn == false) {
+      return (
+        <MainStackP />
+      )
+    }
   }
 
-  const [isUserorProvider, setIsUserorProvider] = useState(null);
 
   if (!fontsLoaded) {
     return null;
@@ -55,7 +72,9 @@ export default function App() {
 
           {/* {isLoggedIn == true ? isUserorProvider == true ? <MainStackU /> : <MainStackP /> : <UserProviderOpt />} */}
 
-          <MainStackU />
+          {checkLoggedInOrNot()}
+
+          {/* <MainStackU /> */}
           {/* <TabStackU /> */}
 
         </NavigationContainer>

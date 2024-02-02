@@ -4,7 +4,7 @@ import UserLoginSignUp from '../../screens/Customer/UserLoginSignUp';
 import OTPScreen from '../../screens/Customer/OTPScreen';
 import GetNameScreen from '../../screens/Customer/GetNameScreen';
 import AuthContext from '../../context/AuthContext';
-import TabStackU from '../user/TabStackU';
+import MainStackU from '../user/MainStackU';
 
 export default function AuthStackU() {
 
@@ -14,7 +14,7 @@ export default function AuthStackU() {
 
     if (afterLoginU) {
         return (
-            <TabStackU />
+            <MainStackU />
         )
     }
     else if (!afterLoginU) {

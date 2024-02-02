@@ -21,7 +21,7 @@ const CELL_COUNT = 6;
 
 const OTPScreen = (props) => {
 
-	const {route} = props 
+    const { route } = props
 
     const navigation = useNavigation()
 
@@ -36,21 +36,17 @@ const OTPScreen = (props) => {
     console.log(value);
 
     const checkOTP = async () => {
-		
-		try {
 
-			const user = await loginServices.user({phone: route.params.phone, userOtp: value})
-			await AsyncStorage.setItem('loggedUser', JSON.stringify(user))
-			AsyncStorage.getItem('loggedUser')
-						.then(value => {
-							console.log(value)
-						})
-			navigation.navigate("Get-Name")
+        try {
 
-		}
-		catch (error) {
-			console.log(error)
-		}
+            const user = await loginServices.user({ phone: route.params.phone, userOtp: value })
+            await AsyncStorage.setItem('loggedUser', JSON.stringify(user))
+            navigation.navigate("Get-Name")
+
+        }
+        catch (error) {
+            console.log(error)
+        }
 
     }
 
