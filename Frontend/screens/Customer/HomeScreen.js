@@ -11,6 +11,7 @@ import Carousel from '../../components/Carousel';
 import * as Location from 'expo-location';
 import LocationContext from '../../context/LocationContext';
 import CardsLayout from './CardsLayout';
+import CategoryData from '../../constants/CategoryData';
 
 const windowWidth = Dimensions.get('window').width;
 
@@ -42,27 +43,6 @@ const HomeScreen = () => {
 
   const navigation = useNavigation();
 
-  const categoryData = [
-    {
-      id: '1', name: 'Featured Item 1', img: require("../../assets/favicon.png")
-    },
-    {
-      id: '2', name: 'Featured Item 1', img: require("../../assets/favicon.png")
-    },
-    {
-      id: '3', name: 'Featured Item 1', img: require("../../assets/favicon.png")
-    },
-    {
-      id: '4', name: 'Featured Item 1', img: require("../../assets/favicon.png")
-    },
-    {
-      id: '5', name: 'Featured Item 1', img: require("../../assets/favicon.png")
-    },
-    {
-      id: '6', name: 'Featured Item 1', img: require("../../assets/favicon.png")
-    }
-  ]
-
   const handleCatSulg = (slugData) => {
     navigation.navigate("SlugCategory", { slugData })
   }
@@ -81,7 +61,7 @@ const HomeScreen = () => {
         </View>
 
         <FlatList
-          data={categoryData}
+          data={CategoryData}
           renderItem={({ item }) => {
             return (
               <TouchableOpacity key={item.id} onPress={() => handleCatSulg(item)}>
@@ -121,7 +101,6 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 16,
     backgroundColor: "#fff",
-    paddingBottom: 150,
   },
   txt: {
     fontSize: 20
