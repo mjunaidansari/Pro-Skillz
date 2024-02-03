@@ -22,27 +22,32 @@ const Carousel = () => {
     ];
 
     return (
-        <Swiper style={styles.wrapper} autoplay={true} loop={true}>
-            {carouselData.map((item) => (
-                <View key={item.id} style={styles.slide}>
-                    <Image source={item.image} style={styles.image} />
-                </View>
-            ))}
-        </Swiper>
+        <View style={styles.wrapper}>
+            <Swiper autoplay={true} loop={true} showsPagination={false}>
+                {carouselData.map((item) => (
+                    <View key={item.id} style={styles.slide}>
+                        <Image source={item.image} style={styles.image} />
+                    </View>
+                ))}
+            </Swiper>
+        </View>
     );
 };
 
 const styles = StyleSheet.create({
-    wrapper: {},
+    wrapper: {
+        height: 200,
+        marginBottom: 30
+    },
     slide: {
         justifyContent: 'center',
         alignItems: 'center',
-        marginVertical: 10
+        borderRadius: 10,
+        height: "100%"
     },
     image: {
         width: '100%',
-        height: 200,
-        borderRadius: 8,
+        height: "100%",
     },
     text: {
         color: '#fff',

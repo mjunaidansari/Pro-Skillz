@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { View, Text, FlatList, StyleSheet, TouchableOpacity, TouchableWithoutFeedback, TouchableHighlight, Image, Alert } from 'react-native';
+import { View, Text, FlatList, StyleSheet, TouchableOpacity, TouchableWithoutFeedback, TouchableHighlight, Image, Alert, ScrollView } from 'react-native';
 import serviceData from '../../constants/constants';
 import ServiceCard from '../../components/ServiceCard';
 import UserProfileHeader from '../../components/AppBar';
@@ -10,6 +10,7 @@ import { useNavigation } from '@react-navigation/native';
 import Carousel from '../../components/Carousel';
 import * as Location from 'expo-location';
 import LocationContext from '../../context/LocationContext';
+import Deals from './Deals';
 
 const windowWidth = Dimensions.get('window').width;
 
@@ -31,7 +32,6 @@ const HomeScreen = () => {
 
       let locationCords = await Location.getCurrentPositionAsync({});
       setLocationCords(locationCords);
-      console.log(locationCords);
 
       let userLocation = await Location.reverseGeocodeAsync({ latitude: locationCords.coords.latitude, longitude: locationCords.coords.longitude });
       setUserLocation(userLocation);
@@ -93,7 +93,7 @@ const HomeScreen = () => {
   }
 
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
 
       <UserHomePageLocation />
 
@@ -122,18 +122,11 @@ const HomeScreen = () => {
         />
       </View>
 
-
       <Carousel />
 
-      {/* Categories FlatList */}
-      {/* <FlatList
-        data={serviceData.slice(0, 3)}
-        renderItem={renderCard}
-        keyExtractor={(item) => item.id}
-        horizontal
-        showsHorizontalScrollIndicator={false}
-      /> */}
-    </View>
+      <Deals />
+
+    </ScrollView>
   );
 };
 

@@ -7,14 +7,12 @@ const UserHomePageLocation = ({ onPressLocation }) => {
 
     const { location } = useContext(LocationContext);
 
-
     return (
         <View style={styles.container}>
             <TouchableOpacity onPress={onPressLocation}>
                 <View style={styles.locationContainer}>
                     <View style={styles.locationTextIcon}>
                         <Text style={styles.locationText}>
-                            {console.log(location)}
                             {location != null ? location[0].district : 'Fetching Location'}
                         </Text>
                         <Ionicons name="chevron-down" size={25} color="#3B37FF" />
