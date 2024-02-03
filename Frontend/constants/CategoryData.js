@@ -1,33 +1,33 @@
 const CategoryData = [
     {
-        id: '1', name: 'Featured Item 1', img: require("../assets/favicon.png")
+        id: '1', name: 'Plumber', img: require("../assets/favicon.png")
     },
     {
-        id: '2', name: 'Featured Item 1', img: require("../assets/favicon.png")
+        id: '2', name: 'Electrician', img: require("../assets/favicon.png")
     },
     {
-        id: '3', name: 'Featured Item 1', img: require("../assets/favicon.png")
+        id: '3', name: 'Carpenter', img: require("../assets/favicon.png")
     },
     {
-        id: '4', name: 'Featured Item 1', img: require("../assets/favicon.png")
+        id: '4', name: 'Painter', img: require("../assets/favicon.png")
     },
     {
-        id: '5', name: 'Featured Item 1', img: require("../assets/favicon.png")
+        id: '5', name: 'Gardener', img: require("../assets/favicon.png")
     },
     {
-        id: '6', name: 'Featured Item 1', img: require("../assets/favicon.png")
+        id: '6', name: 'Handyman', img: require("../assets/favicon.png")
     },
     {
-        id: '7', name: 'Featured Item 1', img: require("../assets/favicon.png")
+        id: '7', name: 'Barber', img: require("../assets/favicon.png")
     },
     {
-        id: '8', name: 'Featured Item 1', img: require("../assets/favicon.png")
+        id: '8', name: 'House Cleaner', img: require("../assets/favicon.png")
     },
     {
-        id: '9', name: 'Featured Item 1', img: require("../assets/favicon.png")
+        id: '9', name: 'Salon', img: require("../assets/favicon.png")
     },
     {
-        id: '10', name: 'Featured Item 1', img: require("../assets/favicon.png")
+        id: '10', name: 'Engineer', img: require("../assets/favicon.png")
     }
 ]
 

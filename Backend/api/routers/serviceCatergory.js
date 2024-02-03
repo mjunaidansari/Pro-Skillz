@@ -5,13 +5,13 @@ const ServiceCategory = require('../../mongodb/model/serviceCategory')
 serviceCategoryRouter.get('/', async (req, res) => {
 
 	const serviceCategories = await ServiceCategory
-										.find({})
-										// .populate('services')
-	
+		.find({})
+	// .populate('services')
+
 	// converting images data to base64 for objects having images
 	const serviceCategories64 = serviceCategories.map(serviceCategory => {
-		
-		if(serviceCategory.image.data) {
+
+		if (serviceCategory.image.data) {
 			const serviceCategory64 = {
 				...serviceCategory.toObject(),
 				image: {
@@ -36,11 +36,11 @@ serviceCategoryRouter.get('/', async (req, res) => {
 serviceCategoryRouter.get('/:id', async (req, res) => {
 
 	const serviceCategory = await ServiceCategory
-									.findById(req.params.id)
-									.populate('services')
-	
-	if(serviceCategory) {
-		
+		.findById(req.params.id)
+		.populate('services')
+
+	if (serviceCategory) {
+
 		const serviceCategory64 = {
 			...serviceCategory.toObject(),
 			image: {
@@ -56,7 +56,7 @@ serviceCategoryRouter.get('/:id', async (req, res) => {
 		res.json(serviceCategory64)
 
 	}
-	else 
+	else
 		res.status(400).end()
 
 })
@@ -87,13 +87,13 @@ serviceCategoryRouter.put('/:id', async (req, res) => {
 	const { name, service, icon } = req.body
 
 	const serviceCategory = await ServiceCategory.findById(req.params.id)
-	
-	if(!serviceCategory) 
+
+	if (!serviceCategory)
 		return res
-				.status(404)
-				.json({
-					error: 'Service Category not found!'
-				})
+			.status(404)
+			.json({
+				error: 'Service Category not found!'
+			})
 
 	if (name) serviceCategory.name = name
 	if (service) serviceCategory.services = serviceCategory.services.concat(service)
@@ -111,12 +111,12 @@ serviceCategoryRouter.put('/icon/:id', async (req, res) => {
 
 	const serviceCategory = await ServiceCategory.findById(req.params.id)
 
-	if(!serviceCategory) 
+	if (!serviceCategory)
 		return res
-				.status(404)
-				.json({
-					error: 'Service Category not found!'
-				})
+			.status(404)
+			.json({
+				error: 'Service Category not found!'
+			})
 
 	const imageBuffer = Buffer.from(imageBase64, 'base64')
 
@@ -136,12 +136,12 @@ serviceCategoryRouter.put('/image/:id', async (req, res) => {
 
 	const serviceCategory = await ServiceCategory.findById(req.params.id)
 
-	if(!serviceCategory) 
+	if (!serviceCategory)
 		return res
-				.status(404)
-				.json({
-					error: 'Service Category not found!'
-				})
+			.status(404)
+			.json({
+				error: 'Service Category not found!'
+			})
 
 	const imageBuffer = Buffer.from(imageBase64, 'base64')
 
