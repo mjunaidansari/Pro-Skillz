@@ -1,5 +1,5 @@
-import React from 'react';
-import { View, Text, FlatList, StyleSheet, TouchableOpacity, TouchableWithoutFeedback, TouchableHighlight, Image } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { View, Text, FlatList, StyleSheet, TouchableOpacity, TouchableWithoutFeedback, TouchableHighlight, Image, Alert } from 'react-native';
 import serviceData from '../../constants/constants';
 import ServiceCard from '../../components/ServiceCard';
 import UserProfileHeader from '../../components/AppBar';
@@ -8,10 +8,33 @@ import SearchContainer from '../../components/SearchContainer';
 import UserHomePageLocation from '../../components/UserHomePageLocation';
 import { useNavigation } from '@react-navigation/native';
 import Carousel from '../../components/Carousel';
+import * as Location from 'expo-location';
 
 const windowWidth = Dimensions.get('window').width;
 
 const HomeScreen = () => {
+
+  const [locationCords, setLocationCords] = useState(null);
+  const [userLocation, setUserLocation] = useState(null);
+
+  useEffect(() => {
+    (async () => {
+
+      let { status } = await Location.requestForegroundPermissionsAsync();
+      if (status !== 'granted') {
+        Alert.alert('Permission to access location was denied');
+        return;
+      }
+
+      let locationCords = await Location.getCurrentPositionAsync({});
+      setLocationCords(locationCords);
+      console.log(locationCords);
+
+      let userLocation = await Location.reverseGeocodeAsync({ latitude: locationCords.coords.latitude, longitude: locationCords.coords.longitude });
+      console.log(userLocation);
+
+    })();
+  }, []);
 
   const navigation = useNavigation();
 
@@ -66,9 +89,6 @@ const HomeScreen = () => {
   }
 
   return (
-
-
-
     <View style={styles.container}>
 
       <UserHomePageLocation />
