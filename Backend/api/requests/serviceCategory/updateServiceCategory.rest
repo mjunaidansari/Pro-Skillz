@@ -1,4 +1,4 @@
-PUT  http://localhost:3000/api/serviceCategory/652aad87aa192e1c2264dbfd
+PUT  http://localhost:5000/api/serviceCategory/652aad87aa192e1c2264dbfd
 Content-Type: application/json
 
 {
