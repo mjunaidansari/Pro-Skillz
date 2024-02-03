@@ -37,7 +37,7 @@ const Carousel = () => {
 const styles = StyleSheet.create({
     wrapper: {
         height: 200,
-        marginBottom: 30
+        marginBottom: 20
     },
     slide: {
         justifyContent: 'center',

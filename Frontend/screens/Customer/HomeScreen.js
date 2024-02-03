@@ -10,7 +10,7 @@ import { useNavigation } from '@react-navigation/native';
 import Carousel from '../../components/Carousel';
 import * as Location from 'expo-location';
 import LocationContext from '../../context/LocationContext';
-import Deals from './Deals';
+import CardsLayout from './CardsLayout';
 
 const windowWidth = Dimensions.get('window').width;
 
@@ -41,31 +41,6 @@ const HomeScreen = () => {
   }, []);
 
   const navigation = useNavigation();
-
-  // Sample data for the bigger elements
-  const featuredItems = [
-    { id: '1', name: 'Featured Item 1', description: 'Description for Item 1' },
-    { id: '2', name: 'Featured Item 2', description: 'Description for Item 2' },
-    { id: '3', name: 'Featured Item 3', description: 'Description for Item 3' },
-    // Add more featured items as needed
-  ];
-
-
-  const renderFeaturedItem = ({ item }) => (
-    <View>
-      <View style={styles.featuredItem}>
-        <Text style={styles.featuredItemTitle}>{item.name}</Text>
-        <Text style={styles.featuredItemDescription}>{item.description}</Text>
-      </View>
-    </View>
-  );
-
-  const renderCard = ({ item }) => (
-    <ServiceCard title={item.title}
-      // description={item.description}
-      imageUrl={item.imageUrl}
-    />
-  );
 
   const categoryData = [
     {
@@ -101,7 +76,7 @@ const HomeScreen = () => {
 
       <View style={{ marginBottom: 20 }}>
         <View style={styles.categoryList}>
-          <Text style={{ fontSize: 20 }}>Categories</Text>
+          <Text style={styles.txt}>Categories</Text>
           <Text onPress={() => navigation.navigate("Category")}>View all</Text>
         </View>
 
@@ -124,8 +99,19 @@ const HomeScreen = () => {
 
       <Carousel />
 
-      <Deals />
+      <CardsLayout serviceData={serviceData.slice(0, 4)} cardLayoutTitle={"Deals Of The Day"} title={"Deals"} />
 
+      <View>
+        <Text style={[styles.txt, { marginBottom: 15 }]}>
+          New Services
+        </Text>
+
+        <Carousel />
+      </View>
+
+      <View style={{ marginBottom: 85 }}>
+        <CardsLayout serviceData={serviceData.slice(0, 4)} cardLayoutTitle={"Recently Viewed Services"} title={"Recents"} />
+      </View>
     </ScrollView>
   );
 };
@@ -134,19 +120,20 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 16,
-    backgroundColor: "#fff"
+    backgroundColor: "#fff",
+    paddingBottom: 150,
+  },
+  txt: {
+    fontSize: 20
   },
   header: {
     marginTop: 35,
     fontSize: 20,
-    // fontWeight: 'bold',
-    // marginBottom: 10,
   },
   greetings: {
     fontSize: 28,
     fontWeight: 'bold',
     marginBottom: 16,
-    // color: 'red'
   },
 
   featuredItem: {
@@ -179,10 +166,17 @@ const styles = StyleSheet.create({
   },
   categoryList: {
     display: 'flex',
+    alignItems: "center",
     justifyContent: "space-between",
     flexDirection: "row",
     marginBottom: 10,
     paddingHorizontal: 8
+  },
+  newServImg: {
+    width: "100%",
+    height: 200,
+    marginTop: 15,
+
   }
 });
 

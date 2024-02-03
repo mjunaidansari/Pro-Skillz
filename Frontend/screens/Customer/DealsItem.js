@@ -1,21 +1,30 @@
-import { Button, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { Button, Image, StyleSheet, Text, TouchableHighlight, TouchableOpacity, View } from 'react-native';
 import React from 'react';
+import { useNavigation } from '@react-navigation/native';
 
 const DealsItem = ({ item }) => {
 
+    const navigation = useNavigation();
+
+    const handleCardClick = (item) => {
+        navigation.navigate("SlugService", { item });
+    }
+
     return (
-        <View style={styles.container}>
-            <Image source={item.imageUrl} alt='cat' style={styles.img} />
-            <View style={styles.lowerCard}>
-                <View>
-                    <Text>{item.title}</Text>
-                    <Text numberOfLines={2}>{item.description}</Text>
+        <TouchableHighlight style={styles.container} key={item.id} onPress={() => handleCardClick(item)}>
+            <View>
+                <Image source={item.imageUrl} alt='cat' style={styles.img} />
+                <View style={styles.lowerCard}>
+                    <View>
+                        <Text style={{ fontWeight: "bold" }}>{item.title}</Text>
+                        <Text numberOfLines={2}>{item.description}</Text>
+                    </View>
+                    <TouchableOpacity style={styles.btn}>
+                        <Text style={{ color: "white" }}>ADD</Text>
+                    </TouchableOpacity>
                 </View>
-                <TouchableOpacity style={styles.btn}>
-                    <Text style={{ color: "white" }}>ADD</Text>
-                </TouchableOpacity>
             </View>
-        </View>
+        </TouchableHighlight>
     )
 }
 
