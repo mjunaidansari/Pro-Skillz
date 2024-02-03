@@ -14,7 +14,7 @@ import UserProviderOpt from './screens/Other/UserProviderOpt';
 import TabStackU from './routes/user/TabStackU';
 import AuthStackU from './routes/Other/AuthStackU';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import AuthContext from './context/AuthContext';
+import LocationState from './context/LocationState';
 
 SplashScreen.preventAutoHideAsync();
 
@@ -67,17 +67,19 @@ export default function App() {
   return (
     <View style={styles.container}>
       <AuthState>
-        <NavigationContainer>
-          {/* <SplashScreen /> */}
+        <LocationState>
+          <NavigationContainer>
+            {/* <SplashScreen /> */}
 
-          {/* {isLoggedIn == true ? isUserorProvider == true ? <MainStackU /> : <MainStackP /> : <UserProviderOpt />} */}
+            {/* {isLoggedIn == true ? isUserorProvider == true ? <MainStackU /> : <MainStackP /> : <UserProviderOpt />} */}
 
-          {checkLoggedInOrNot()}
+            {checkLoggedInOrNot()}
 
-          {/* <MainStackU /> */}
-          {/* <TabStackU /> */}
+            {/* <MainStackU /> */}
+            {/* <TabStackU /> */}
 
-        </NavigationContainer>
+          </NavigationContainer>
+        </LocationState>
       </AuthState>
     </View>
   );
