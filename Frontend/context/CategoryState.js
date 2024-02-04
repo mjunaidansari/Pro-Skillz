@@ -8,11 +8,12 @@ const CategoryState = (props) => {
     // const categoryInitial = []
 
     const [category, setCategory] = useState([]);
+    const [catServices, setCatServices] = useState([]);
 
     const getAllCategories = async () => {
 
         try {
-            const response = await fetch(`http://192.168.29.78:5000/api/serviceCategory`, {
+            const response = await fetch(`${API_HOST}/api/serviceCategory`, {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",
@@ -28,9 +29,29 @@ const CategoryState = (props) => {
         }
     }
 
+    const getAllServicesOfSpecificCategory = async (id) => {
+        try {
+            const response = await fetch(`${API_HOST}/api/serviceCategory/${id}`, {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                }
+            });
+
+            const catSpecificServices = await response.json();
+
+            setCatServices(catSpecificServices);
+
+            // console.log(catSpecificServices);
+        }
+        catch (err) {
+            console.log("Get Services of a Specific Categories error : ", err.message);
+        }
+    }
+
 
     return (
-        <CategoryContext.Provider value={{ category, getAllCategories }}>
+        <CategoryContext.Provider value={{ category, catServices, getAllCategories, getAllServicesOfSpecificCategory }}>
             {props.children}
         </CategoryContext.Provider>
     )

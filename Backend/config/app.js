@@ -4,7 +4,7 @@ const path = require('path')
 
 const bodyParser = require('body-parser')
 
-const middleware = require('../api/utils/middleware') 
+const middleware = require('../api/utils/middleware')
 
 // routers
 const testRouter = require('../api/routers/test')
@@ -24,8 +24,10 @@ require('express-async-errors')
 
 const app = express()
 
-app.use(cors())
-app.use(express.json({limit: '5mb'}))
+app.use(cors({
+	origin: "*"
+}))
+app.use(express.json({ limit: '5mb' }))
 app.use(bodyParser.urlencoded({
 	limit: '5mb',
 	extended: true,

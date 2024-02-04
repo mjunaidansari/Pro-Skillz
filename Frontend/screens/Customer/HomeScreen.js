@@ -71,9 +71,7 @@ const HomeScreen = () => {
             return (
               <TouchableOpacity key={item._id} onPress={() => handleCatSulg(item)}>
                 <View style={styles.categoryItem}>
-                  {console.log(item.icon.contentType)}
-                  {/* <Text>{item._id}</Text> */}
-                  <Image source={{ uri: `data:${item.icon.contentType};base64,${item.icon.data}` }} style={{ width: "100%", height: "100%" }} alt='cat' />
+                  <Image source={{ uri: `data:${item.icon.contentType};base64,${item.icon.data}` }} style={{ width: "100%", height: "100%", borderRadius: 8 }} alt='cat' />
                 </View>
               </TouchableOpacity>
             )
@@ -144,11 +142,12 @@ const styles = StyleSheet.create({
   categoryItem: {
     width: 75,
     height: 75,
-    backgroundColor: '#e0e0e0',
     borderRadius: 8,
     marginHorizontal: 8,
     alignItems: 'center',
     justifyContent: 'center',
+    borderWidth: 1,
+    borderColor: "#e0e0e0"
   },
   categoryList: {
     display: 'flex',

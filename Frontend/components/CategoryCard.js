@@ -1,4 +1,4 @@
-import { Image, StyleSheet, Text, TouchableHighlight, View } from 'react-native'
+import { Image, StyleSheet, Text, TouchableHighlight, TouchableOpacity, View } from 'react-native'
 import React from 'react'
 import { useNavigation } from '@react-navigation/native'
 
@@ -11,12 +11,12 @@ const CategoryCard = ({ item }) => {
     }
 
     return (
-        <TouchableHighlight style={styles.container} onPress={() => handleClickCategory(item)}>
+        <TouchableOpacity style={styles.container} onPress={() => handleClickCategory(item)}>
             <View style={styles.mCont}>
                 <Image source={{ uri: `data:${item.icon.contentType};base64,${item.icon.data}` }} alt='category img' style={{ marginVertical: 10, width: 65, height: 65 }} />
                 <Text style={styles.txt}>{item.name}</Text>
             </View>
-        </TouchableHighlight>
+        </TouchableOpacity>
     )
 }
 
