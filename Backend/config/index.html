@@ -10,7 +10,8 @@
 		id: <input type="text" id="id"/>
 
 		<br><br>
-		<input type="file" accept="image/" multiple id="imageInput" onchange="handleImageSelection()">
+		<!-- <input type="file" accept="image/" multiple id="imageInput" onchange="handleImageSelection()"> -->
+		<input type="file" accept="image/" id="imageInput" onchange="handleImageSelection()">
 
 		<br><br>
 		<button id="sendMultiple" onclick="sendMultipleToServer()">Send multiple</button>
@@ -25,39 +26,39 @@
 			const images = []
 
 			// for single image
-			// function handleImageSelection() {
-			// 	const input = document.getElementById('imageInput');
-			// 	const file = input.files[0];
+			function handleImageSelection() {
+				const input = document.getElementById('imageInput');
+				const file = input.files[0];
 
-			// 	if (file) {
-			// 		const reader = new FileReader();
-			// 		reader.onload = (e) => {
-			// 			const base64String = e.target.result.split(',')[1];
-			// 			const contentType = e.target.result.split(';')[0].replace('data:', '');
-			// 			console.log('Content Type: ',base64String,  contentType)
-			// 			sendToServer(base64String, contentType);
-			// 		}
-			// 		reader.readAsDataURL(file);
-			// 	}
-			// }
+				if (file) {
+					const reader = new FileReader();
+					reader.onload = (e) => {
+						const base64String = e.target.result.split(',')[1];
+						const contentType = e.target.result.split(';')[0].replace('data:', '');
+						console.log('Content Type: ',base64String,  contentType)
+						sendToServer(base64String, contentType);
+					}
+					reader.readAsDataURL(file);
+				}
+			}
 
 			// for multiple images
-			function handleImageSelection() {
-				const input = document.getElementById('imageInput')
+			// function handleImageSelection() {
+			// 	const input = document.getElementById('imageInput')
 				
-				for (const file of input.files) {
-					const reader = new FileReader()
-					reader.onload = e => {
-						const data = e.target.result.split(',')[1];
-						const contentType = e.target.result.split(';')[0].replace('data:', '');
-						// console.log(base64String, contentType)
-						images.push({data, contentType})
-					}
-					reader.readAsDataURL(file)
-				}
-				console.log(images)
+			// 	for (const file of input.files) {
+			// 		const reader = new FileReader()
+			// 		reader.onload = e => {
+			// 			const data = e.target.result.split(',')[1];
+			// 			const contentType = e.target.result.split(';')[0].replace('data:', '');
+			// 			// console.log(base64String, contentType)
+			// 			images.push({data, contentType})
+			// 		}
+			// 		reader.readAsDataURL(file)
+			// 	}
+			// 	console.log(images)
 
-			}
+			// }
 
 			// for sending multiple images to server
 			function sendMultipleToServer() {
@@ -85,13 +86,13 @@
 
 			function sendToServer(base64String, contentType) {
 				console.log('Base64 String: ', base64String);
-				const jwtToken = document.getElementById('token').value
+				// const jwtToken = document.getElementById('token').value
 				const id = document.getElementById('id').value
 
-				fetch('http://localhost:3000/api/service/image/'+id, {
+				fetch('http://localhost:3000/api/serviceCategory/image/'+id, {
 					method: 'PUT',
 					headers: {
-						'Authorization': 'Bearer ' + jwtToken,
+						// 'Authorization': 'Bearer ' + jwtToken,
 						'Content-Type': 'application/json',
 					},
 					body: JSON.stringify({imageBase64: base64String, contentType})
