@@ -35,13 +35,12 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     borderRadius: 10,
     marginBottom: 20,
-    // height: 0,
     elevation: 2,
   },
   inputContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    paddingVertical: 15,
+    paddingVertical: 10,
   },
   searchIcon: {
     marginLeft: 12,

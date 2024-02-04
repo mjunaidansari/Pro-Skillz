@@ -1,12 +1,10 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import HomeScreen from '../../screens/Customer/HomeScreen';
-import MapScreen from '../../screens/Customer/MapScreen';
-import ServiceGridScreen from '../../screens/Customer/ServicesGridScreen';
 
 import { Ionicons } from '@expo/vector-icons';
 import UserProfileScreen from '../../screens/Customer/UserProfileScreen';
-import CategoryScreen from '../../screens/Customer/CategoryScreen';
 import Settings from '../../screens/Customer/Settings';
+import AllCategoryScreen from '../../screens/Customer/AllCategoryScreen';
 
 const Tab = createBottomTabNavigator();
 
@@ -43,7 +41,7 @@ const TabStackU = () => {
             })}
         >
             <Tab.Screen name="Home" component={HomeScreen} />
-            <Tab.Screen name="Category" component={CategoryScreen} />
+            <Tab.Screen name="Category" component={AllCategoryScreen} />
             <Tab.Screen name="UserProfile" component={UserProfileScreen} />
             <Tab.Screen name="Settings" component={Settings} />
         </Tab.Navigator>
