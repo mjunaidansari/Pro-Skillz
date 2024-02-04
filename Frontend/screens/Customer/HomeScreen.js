@@ -12,15 +12,18 @@ import * as Location from 'expo-location';
 import LocationContext from '../../context/LocationContext';
 import CardsLayout from './CardsLayout';
 import CategoryData from '../../constants/CategoryData';
+import CategoryContext from '../../context/CategoryContext';
 
 const windowWidth = Dimensions.get('window').width;
 
 const HomeScreen = () => {
 
+
   const [locationCords, setLocationCords] = useState(null);
   const [userLocation, setUserLocation] = useState(null);
 
   const { setLocation } = useContext(LocationContext);
+  const { category, getAllCategories } = useContext(CategoryContext);
 
   useEffect(() => {
     (async () => {
@@ -39,6 +42,8 @@ const HomeScreen = () => {
       setLocation(userLocation);
 
     })();
+
+    getAllCategories();
   }, []);
 
   const navigation = useNavigation();
@@ -61,12 +66,14 @@ const HomeScreen = () => {
         </View>
 
         <FlatList
-          data={CategoryData}
+          data={category}
           renderItem={({ item }) => {
             return (
-              <TouchableOpacity key={item.id} onPress={() => handleCatSulg(item)}>
+              <TouchableOpacity key={item._id} onPress={() => handleCatSulg(item)}>
                 <View style={styles.categoryItem}>
-                  <Image source={item.img} alt='cat' />
+                  {console.log(item.icon.contentType)}
+                  {/* <Text>{item._id}</Text> */}
+                  <Image source={{ uri: `data:${item.icon.contentType};base64,${item.icon.data}` }} style={{ width: "100%", height: "100%" }} alt='cat' />
                 </View>
               </TouchableOpacity>
             )

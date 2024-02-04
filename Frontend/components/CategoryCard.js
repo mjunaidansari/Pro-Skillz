@@ -13,7 +13,7 @@ const CategoryCard = ({ item }) => {
     return (
         <TouchableHighlight style={styles.container} onPress={() => handleClickCategory(item)}>
             <View style={styles.mCont}>
-                <Image source={item.img} alt='category img' style={{ marginVertical: 10, width: 65, height: 65 }} />
+                <Image source={{ uri: `data:${item.icon.contentType};base64,${item.icon.data}` }} alt='category img' style={{ marginVertical: 10, width: 65, height: 65 }} />
                 <Text style={styles.txt}>{item.name}</Text>
             </View>
         </TouchableHighlight>

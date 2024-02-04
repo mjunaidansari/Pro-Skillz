@@ -1,10 +1,14 @@
 import { View, Text, StyleSheet, ScrollView } from 'react-native';
-import React from 'react';
+import React, { useContext } from 'react';
 import CategoryData from '../../constants/CategoryData';
 import CategoryCard from '../../components/CategoryCard';
 import SearchBar from '../../components/SearchBar';
+import CategoryContext from '../../context/CategoryContext';
 
 const AllCategoryScreen = () => {
+
+    const { category, getAllCategories } = useContext(CategoryContext);
+
     return (
         <View style={styles.container} >
 
@@ -17,8 +21,8 @@ const AllCategoryScreen = () => {
             <ScrollView showsVerticalScrollIndicator={false}>
                 <View style={styles.cont}>
                     {
-                        CategoryData.map((item) => {
-                            return <CategoryCard item={item} key={item.id} />
+                        category.map((item) => {
+                            return <CategoryCard item={item} key={item._id} />
                         })
                     }
                 </View>
