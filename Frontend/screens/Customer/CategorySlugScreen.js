@@ -1,5 +1,5 @@
 import { StyleSheet, Text, TouchableHighlight, View, ScrollView, Image } from 'react-native';
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import ServiceProviderCard from '../../components/ServiceProviderCard';
 import ServiceProviderData from '../../constants/ServiceProviderData';
 import CategoryContext from '../../context/CategoryContext';
@@ -9,6 +9,8 @@ const CategorySlugScreen = ({ route }) => {
     const { item } = route.params;
 
     const { catServices, getAllServicesOfSpecificCategory } = useContext(CategoryContext);
+
+    // const [servicesCat, setServicesCat] = useState(null);
 
     useEffect(() => {
         getAllServicesOfSpecificCategory(item._id);
@@ -21,15 +23,16 @@ const CategorySlugScreen = ({ route }) => {
 
 
                 <Text style={styles.txt}>
-                    Recommended For You
+                    Recommended {catServices ? catServices.name : 'Loading'}'s For You
                 </Text>
 
                 <View style={styles.cont}>
                     {
-                        catServices.services.map((item) => {
-                            return <ServiceProviderCard item={item} key={item.id} />
-                            // { console.log(item); }
-                        })
+                        catServices && catServices.services
+                            ? catServices.services.map((serviceItem) => (
+                                <ServiceProviderCard item={serviceItem} key={serviceItem.id} />
+                            ))
+                            : <Text>No services available</Text>
                     }
                 </View>
             </ScrollView>

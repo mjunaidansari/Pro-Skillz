@@ -42,7 +42,7 @@ const CategoryState = (props) => {
 
             setCatServices(catSpecificServices);
 
-            // console.log(catSpecificServices);
+            // console.log("Cat Services", catServices);
         }
         catch (err) {
             console.log("Get Services of a Specific Categories error : ", err.message);

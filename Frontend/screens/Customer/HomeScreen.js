@@ -49,6 +49,7 @@ const HomeScreen = () => {
   const navigation = useNavigation();
 
   const handleCatSulg = (item) => {
+    // console.log("itememmeme", item);
     navigation.navigate("SlugCategory", { item })
   }
 
