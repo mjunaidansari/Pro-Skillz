@@ -7,12 +7,11 @@ const schema = mongoose.Schema({
 		ref: 'User',
 		required: true
 	},
-	services: [
-		{
-			type: mongoose.Schema.Types.ObjectId,
-			ref: 'Service'
-		}
-	],
+	service: 
+	{
+		type: mongoose.Schema.Types.ObjectId,
+		ref: 'Service'
+	},
 	payment: {
 		type: String, //will be replaced by payment object id
 	},
@@ -25,8 +24,12 @@ const schema = mongoose.Schema({
 			type: Date
 		}
 	],
-	totalPrice: {
+	serviceCharge: {
 		type: Number,
+	},
+	status: {
+		type: String,
+		enum: ['Pending', 'Confirmed', 'Cancelled', 'Completed', 'Rescheduled', 'Refunded']
 	}
 
 })

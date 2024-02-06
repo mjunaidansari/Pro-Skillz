@@ -88,7 +88,6 @@ serviceRouter.post('/', async (req, res) => {
 	console.log(user)
 
 	const { name, description, serviceCharge, serviceCategoryName } = req.body
-	console.log(name, description, serviceCharge)
 
 	if (!user)
 		return res
@@ -107,7 +106,6 @@ serviceRouter.post('/', async (req, res) => {
 			})
 
 	const serviceCategoryNow = await serviceCategory.findOne({ name: serviceCategoryName })
-	console.log
 
 	const service = new Service({
 		provider: serviceProvider._id,
