@@ -34,4 +34,4 @@ const schema = mongoose.Schema({
 
 })
 
-module.exports = mongoose.model('bookedServices', schema)
+module.exports = mongoose.model('bookedService', schema)

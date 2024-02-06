@@ -17,7 +17,7 @@ const serviceCategoryRouter = require('../api/routers/serviceCatergory')
 const cartRouter = require('../api/routers/cart')
 const reviewRouter = require('../api/routers/review')
 const locationRouter = require('../api/routers/location')
-const bookedServices = require('../api/routers/BookedServices')
+const bookedService = require('../api/routers/bookedService')
 
 const sampleImageRouter = require('../api/routers/sampleImage')
 
@@ -47,7 +47,7 @@ app.use('/api/serviceCategory', serviceCategoryRouter)
 app.use('/api/carts', cartRouter)
 app.use('/api/review', reviewRouter)
 app.use('/api/location', locationRouter)
-app.use('/api/bookedServices', bookedServices)
+app.use('/api/bookedService', bookedService)
 
 app.use('/api/image', sampleImageRouter)
 
