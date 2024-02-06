@@ -28,9 +28,10 @@ const CategorySlugScreen = ({ route }) => {
 
                 <View style={styles.cont}>
                     {
+                        // console.log(catServices.services)
                         catServices && catServices.services
                             ? catServices.services.map((serviceItem) => (
-                                <ServiceProviderCard item={serviceItem} key={serviceItem.id} />
+                                <ServiceProviderCard item={serviceItem} key={serviceItem._id} />
                             ))
                             : <Text>No services available</Text>
                     }

@@ -19,7 +19,7 @@ const TabStackU = () => {
                         iconName = focused ? 'home' : 'home-outline';
                     } else if (route.name === 'Category') {
                         iconName = focused ? 'apps' : 'apps-outline';
-                    } else if (route.name === 'UserProfile') {
+                    } else if (route.name === 'Profile') {
                         iconName = focused ? 'person' : 'person-outline';
                     }
 
@@ -39,7 +39,16 @@ const TabStackU = () => {
         >
             <Tab.Screen name="Home" component={HomeScreen} />
             <Tab.Screen name="Category" component={AllCategoryScreen} />
-            <Tab.Screen name="UserProfile" component={UserProfileScreen} />
+            <Tab.Screen name="Profile" component={UserProfileScreen}
+                options={
+                    {
+                        headerShown: true,
+                        headerStyle: {
+                            backgroundColor: "#3B37FF",
+                            elevation: 0,
+                        },
+                        headerTintColor: "#fff"
+                    }} />
         </Tab.Navigator>
     );
 };
