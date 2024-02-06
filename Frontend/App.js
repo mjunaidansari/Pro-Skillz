@@ -1,7 +1,5 @@
 import { NavigationContainer } from '@react-navigation/native';
-import { useState, useEffect, useContext } from 'react';
-import MainStackU from './routes/user/MainStackU';
-import MainStackP from './routes/provider/MainStackP';
+import { useEffect } from 'react';
 import AuthState from './context/AuthState';
 import {
   Inter_700Bold,
@@ -10,12 +8,10 @@ import {
 import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
 import { StatusBar, StyleSheet, View } from 'react-native';
-import UserProviderOpt from './screens/Other/UserProviderOpt';
-import TabStackU from './routes/user/TabStackU';
-import AuthStackU from './routes/Other/AuthStackU';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import LocationState from './context/LocationState';
 import CategoryState from './context/CategoryState';
+import CallInApp from "./CallInApp";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -26,37 +22,24 @@ export default function App() {
     Inter_600SemiBold,
   });
 
-  const [isLoggedIn, setIsLoggedIn] = useState(null);
 
   useEffect(() => {
+
     async function prepare() {
       await SplashScreen.preventAutoHideAsync();
     }
     prepare()
 
-    if (AsyncStorage.getItem("loggedUser")) {
-      setIsLoggedIn(true)
-    }
-
+    // async function check() {
+    //   if (await AsyncStorage.getItem("loggedUser") != null) {
+    //     setIsLoggedIn(true)
+    //   }
+    //   else {
+    //     setIsLoggedIn(null)
+    //   }
+    // }
+    // check()
   }, [])
-
-  const checkLoggedInOrNot = () => {
-    if (isLoggedIn == null) {
-      return (
-        <UserProviderOpt />
-      )
-    }
-    else if (isLoggedIn == true) {
-      return (
-        <MainStackU />
-      )
-    }
-    else if (isLoggedIn == false) {
-      return (
-        <MainStackP />
-      )
-    }
-  }
 
 
   if (!fontsLoaded) {
@@ -75,11 +58,11 @@ export default function App() {
 
               {/* {isLoggedIn == true ? isUserorProvider == true ? <MainStackU /> : <MainStackP /> : <UserProviderOpt />} */}
 
-              {checkLoggedInOrNot()}
+              {/* {checkLoggedInOrNot()} */}
+              <CallInApp />
 
               {/* <MainStackU /> */}
               {/* <TabStackU /> */}
-
             </NavigationContainer>
           </CategoryState>
         </LocationState>

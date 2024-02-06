@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 import AuthContext from '../../context/AuthContext';
 import AuthStackU from '../../routes/Other/AuthStackU';
 import AuthSatckSP from '../../routes/Other/AuthStackSP';
@@ -10,7 +10,6 @@ const UserProviderOpt = () => {
 
     // authType - true = User
     // authType - false = Provider
-
 
     if (authType == null) {
         return (

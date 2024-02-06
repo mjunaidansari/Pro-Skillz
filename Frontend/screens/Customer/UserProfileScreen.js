@@ -1,21 +1,29 @@
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import React, { useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { Ionicons } from '@expo/vector-icons';
 import ModalEditName from '../../components/ModalEditName';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import AuthContext from '../../context/AuthContext';
 
 const UserProfileScreen = () => {
 
 
     const [isModalVisible, setModalVisible] = useState(false);
     const [name, setName] = useState('Deep Kawale');
+    const { directLogin, updateDirectLogin, updateAuthState, updateLoginStateU } = useContext(AuthContext);
 
     const handleSaveName = (newName) => {
         setName(newName);
     }
 
-    const handleLogOut = () => {
+    const handleLogOut = async () => {
+        await AsyncStorage.removeItem("loggedUser");
+        updateLoginStateU(false)
+        updateAuthState(null);
+        updateDirectLogin(null);
 
-    }
+        console.log(directLogin);
+    };
 
     return (
         <View style={styles.container}>
