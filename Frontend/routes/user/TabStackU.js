@@ -4,6 +4,7 @@ import HomeScreen from '../../screens/Customer/HomeScreen';
 import { Ionicons } from '@expo/vector-icons';
 import UserProfileScreen from '../../screens/Customer/UserProfileScreen';
 import AllCategoryScreen from '../../screens/Customer/AllCategoryScreen';
+import CartScreen from '../../screens/Customer/CartScreen';
 
 const Tab = createBottomTabNavigator();
 
@@ -19,10 +20,11 @@ const TabStackU = () => {
                         iconName = focused ? 'home' : 'home-outline';
                     } else if (route.name === 'Category') {
                         iconName = focused ? 'apps' : 'apps-outline';
+                    } else if (route.name === 'Cart') {
+                        iconName = focused ? 'cart' : 'cart-outline';
                     } else if (route.name === 'Profile') {
                         iconName = focused ? 'person' : 'person-outline';
                     }
-
                     return <Ionicons name={iconName} size={size} color="#3B37FF" />;
                 },
                 tabBarStyle: {
@@ -39,6 +41,16 @@ const TabStackU = () => {
         >
             <Tab.Screen name="Home" component={HomeScreen} />
             <Tab.Screen name="Category" component={AllCategoryScreen} />
+            <Tab.Screen name='Cart' component={CartScreen}
+                options={
+                    {
+                        headerShown: true,
+                        headerStyle: {
+                            backgroundColor: "#3B37FF",
+                            elevation: 0,
+                        },
+                        headerTintColor: "#fff"
+                    }} />
             <Tab.Screen name="Profile" component={UserProfileScreen}
                 options={
                     {

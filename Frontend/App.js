@@ -8,7 +8,6 @@ import {
 import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
 import { StatusBar, StyleSheet, View } from 'react-native';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import LocationState from './context/LocationState';
 import CategoryState from './context/CategoryState';
 import CallInApp from "./CallInApp";
@@ -29,16 +28,6 @@ export default function App() {
       await SplashScreen.preventAutoHideAsync();
     }
     prepare()
-
-    // async function check() {
-    //   if (await AsyncStorage.getItem("loggedUser") != null) {
-    //     setIsLoggedIn(true)
-    //   }
-    //   else {
-    //     setIsLoggedIn(null)
-    //   }
-    // }
-    // check()
   }, [])
 
 
@@ -56,13 +45,7 @@ export default function App() {
             <NavigationContainer>
               {/* <SplashScreen /> */}
 
-              {/* {isLoggedIn == true ? isUserorProvider == true ? <MainStackU /> : <MainStackP /> : <UserProviderOpt />} */}
-
-              {/* {checkLoggedInOrNot()} */}
               <CallInApp />
-
-              {/* <MainStackU /> */}
-              {/* <TabStackU /> */}
             </NavigationContainer>
           </CategoryState>
         </LocationState>

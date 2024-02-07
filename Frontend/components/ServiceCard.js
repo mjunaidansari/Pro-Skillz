@@ -4,7 +4,7 @@ import { useNavigation } from '@react-navigation/native';
 
 const { width: screenWidth } = Dimensions.get('window');
 
-const ServiceCard = ({ title, description, imageUrl,}) => {
+const ServiceCard = ({ title, description, imageUrl, }) => {
 
   const handlePress = () => {
     // Assuming you want to navigate to a screen named 'DetailsScreen'
@@ -21,7 +21,7 @@ const ServiceCard = ({ title, description, imageUrl,}) => {
       </View>
     </View>
   );
-  
+
 };
 
 const styles = StyleSheet.create({

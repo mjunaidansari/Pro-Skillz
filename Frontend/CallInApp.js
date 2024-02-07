@@ -12,7 +12,6 @@ const CallInApp = () => {
     const { directLogin, updateDirectLogin } = useContext(AuthContext);
 
     useEffect(() => {
-        // console.log(directLogin);
         async function check() {
             if (await AsyncStorage.getItem("loggedUser") != null) {
                 updateDirectLogin(true);
