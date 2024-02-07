@@ -1,8 +1,19 @@
 import { Image, StyleSheet, Text, TouchableHighlight, TouchableOpacity, View } from 'react-native';
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
 import { Ionicons } from '@expo/vector-icons';
+import CartContext from '../context/CartContext';
 
-const CartCards = () => {
+const CartCards = ({ item }) => {
+
+    // const { cartService, getCartServiceInfo } = useContext(CartContext);
+
+    // useEffect(() => {
+    //     getCartServiceInfo(item)
+    // }, [])
+
+    // if (!cartService) {
+    //     return <View></View>
+    // }
 
     return (
         <View style={styles.cardCont}>

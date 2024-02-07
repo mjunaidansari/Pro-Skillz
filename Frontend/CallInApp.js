@@ -16,8 +16,13 @@ const CallInApp = () => {
             if (await AsyncStorage.getItem("loggedUser") != null) {
                 updateDirectLogin(true);
             }
+
+            const tokenG = await JSON.parse(await AsyncStorage.getItem("loggedUser"));
+
+            console.log(tokenG.token);
         }
         check();
+
     }, [])
 
 

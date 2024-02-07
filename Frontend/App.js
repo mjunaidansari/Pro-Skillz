@@ -11,6 +11,7 @@ import { StatusBar, StyleSheet, View } from 'react-native';
 import LocationState from './context/LocationState';
 import CategoryState from './context/CategoryState';
 import CallInApp from "./CallInApp";
+import CartState from './context/CartState';
 
 SplashScreen.preventAutoHideAsync();
 
@@ -42,11 +43,13 @@ export default function App() {
       <AuthState>
         <LocationState>
           <CategoryState>
-            <NavigationContainer>
-              {/* <SplashScreen /> */}
+            <CartState>
+              <NavigationContainer>
+                {/* <SplashScreen /> */}
 
-              <CallInApp />
-            </NavigationContainer>
+                <CallInApp />
+              </NavigationContainer>
+            </CartState>
           </CategoryState>
         </LocationState>
       </AuthState>

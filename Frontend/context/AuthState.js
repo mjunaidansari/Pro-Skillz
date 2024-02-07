@@ -15,7 +15,7 @@ const AuthState = (props) => {
 
     // }, [])
 
-    const [directLogin, setDirectLogin] = useState(true);
+    const [directLogin, setDirectLogin] = useState(null);
     const [authType, setAuthType] = useState(null); // true
     const [afterLoginU, setAfterLoginU] = useState(false); //true
     const [afterLoginS, setAfterLoginS] = useState(false);
