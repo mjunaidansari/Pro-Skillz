@@ -1,12 +1,16 @@
 import { Image, RootTagContext, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import React from 'react';
+import React, { useContext } from 'react';
 import Ratings from '../../components/Ratings';
 import ReviewCard from '../../components/ReviewCard';
 import ButtonsPS from '../../components/ButtonsPS';
+import CategoryContext from '../../context/CategoryContext';
 
 const ServiceSlugScreen = ({ route }) => {
 
     const { item } = route.params;
+
+    const { reviews } = useContext(CategoryContext);
+    // console.log("This is a particular service review: ", reviews);
 
     return (
         <View style={styles.container}>
@@ -15,13 +19,13 @@ const ServiceSlugScreen = ({ route }) => {
 
                 <View style={styles.infoCont}>
                     <View>
-                        <Text style={[styles.margins, { fontSize: 25, fontWeight: "bold" }]}>Service Name</Text>
+                        <Text style={[styles.margins, { fontSize: 25, fontWeight: "bold" }]}>{item.name}</Text>
 
                         <View style={[styles.margins, { flexDirection: "row", alignItems: "center" }]}>
                             <Text style={{ marginRight: 5, fontWeight: "bold" }}>
-                                4.5
+                                {item.rating}
                             </Text>
-                            <Ratings rating={4.5} />
+                            <Ratings rating={item.rating} />
                         </View>
 
                         <View style={[styles.margins, { flexDirection: "row" }]}>
@@ -45,7 +49,7 @@ const ServiceSlugScreen = ({ route }) => {
                         </View>
 
                         <TouchableOpacity style={{ marginVertical: 20 }}>
-                            <ButtonsPS title={"Add to cart"} />
+                            <ButtonsPS title={`Add Service   ₹${item.serviceCharge}`} />
                         </TouchableOpacity>
                     </View>
 
@@ -53,8 +57,7 @@ const ServiceSlugScreen = ({ route }) => {
                         <Text style={styles.titles}>
                             Reviews
                         </Text>
-                        <ReviewCard />
-                        <ReviewCard />
+                        <ReviewCard item={reviews} />
                     </View>
                 </View>
 
