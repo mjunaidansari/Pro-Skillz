@@ -13,16 +13,16 @@ const ServiceGridScreen = () => {
   );
 
   return (
-      <View>
-        <FlatList style={{ margin: 11, marginTop: 50 }}
-          data={serviceData}
-          renderItem={renderCard}
-          keyExtractor={(item) => item.id}
-          numColumns={2} // Number of columns in the grid
-          showsVerticalScrollIndicator={false}
-          
-        />
-      </View>
+    <View>
+      <FlatList style={{ margin: 11, marginTop: 50 }}
+        data={serviceData}
+        renderItem={renderCard}
+        keyExtractor={(item) => item.id}
+        numColumns={2} // Number of columns in the grid
+        showsVerticalScrollIndicator={false}
+
+      />
+    </View>
   );
 };
 

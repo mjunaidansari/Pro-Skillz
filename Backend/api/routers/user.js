@@ -8,18 +8,15 @@ userRouter.get('/', async (req, res) => {
 
 	// if (user)
 	// 	return res.status(200).json(user)
-	
+
 	const users = await User.find({})
 	res.status(200).json(users)
-
-
-
 })
 
 userRouter.get('/:id', async (req, res) => {
 
 	const user = await User.findById(req.params.id)
-	if(user)
+	if (user)
 		res.json(user)
 	else
 		res.status(400).end()
@@ -42,12 +39,12 @@ userRouter.put('/:id', async (req, res) => {
 	console.log('id: ', req.params.id)
 	console.log('user: ', user)
 
-	if (!user) 
+	if (!user)
 		return res
-				.status(404)
-				.json({
-					error: "User not found!"
-				})
+			.status(404)
+			.json({
+				error: "User not found!"
+			})
 
 	if (firstname) user.firstname = firstname;
 	if (lastname) user.lastname = lastname;
