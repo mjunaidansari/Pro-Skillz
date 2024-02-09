@@ -4,6 +4,7 @@ import Ratings from '../../components/Ratings';
 import ReviewCard from '../../components/ReviewCard';
 import ButtonsPS from '../../components/ButtonsPS';
 import CategoryContext from '../../context/CategoryContext';
+import { useNavigation } from '@react-navigation/native';
 
 const ServiceSlugScreen = ({ route }) => {
 
@@ -11,6 +12,12 @@ const ServiceSlugScreen = ({ route }) => {
 
     const { reviews } = useContext(CategoryContext);
     // console.log("This is a particular service review: ", reviews);
+
+    const navigation = useNavigation();
+
+    const handleVisitProvider = () => {
+        navigation.navigate("SPProfile");
+    }
 
     return (
         <View style={styles.container}>
@@ -33,7 +40,7 @@ const ServiceSlugScreen = ({ route }) => {
                             <Text style={{ color: "#888888", fontWeight: "500" }}>  . 1.2km</Text>
                         </View>
 
-                        <TouchableOpacity>
+                        <TouchableOpacity onPress={handleVisitProvider}>
                             <Text style={[styles.margins, { textDecorationLine: "underline" }]}>
                                 Visit Provider
                             </Text>
