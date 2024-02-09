@@ -5,7 +5,7 @@ const typeDefs = `
 		id: ID!
 		user: String!
 		location: LocJson!
-		locationName: String!,
+		locationName: String!
 		calcDistance(coordinates: [Float]!): Float!
 	}
 

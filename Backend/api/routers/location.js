@@ -16,14 +16,28 @@ locationRouter.get('/:id', async (req, res) => {
 
 	// const user = req.user
 
-	if (!user)
-		return res
-				.status(401)
-				.json({
-					error: 'Invalid User!'
-				})
+	// if (!user)
+	// 	return res
+	// 			.status(401)
+	// 			.json({
+	// 				error: 'Invalid User!'
+	// 			})
 	
 	const location = await Location.findById(req.params.id)
+
+	if(location)
+		res.json(location)
+	else
+		res.status(400).end()
+
+})
+
+// to get location of specific user with id
+locationRouter.get('/user/:id', async (req, res) => {
+
+	console.log(req.params.id)
+	const location = await Location.findOne({ user: req.params.id })
+	console.log(location)
 
 	if(location)
 		res.json(location)

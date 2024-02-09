@@ -30,7 +30,7 @@ serviceRouter.get('/', async (req, res) => {
 
 	})
 
-	res.json(services)
+	res.json(services64)
 
 })
 
