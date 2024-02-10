@@ -39,6 +39,7 @@ loginRouter.post('/user', async (req, res) => {
 
 })
 
+// to create jwt token for service provider login
 loginRouter.post('/serviceProvider', async (req, res) => {
 
 	const { phone, password } = req.body

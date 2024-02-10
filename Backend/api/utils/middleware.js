@@ -40,7 +40,7 @@ const tokenExtractor = (req, res, next) => {
 	next()
 }
 
-// middleware for verifying token
+// middleware for verifying token and extracting user
 const userExtractor = async (req, res, next) => {
 	if(req.token){
 		const decodedToken = jwt.verify(req.token, JWT_SECRET)
