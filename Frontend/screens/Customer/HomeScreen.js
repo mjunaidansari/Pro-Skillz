@@ -18,7 +18,7 @@ const windowWidth = Dimensions.get('window').width;
 
 const HomeScreen = () => {
 
-  const { setLocation } = useContext(LocationContext);
+  const { setLocation, setLongLat } = useContext(LocationContext);
   const { category, getAllCategories } = useContext(CategoryContext);
 
   useEffect(() => {
@@ -31,6 +31,10 @@ const HomeScreen = () => {
       }
 
       let locationC = await Location.getCurrentPositionAsync({});
+
+      setLongLat({ lat: locationC.coords.latitude, long: locationC.coords.longitude })
+
+      // console.log(locationC);
 
       let userL = await Location.reverseGeocodeAsync({ latitude: locationC.coords.latitude, longitude: locationC.coords.longitude });
       setLocation(userL);

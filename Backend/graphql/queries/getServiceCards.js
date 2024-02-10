@@ -5,7 +5,7 @@ const User = require('../../mongodb/model/user')
 const Location = require('../../mongodb/model/location')
 
 
-const typeDefs =`
+const typeDefs = `
 	type Query {
 		getServiceCards(serviceCategoryName: String!): [ServiceCard]!
 	}
@@ -30,7 +30,7 @@ const resolvers = {
 					$in: serviceIds
 				}
 			})
-			
+
 			// extracting provider IDs from services
 			const providerIds = services.map(service => service.provider.toString())
 
@@ -50,7 +50,7 @@ const resolvers = {
 					$in: userIds
 				}
 			})
-			
+
 			// retrieving all the users
 			const users = await User.find({
 				_id: {
@@ -70,7 +70,7 @@ const resolvers = {
 			const returnObj = services.map(service => {
 				// finding the index of provider 
 				const i = providers.findIndex(provider => provider._id.toString() === service.provider.toString())
-				
+
 				obj = {
 					...service.toObject(),
 					id: service._id.toString(),
@@ -81,7 +81,7 @@ const resolvers = {
 				return obj
 			})
 
-			
+
 			console.log(returnObj)
 
 			return returnObj

@@ -1,36 +1,48 @@
 import { Image, StyleSheet, Text, TouchableHighlight, TouchableOpacity, View, Linking } from 'react-native';
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import Ratings from './Ratings';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { useNavigation } from '@react-navigation/native';
 import CategoryContext from '../context/CategoryContext';
+import * as Location from 'expo-location';
 
 const ServiceProviderCard = ({ item }) => {
 
     const navigation = useNavigation();
 
     const { getSpecificServiceReviews } = useContext(CategoryContext);
+    const [address, setAddress] = useState();
 
-    const handleCall = () => {
-        const phoneUrl = `tel:${item.phno}`;
-        Linking.canOpenURL(phoneUrl)
-            .then((supported) => {
-                if (!supported) {
-                    console.error(`Phone call is not available on this device`);
-                } else {
-                    return Linking.openURL(phoneUrl);
-                }
-            })
-            .catch((err) => console.error('An error occurred', err));
-    }
+    // const handleCall = () => {
+    //     const phoneUrl = `tel:${item.phno}`;
+    //     Linking.canOpenURL(phoneUrl)
+    //         .then((supported) => {
+    //             if (!supported) {
+    //                 console.error(`Phone call is not available on this device`);
+    //             } else {
+    //                 return Linking.openURL(phoneUrl);
+    //             }
+    //         })
+    //         .catch((err) => console.error('An error occurred', err));
+    // }
 
     const handleServiceSlug = () => {
         getSpecificServiceReviews(item._id);
         navigation.navigate("SlugService", { item })
     }
 
+    const distance = Math.round(item.distance * 100) / 100;
+
+    useEffect(() => {
+        (async () => {
+            let getAddress = await Location.reverseGeocodeAsync({ latitude: 19.1203998, longitude: 72.8543237 })
+            setAddress(getAddress[0].formattedAddress)
+        })()
+    }, [])
+
+
     return (
-        <TouchableOpacity onPress={handleServiceSlug}>
+        <TouchableOpacity onPress={handleServiceSlug} >
             <View style={styles.container}>
                 <View style={styles.info}>
                     <Text style={{ fontSize: 20, fontWeight: "bold" }}>
@@ -39,14 +51,14 @@ const ServiceProviderCard = ({ item }) => {
 
                     <View style={{ flexDirection: "row", alignItems: "center" }}>
                         <Text style={{ fontSize: 15, marginRight: 5 }}>
-                            {item.ratings}
+                            {item.rating}
                         </Text>
-                        <Ratings rating={item.ratings} />
+                        <Ratings rating={item.rating} />
                     </View>
 
                     <View style={{ flexDirection: "row" }}>
-                        <Text numberOfLines={1} style={{ fontSize: 12, fontWeight: "500", width: "80%" }}>{item.address}</Text>
-                        <Text style={{ fontWeight: "500", fontSize: 12, color: "#888888" }}>  .{item.dist}</Text>
+                        <Text numberOfLines={1} style={{ fontSize: 12, fontWeight: "500", width: "80%" }}>{address}</Text>
+                        <Text style={{ fontWeight: "500", fontSize: 12, color: "#888888" }}>  .{distance}</Text>
                     </View>
 
                     <Text numberOfLines={2} style={{ fontWeight: "500", fontSize: 12, color: "#888888" }}>
@@ -54,16 +66,16 @@ const ServiceProviderCard = ({ item }) => {
                     </Text>
 
 
-                    <TouchableOpacity style={{ flexDirection: "row", alignItems: "center" }} onPress={handleCall}>
+                    {/* <TouchableOpacity style={{ flexDirection: "row", alignItems: "center" }} onPress={handleCall}>
                         <Ionicons name="call" size={17} color="#00ff00" style={{ fontSize: 15, marginRight: 5 }} />
                         <Text>
                             {item.phno}
                         </Text>
-                    </TouchableOpacity>
+                    </TouchableOpacity> */}
                 </View>
 
                 <View style={styles.imgBtn}>
-                    <Image source={item.img} alt='service img' style={styles.servImg} resizeMode='contain' />
+                    <Image style={styles.servImg} resizeMode='contain' source={{ uri: `data:${item.image.contentType};base64,${item.image.data}` }} alt='service img' />
                     <TouchableOpacity style={styles.btn}>
                         <Text>
                             ADD
@@ -71,7 +83,7 @@ const ServiceProviderCard = ({ item }) => {
                     </TouchableOpacity>
                 </View>
             </View>
-        </TouchableOpacity >
+        </TouchableOpacity>
     )
 }
 
