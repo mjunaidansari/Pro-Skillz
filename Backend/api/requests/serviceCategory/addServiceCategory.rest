@@ -2,5 +2,5 @@ POST http://localhost:5000/api/serviceCategory
 Content-Type: application/json
 
 {
-	"name": "Painter"
+	"name": "Photographer"
 }

@@ -69,6 +69,8 @@ cartRouter.put('/', async (req, res) => {
 	cart.services.push(service)
 	// incrementing total price of the cart
 	cart.totalPrice += service.serviceCharge
+	// updating time stamp
+	cart.timeStamp = Date.now()
 
 	const updatedCart = await cart.save()
 

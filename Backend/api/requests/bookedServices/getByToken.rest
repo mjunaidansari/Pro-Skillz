@@ -1,0 +1,2 @@
+GET http://localhost:5000/api/bookedService/user
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwaG9uZSI6Iis5MTk2NTMzMTMwODIiLCJpZCI6IjY1N2RhN2M0MTYzN2RhODE5ZWRjMDllNCIsImlhdCI6MTcwNzIzMTY3OSwiZXhwIjoxNzM4NzY3Njc5fQ.GxT9KzKawAh4zeOMGY__4To9YycRsskxnqrU-Inl--Y

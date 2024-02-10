@@ -15,9 +15,13 @@ const schema = mongoose.Schema({
 			type: String,
 		}
 	],
-	avgRating: {
-		type: Number
-	},
+	ratings: [
+		{
+			type: Number,
+			min: 1,
+			max: 5
+		}
+	],
 	verified: {
 		type: Boolean
 	},

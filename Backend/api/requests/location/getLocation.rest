@@ -1,0 +1,2 @@
+GET http://localhost:5000/api/location/user/6589a76349857347dae356cf
+# Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwaG9uZSI6Ijk2NTMzMTMwODIiLCJpZCI6IjY1ODlhNzYzNDk4NTczNDdkYWUzNTZjZiIsImlhdCI6MTcwNzQ5Njc4NiwiZXhwIjoxNzM5MDMyNzg2fQ.1lzip85S3IhpEAJ9k0zXng5zFIJM8ueeXcAJLRZnAwA
