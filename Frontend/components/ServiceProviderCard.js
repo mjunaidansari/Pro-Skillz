@@ -1,9 +1,15 @@
 import { Image, StyleSheet, Text, TouchableHighlight, TouchableOpacity, View, Linking } from 'react-native';
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import Ratings from './Ratings';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import { useNavigation } from '@react-navigation/native';
+import CategoryContext from '../context/CategoryContext';
 
 const ServiceProviderCard = ({ item }) => {
+
+    const navigation = useNavigation();
+
+    const { getSpecificServiceReviews } = useContext(CategoryContext);
 
     const handleCall = () => {
         const phoneUrl = `tel:${item.phno}`;
@@ -18,8 +24,13 @@ const ServiceProviderCard = ({ item }) => {
             .catch((err) => console.error('An error occurred', err));
     }
 
+    const handleServiceSlug = () => {
+        getSpecificServiceReviews(item._id);
+        navigation.navigate("SlugService", { item })
+    }
+
     return (
-        <TouchableHighlight>
+        <TouchableOpacity onPress={handleServiceSlug}>
             <View style={styles.container}>
                 <View style={styles.info}>
                     <Text style={{ fontSize: 20, fontWeight: "bold" }}>
@@ -60,7 +71,7 @@ const ServiceProviderCard = ({ item }) => {
                     </TouchableOpacity>
                 </View>
             </View>
-        </TouchableHighlight >
+        </TouchableOpacity >
     )
 }
 

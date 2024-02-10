@@ -25,8 +25,8 @@ const errorHandler = (error, req, res, next) => {
 
 	console.error(error.message)
 
-	if(error.name === 'ValidationError')
-		return response.status(400).json({error: error.message})
+	if (error.name === 'ValidationError')
+		return response.status(400).json({ error: error.message })
 
 	next(error)
 }
@@ -42,7 +42,7 @@ const tokenExtractor = (req, res, next) => {
 
 // middleware for verifying token and extracting user
 const userExtractor = async (req, res, next) => {
-	if(req.token){
+	if (req.token) {
 		const decodedToken = jwt.verify(req.token, JWT_SECRET)
 		req.user = await User.findById(decodedToken.id)
 	}

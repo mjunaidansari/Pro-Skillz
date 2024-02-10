@@ -1,10 +1,10 @@
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native'
-import React, { useRef, useState } from 'react'
+import React, { useRef, useState, useEffect, useContext } from 'react'
 import UserLoginIcon from '../../assets/icons/UserLoginIcon.svg';
 import ButtonsPS from '../../components/ButtonsPS';
 import PhoneInput from 'react-native-phone-number-input';
 import { useNavigation } from '@react-navigation/native';
-
+import AuthContext from '../../context/AuthContext';
 import otpServices from '../../api/otp'
 
 const UserLoginSignUp = () => {
@@ -12,6 +12,8 @@ const UserLoginSignUp = () => {
     const navigation = useNavigation()
 
     const phoneInput = useRef(null);
+
+    const { authType, afterLoginU } = useContext(AuthContext);
 
     // console.log('worked')
 

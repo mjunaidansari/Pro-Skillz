@@ -8,6 +8,7 @@ import AuthContext from '../../context/AuthContext';
 import ServiceSlugScreen from '../../screens/Customer/ServiceSlugScreen';
 import AllDeals from '../../screens/Customer/AllDeals';
 import AllRecentServices from '../../screens/Customer/AllRecentServices';
+import ServicceProviderProfileScreen from '../../screens/Customer/ServicceProviderProfileScreen';
 
 export default function MainStackU() {
 
@@ -24,12 +25,26 @@ export default function MainStackU() {
 
     return (
         <Stack.Navigator initialRouteName='HomeStack'>
-            <Stack.Screen name="HomeStack" component={TabStackU} options={{ headerShown: false }} />
-            <Stack.Screen name="Search" component={SearchScreen} options={{ headerShown: false }} />
-            <Stack.Screen name="SlugCategory" component={CategorySlugScreen} options={{ headerShown: false }} />
-            <Stack.Screen name="SlugService" component={ServiceSlugScreen} options={{ headerShown: false }} />
-            <Stack.Screen name="AllDeals" component={AllDeals} options={{ headerShown: false }} />
-            <Stack.Screen name="AllReccents" component={AllRecentServices} options={{ headerShown: false }} />
+            <Stack.Screen name="HomeStack" component={TabStackU}
+                options={{ headerShown: false }} />
+
+            <Stack.Screen name="Search" component={SearchScreen}
+                options={{ headerShown: false }} />
+
+            <Stack.Screen name="SlugCategory" component={CategorySlugScreen}
+                options={{ headerShown: true, headerStyle: { backgroundColor: "#3B37FF" }, headerTintColor: "#fff" }} />
+
+            <Stack.Screen name="SlugService" component={ServiceSlugScreen}
+                options={{ headerShown: true, headerStyle: { backgroundColor: "#3B37FF" }, headerTintColor: "#fff" }} />
+
+            <Stack.Screen name="SPProfile" component={ServicceProviderProfileScreen}
+                options={{ headerShown: true, headerStyle: { backgroundColor: "#3B37FF" }, headerTintColor: "#fff" }} />
+
+            <Stack.Screen name="AllDeals" component={AllDeals}
+                options={{ headerShown: false }} />
+
+            <Stack.Screen name="AllReccents" component={AllRecentServices}
+                options={{ headerShown: false }} />
         </Stack.Navigator>
     )
 }
