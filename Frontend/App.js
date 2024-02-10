@@ -12,6 +12,7 @@ import LocationState from './context/LocationState';
 import CategoryState from './context/CategoryState';
 import CallInApp from "./CallInApp";
 import CartState from './context/CartState';
+import { ApolloProvider, ApolloClient, InMemoryCache } from '@apollo/client';
 
 SplashScreen.preventAutoHideAsync();
 
@@ -31,6 +32,10 @@ export default function App() {
     prepare()
   }, [])
 
+  const client = new ApolloClient({
+    uri: 'http://192.168.29.78:4000/',
+    cache: new InMemoryCache(),
+  });
 
   if (!fontsLoaded) {
     return null;
@@ -41,17 +46,19 @@ export default function App() {
   return (
     <View style={styles.container}>
       <AuthState>
-        <LocationState>
-          <CategoryState>
-            <CartState>
-              <NavigationContainer>
-                {/* <SplashScreen /> */}
+        <ApolloProvider client={client}>
+          <LocationState>
+            <CategoryState>
+              <CartState>
+                <NavigationContainer>
+                  {/* <SplashScreen /> */}
 
-                <CallInApp />
-              </NavigationContainer>
-            </CartState>
-          </CategoryState>
-        </LocationState>
+                  <CallInApp />
+                </NavigationContainer>
+              </CartState>
+            </CategoryState>
+          </LocationState>
+        </ApolloProvider>
       </AuthState>
     </View>
   );

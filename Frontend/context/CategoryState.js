@@ -2,10 +2,7 @@ import { useState, useEffect } from "react";
 import CategoryContext from "./CategoryContext";
 import { API_HOST } from "@env";
 
-
 const CategoryState = (props) => {
-
-    // const categoryInitial = []
 
     const [category, setCategory] = useState([]);
     const [catServices, setCatServices] = useState([]);
@@ -27,26 +24,6 @@ const CategoryState = (props) => {
         }
         catch (err) {
             console.log("Get all Categories error : ", err.message);
-        }
-    }
-
-    const getAllServicesOfSpecificCategory = async (id) => {
-        try {
-            const response = await fetch(`${API_HOST}/api/serviceCategory/${id}`, {
-                method: "GET",
-                headers: {
-                    "Content-Type": "application/json",
-                }
-            });
-
-            const catSpecificServices = await response.json();
-
-            setCatServices(catSpecificServices);
-
-            // console.log("Cat Services", catServices);
-        }
-        catch (err) {
-            console.log("Get Services of a Specific Categories error : ", err.message);
         }
     }
 
@@ -72,7 +49,7 @@ const CategoryState = (props) => {
 
 
     return (
-        <CategoryContext.Provider value={{ category, catServices, getAllCategories, getAllServicesOfSpecificCategory, reviews, getSpecificServiceReviews }}>
+        <CategoryContext.Provider value={{ category, catServices, getAllCategories, reviews, getSpecificServiceReviews }}>
             {props.children}
         </CategoryContext.Provider>
     )

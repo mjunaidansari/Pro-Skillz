@@ -3,18 +3,48 @@ import React, { useContext, useEffect, useState } from 'react';
 import ServiceProviderCard from '../../components/ServiceProviderCard';
 import ServiceProviderData from '../../constants/ServiceProviderData';
 import CategoryContext from '../../context/CategoryContext';
+import { gql, useQuery } from '@apollo/client';
+import LocationContext from '../../context/LocationContext';
 
 const CategorySlugScreen = ({ route }) => {
 
     const { item } = route.params;
 
-    const { catServices, getAllServicesOfSpecificCategory } = useContext(CategoryContext);
+    const { longLat } = useContext(LocationContext);
 
-    // const [servicesCat, setServicesCat] = useState(null);
+    const GET_SERVICES = gql`
+    query GetServiceCards($serviceCategoryName: String!, $coordinates: [Float]!) {
+      getServiceCards(serviceCategoryName: $serviceCategoryName) {
+        id
+        provider
+        name
+        description
+        serviceCharge
+        rating
+        image {
+          data
+          contentType
+        }
+        providerName
+        location {
+          type
+          coordinates
+        }
+        distance(coordinates: $coordinates)
+      }
+    }`;
 
-    useEffect(() => {
-        getAllServicesOfSpecificCategory(item._id);
-    }, [])
+    console.log(longLat);
+
+    let serviceCategoryName = item.name;
+    let coordinates = longLat;
+
+    const { loading, error, data } = useQuery(GET_SERVICES, {
+        variables: { serviceCategoryName, coordinates }
+    })
+
+    if (loading) return <Text>Loading...</Text>;
+    if (error) return <Text>Error: {error.message}</Text>;
 
     return (
         <View style={styles.container} >
@@ -23,15 +53,14 @@ const CategorySlugScreen = ({ route }) => {
 
 
                 <Text style={styles.txt}>
-                    Recommended {catServices ? catServices.name : 'Loading'}'s For You
+                    Recommended {item.name}'s For You
                 </Text>
 
                 <View style={styles.cont}>
                     {
-                        // console.log(catServices.services)
-                        catServices && catServices.services
-                            ? catServices.services.map((serviceItem) => (
-                                <ServiceProviderCard item={serviceItem} key={serviceItem._id} />
+                        data ?
+                            data.getServiceCards.map((serviceItem) => (
+                                <ServiceProviderCard item={serviceItem} key={serviceItem.id} />
                             ))
                             : <Text>No services available</Text>
                     }

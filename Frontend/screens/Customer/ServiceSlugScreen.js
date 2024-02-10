@@ -8,10 +8,11 @@ import { useNavigation } from '@react-navigation/native';
 
 const ServiceSlugScreen = ({ route }) => {
 
-    const { item } = route.params;
+    const { item, address, distance } = route.params;
 
     const { reviews } = useContext(CategoryContext);
     // console.log("This is a particular service review: ", reviews);
+    // console.log("ITem: ", item);
 
     const navigation = useNavigation();
 
@@ -22,7 +23,7 @@ const ServiceSlugScreen = ({ route }) => {
     return (
         <View style={styles.container}>
             <ScrollView showsVerticalScrollIndicator={false}>
-                <Image source={require("../../assets/bruh.png")} alt='service img' style={{ height: 230, width: "100%" }} />
+                <Image style={{ height: 230, width: "100%" }} source={{ uri: `data:${item.image.contentType};base64,${item.image.data}` }} alt='service img' />
 
                 <View style={styles.infoCont}>
                     <View>
@@ -35,9 +36,13 @@ const ServiceSlugScreen = ({ route }) => {
                             <Ratings rating={item.rating} />
                         </View>
 
-                        <View style={[styles.margins, { flexDirection: "row" }]}>
-                            <Text style={{ fontWeight: "500" }}>Sahaji Raje Marg Vile Parle East</Text>
-                            <Text style={{ color: "#888888", fontWeight: "500" }}>  . 1.2km</Text>
+                        <View style={[styles.margins]}>
+                            <Text style={{ fontWeight: "500" }}>
+                                {address}
+                                <Text style={{ color: "#888888", fontWeight: "500" }}>  . {distance} km
+                                </Text>
+                            </Text>
+
                         </View>
 
                         <TouchableOpacity onPress={handleVisitProvider}>
@@ -51,7 +56,7 @@ const ServiceSlugScreen = ({ route }) => {
                                 About
                             </Text>
                             <Text style={{ fontSize: 15, }}>
-                                {item.description} Lorem ipsum dolor sit amet consectetur adipisicing elit. Assumenda aut vitae sint atque cumque veritatis impedit similique quaerat consectetur quisquam.
+                                {item.description}
                             </Text>
                         </View>
 
