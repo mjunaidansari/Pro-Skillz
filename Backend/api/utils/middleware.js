@@ -1,6 +1,7 @@
 const jwt = require('jsonwebtoken')
 
 const User = require('../../mongodb/model/user')
+const Admin = require('../../mongodb/model/admin')
 
 const { JWT_SECRET } = require('../../config/config')
 
@@ -40,11 +41,15 @@ const tokenExtractor = (req, res, next) => {
 	next()
 }
 
-// middleware for verifying token
+// middleware for verifying token and extracting user
 const userExtractor = async (req, res, next) => {
 	if (req.token) {
 		const decodedToken = jwt.verify(req.token, JWT_SECRET)
-		req.user = await User.findById(decodedToken.id)
+		console.log(decodedToken)
+		if(decodedToken.isAdmin)
+			req.admin = await Admin.findById(decodedToken.id)
+		else
+			req.user = await User.findById(decodedToken.id)
 	}
 	next()
 }

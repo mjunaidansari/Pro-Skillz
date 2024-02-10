@@ -11,6 +11,10 @@ reviewRouter.get('/', async (req, res) => {
 
 	const reviews = await Review
 							.find({})
+							.populate('reviewer', {
+								firstname: 1,
+								lastname: 1
+							})
 
 	// const user = req.user
 	// console.log(user.id)
@@ -68,6 +72,10 @@ reviewRouter.get('/service/:id', async (req, res) => {
 
 	const reviews = await Review
 							.find({ service: req.params.id })
+							.populate('reviewer', {
+								firstname: 1,
+								lastname: 1
+							})
 
 	if(reviews){
 		
