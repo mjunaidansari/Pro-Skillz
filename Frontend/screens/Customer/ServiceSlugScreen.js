@@ -69,10 +69,16 @@ const ServiceSlugScreen = ({ route }) => {
                         <Text style={styles.titles}>
                             Reviews
                         </Text>
-                        <ReviewCard item={reviews} />
+
+                        <View>
+                            {
+                                reviews.map((review) => {
+                                    return <ReviewCard item={review} key={review._id} />
+                                })
+                            }
+                        </View>
                     </View>
                 </View>
-
             </ScrollView>
         </View>
     )
@@ -83,7 +89,7 @@ export default ServiceSlugScreen
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: "#fff"
+        backgroundColor: "#fff",
     },
     infoCont: {
         padding: 16
