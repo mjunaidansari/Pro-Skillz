@@ -4,10 +4,13 @@ import ServiceProviderCard from '../../components/ServiceProviderCard';
 import ServiceProviderData from '../../constants/ServiceProviderData';
 import CategoryContext from '../../context/CategoryContext';
 import { gql, useQuery } from '@apollo/client';
+import LocationContext from '../../context/LocationContext';
 
 const CategorySlugScreen = ({ route }) => {
 
     const { item } = route.params;
+
+    const { longLat } = useContext(LocationContext);
 
     const GET_SERVICES = gql`
     query GetServiceCards($serviceCategoryName: String!, $coordinates: [Float]!) {
@@ -31,8 +34,10 @@ const CategorySlugScreen = ({ route }) => {
       }
     }`;
 
-    let serviceCategoryName = "Plumber";
-    let coordinates = [19.1203662, 72.8543215];
+    console.log(longLat);
+
+    let serviceCategoryName = item.name;
+    let coordinates = longLat;
 
     const { loading, error, data } = useQuery(GET_SERVICES, {
         variables: { serviceCategoryName, coordinates }

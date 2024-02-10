@@ -26,20 +26,20 @@ const ServiceProviderCard = ({ item }) => {
     //         .catch((err) => console.error('An error occurred', err));
     // }
 
-    const handleServiceSlug = () => {
-        getSpecificServiceReviews(item._id);
-        navigation.navigate("SlugService", { item })
-    }
 
     const distance = Math.round(item.distance * 100) / 100;
 
     useEffect(() => {
         (async () => {
-            let getAddress = await Location.reverseGeocodeAsync({ latitude: 19.1203998, longitude: 72.8543237 })
+            let getAddress = await Location.reverseGeocodeAsync({ latitude: item.location.coordinates[0], longitude: item.location.coordinates[1] })
             setAddress(getAddress[0].formattedAddress)
         })()
     }, [])
 
+    const handleServiceSlug = () => {
+        getSpecificServiceReviews(item.id);
+        navigation.navigate("SlugService", { item, address, distance })
+    }
 
     return (
         <TouchableOpacity onPress={handleServiceSlug} >
@@ -58,7 +58,7 @@ const ServiceProviderCard = ({ item }) => {
 
                     <View style={{ flexDirection: "row" }}>
                         <Text numberOfLines={1} style={{ fontSize: 12, fontWeight: "500", width: "80%" }}>{address}</Text>
-                        <Text style={{ fontWeight: "500", fontSize: 12, color: "#888888" }}>  .{distance}</Text>
+                        <Text style={{ fontWeight: "500", fontSize: 12, color: "#888888" }}>  .{distance} km</Text>
                     </View>
 
                     <Text numberOfLines={2} style={{ fontWeight: "500", fontSize: 12, color: "#888888" }}>
@@ -72,6 +72,9 @@ const ServiceProviderCard = ({ item }) => {
                             {item.phno}
                         </Text>
                     </TouchableOpacity> */}
+                    <Text style={{ fontSize: 15, fontWeight: "500" }}>
+                        ₹ {item.serviceCharge}
+                    </Text>
                 </View>
 
                 <View style={styles.imgBtn}>

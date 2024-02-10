@@ -32,7 +32,7 @@ const HomeScreen = () => {
 
       let locationC = await Location.getCurrentPositionAsync({});
 
-      setLongLat({ lat: locationC.coords.latitude, long: locationC.coords.longitude })
+      setLongLat([locationC.coords.latitude, locationC.coords.longitude])
 
       // console.log(locationC);
 

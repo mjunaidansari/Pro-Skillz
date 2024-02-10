@@ -4,18 +4,13 @@ import LocationContext from "./LocationContext";
 
 const LocationState = (props) => {
 
-    const initialLL = {
-        lat: "",
-        long: ""
-    }
-
     const [location, setLocation] = useState(null);
-    const [longLat, setLongLat] = useState(initialLL);
+    const [longLat, setLongLat] = useState([]);
 
     // console.log(longLat);
 
     return (
-        <LocationContext.Provider value={{ location, setLocation, setLongLat }}>
+        <LocationContext.Provider value={{ location, setLocation, setLongLat, longLat }}>
             {props.children}
         </LocationContext.Provider>
     )
