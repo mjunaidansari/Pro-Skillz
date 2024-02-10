@@ -1,0 +1,10 @@
+POST http://localhost:5000/api/bookedService
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwaG9uZSI6Iis5MTk2NTMzMTMwODIiLCJpZCI6IjY1N2RhN2M0MTYzN2RhODE5ZWRjMDllNCIsImlhdCI6MTcwNzIzMTY3OSwiZXhwIjoxNzM4NzY3Njc5fQ.GxT9KzKawAh4zeOMGY__4To9YycRsskxnqrU-Inl--Y
+Content-Type: application/json
+
+{
+	"services": ["6526ca714ffeb3daaae6839c", "6589acef5443b26d958d181f"],
+	"payment": "paymentIdWillBeAdded",
+	"deliveryDates": [ "2023-12-17", "2023-12-18", "2023-12-19" ],
+	"status": "Pending"
+}

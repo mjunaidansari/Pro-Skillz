@@ -18,6 +18,12 @@ const schema = mongoose.Schema({
 		type: Number,
 		required: true
 	},
+	rating: {
+		type: Number,
+		min: 1,
+		max: 5,
+		default: 0
+	},
 	image: {
 		data: Buffer,
 		contentType: String
