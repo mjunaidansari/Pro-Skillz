@@ -7,6 +7,7 @@ const CartState = (props) => {
 
     const [cart, setCart] = useState([]);
     const [cartService, setCartService] = useState([]);
+    const [cartTotalPrice, setCartTotalPrice] = useState(0);
 
 
     // const updateCartState = (val) => {
@@ -38,6 +39,58 @@ const CartState = (props) => {
     }
 
 
+    const addInCart = async (serviceId) => {
+
+        console.log(serviceId);
+
+        try {
+            const tokenG = await JSON.parse(await AsyncStorage.getItem("loggedUser"));
+
+            const response = await fetch(`${API_HOST}/api/carts`, {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${tokenG.token}`
+                },
+                body: JSON.stringify({ serviceId }),
+            });
+
+            const getRes = await response.json();
+
+            console.log(getRes);
+
+            setCart(getRes);
+        }
+        catch (err) {
+            console.log("Error to add a service inside a cart : ", err.message);
+        }
+    }
+
+    const removeFromCart = async (serviceId) => {
+        try {
+            const tokenG = await JSON.parse(await AsyncStorage.getItem("loggedUser"));
+
+            const response = await fetch(`${API_HOST}/api/carts`, {
+                method: "DELETE",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${tokenG.token}`
+                },
+                body: JSON.stringify({ serviceId })
+            });
+
+            const getRes = await response.json();
+
+            console.log(getRes);
+
+            setCart(getRes);
+        }
+        catch (err) {
+            console.log("Error to remove a service from a cart : ", err.message);
+        }
+    }
+
+
     // const getCartServiceInfo = async (service_id) => {
     //     try {
     //         const response = await fetch(`${API_HOST}/api/service/${service_id}`, {
@@ -59,7 +112,7 @@ const CartState = (props) => {
     // }
 
     return (
-        <CartContext.Provider value={{ cart, getAllServicesFromCart }}>
+        <CartContext.Provider value={{ cart, getAllServicesFromCart, cartTotalPrice, addInCart, removeFromCart }}>
             {props.children}
         </CartContext.Provider>
     )

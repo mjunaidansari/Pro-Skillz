@@ -5,13 +5,19 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import { useNavigation } from '@react-navigation/native';
 import CategoryContext from '../context/CategoryContext';
 import * as Location from 'expo-location';
+import CartContext from '../context/CartContext';
 
 const ServiceProviderCard = ({ item }) => {
 
     const navigation = useNavigation();
 
     const { getSpecificServiceReviews } = useContext(CategoryContext);
+
+    const { addInCart, removeFromCart } = useContext(CartContext);
+
     const [address, setAddress] = useState();
+
+    const [addOrRemove, setAddOrRemove] = useState(false);
 
     // const handleCall = () => {
     //     const phoneUrl = `tel:${item.phno}`;
@@ -25,6 +31,13 @@ const ServiceProviderCard = ({ item }) => {
     //         })
     //         .catch((err) => console.error('An error occurred', err));
     // }
+
+
+    const handlAddorRemoveFromCart = () => {
+        addOrRemove ? removeFromCart(item.id) : addInCart(item.id)
+
+        setAddOrRemove(!addOrRemove)
+    }
 
 
     const distance = Math.round(item.distance * 100) / 100;
@@ -79,9 +92,9 @@ const ServiceProviderCard = ({ item }) => {
 
                 <View style={styles.imgBtn}>
                     <Image style={styles.servImg} resizeMode='contain' source={{ uri: `data:${item.image.contentType};base64,${item.image.data}` }} alt='service img' />
-                    <TouchableOpacity style={styles.btn}>
+                    <TouchableOpacity style={styles.btn} onPress={handlAddorRemoveFromCart}>
                         <Text>
-                            ADD
+                            {addOrRemove ? `REMOVE` : `ADD`}
                         </Text>
                     </TouchableOpacity>
                 </View>

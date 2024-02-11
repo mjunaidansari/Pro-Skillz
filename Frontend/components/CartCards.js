@@ -2,6 +2,7 @@ import { Image, StyleSheet, Text, TouchableHighlight, TouchableOpacity, View } f
 import React, { useContext, useEffect } from 'react';
 import { Ionicons } from '@expo/vector-icons';
 import CartContext from '../context/CartContext';
+import { useNavigation } from '@react-navigation/native';
 
 const CartCards = ({ item }) => {
 
@@ -15,8 +16,14 @@ const CartCards = ({ item }) => {
     //     return <View></View>
     // }
 
+    const navigation = useNavigation();
+
+    const handleViewCartService = () => {
+        // navigation.navigate("SlugService")
+    }
+
     return (
-        <View style={styles.cardCont}>
+        <TouchableOpacity style={styles.cardCont} onPress={handleViewCartService}>
             <View style={{ flex: 1, }}>
                 <Image style={styles.cardImg} source={require("../assets/idli.png")} alt='service img' />
             </View>
@@ -26,8 +33,7 @@ const CartCards = ({ item }) => {
                         Juniad Services
                     </Text>
                     <Text style={styles.txt} numberOfLines={2}>
-                        Sahaji Raje Marg Vile Parle East
-                        Sahaji Raje
+                        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Sint enim, dolorem laboriosam consequuntur corporis nesciunt!
                     </Text>
                 </View>
 
@@ -40,7 +46,7 @@ const CartCards = ({ item }) => {
                     </TouchableOpacity>
                 </View>
             </View>
-        </View>
+        </TouchableOpacity>
     )
 }
 

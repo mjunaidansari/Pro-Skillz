@@ -42,6 +42,8 @@ cartRouter.put('/', async (req, res) => {
 	const user = req.user
 	const { serviceId } = req.body
 
+	console.log("This is service ID from be : ", serviceId);
+
 	if (!user)
 		return res
 			.status(401)

@@ -19,7 +19,7 @@ const CartScreen = () => {
 
     const navigation = useNavigation();
 
-    console.log("cart : ", cart.services);
+    // console.log("cart : ", cart.services);
 
     const handleNoItemcartBtn = () => {
         navigation.navigate("Home");
