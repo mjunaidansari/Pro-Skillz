@@ -37,6 +37,28 @@ cartRouter.delete('/:id', async (req, res) => {
 
 })
 
+cartRouter.post('/', async (req, res) => {
+
+	const user = req.user
+
+	if (!user)
+		return res
+			.status(401)
+			.json({
+				error: "Invalid User!"
+			})
+
+	const cart = new Cart({
+		user: user.id,
+		services: [],
+		totalPrice: 0
+	})
+
+	const savedCart = await cart.save()
+	res.json(savedCart)
+
+})
+
 cartRouter.put('/', async (req, res) => {
 
 	const user = req.user
@@ -66,7 +88,7 @@ cartRouter.put('/', async (req, res) => {
 	}
 
 	// adding service to the cart
-	cart.services.push(service)
+	cart.services.push(serviceId)
 	// incrementing total price of the cart
 	cart.totalPrice += service.serviceCharge
 	// updating time stamp

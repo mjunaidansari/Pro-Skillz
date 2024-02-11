@@ -1,2 +1,2 @@
-GET http://localhost:5000/api/carts
+POST  http://localhost:5000/api/carts
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwaG9uZSI6Iis5MTk2NTMzMTMwODIiLCJpZCI6IjY1N2RhN2M0MTYzN2RhODE5ZWRjMDllNCIsImlhdCI6MTcwNzY1NzIyNywiZXhwIjoxNzM5MTkzMjI3fQ.y_9Amt07GiOS999X_WRir-7IvHiq7fNn_974D6iHeXk
