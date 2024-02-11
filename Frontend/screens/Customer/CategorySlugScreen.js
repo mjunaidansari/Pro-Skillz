@@ -5,12 +5,23 @@ import ServiceProviderData from '../../constants/ServiceProviderData';
 import CategoryContext from '../../context/CategoryContext';
 import { gql, useQuery } from '@apollo/client';
 import LocationContext from '../../context/LocationContext';
+import Cart from '../../components/Cart';
+import CartContext from '../../context/CartContext';
+
 
 const CategorySlugScreen = ({ route }) => {
 
     const { item } = route.params;
 
     const { longLat } = useContext(LocationContext);
+
+
+    const { cart, getAllServicesFromCart } = useContext(CartContext);
+
+    useEffect(() => {
+        getAllServicesFromCart();
+    }, [])
+
 
     const GET_SERVICES = gql`
     query GetServiceCards($serviceCategoryName: String!, $coordinates: [Float]!) {
@@ -34,7 +45,7 @@ const CategorySlugScreen = ({ route }) => {
       }
     }`;
 
-    console.log(longLat);
+    // console.log(longLat);
 
     let serviceCategoryName = item.name;
     let coordinates = longLat;
@@ -48,7 +59,11 @@ const CategorySlugScreen = ({ route }) => {
 
     return (
         <View style={styles.container} >
-            <ScrollView showsVerticalScrollIndicator={false}>
+            <ScrollView showsVerticalScrollIndicator={false}
+                style={
+                    cart ?
+                        cart.totalPrice > 0 ? { marginBottom: 100 } : { marginBottom: 0 }
+                        : { marginBottom: 0 }}>
                 <Image style={styles.imgBanner} source={{ uri: `data:${item.image.contentType};base64,${item.image.data}` }} alt='category banner' />
 
 
@@ -60,12 +75,30 @@ const CategorySlugScreen = ({ route }) => {
                     {
                         data ?
                             data.getServiceCards.map((serviceItem) => (
-                                <ServiceProviderCard item={serviceItem} key={serviceItem.id} />
+                                cart.services && cart.services.length > 0 ?
+                                    cart.services.includes(serviceItem.id)
+                                        ?
+                                        <ServiceProviderCard item={serviceItem} key={serviceItem.id} inCart={true} /> :
+                                        <ServiceProviderCard item={serviceItem} key={serviceItem.id} inCart={false} /> :
+                                    <ServiceProviderCard item={serviceItem} key={serviceItem.id} inCart={false} />
+
                             ))
                             : <Text>No services available</Text>
                     }
                 </View>
             </ScrollView>
+
+
+            {
+
+                cart.totalPrice ? cart.totalPrice > 0 ?
+                    <View style={styles.cartBtm}>
+                        <Cart totalPrice={cart.totalPrice} />
+                    </View>
+                    :
+                    <></> :
+                    <></>
+            }
         </View>
     )
 }
@@ -76,6 +109,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: "#fff",
+        position: "relative"
     },
     imgBanner: {
         width: "100%",
@@ -92,5 +126,11 @@ const styles = StyleSheet.create({
     cont: {
         width: "100%",
         paddingHorizontal: 16
+    },
+    cartBtm: {
+        position: "absolute",
+        bottom: 0,
+        zIndex: 10,
+        width: "100%",
     }
 })

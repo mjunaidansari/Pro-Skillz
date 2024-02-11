@@ -5,26 +5,29 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import { useNavigation } from '@react-navigation/native';
 import CategoryContext from '../context/CategoryContext';
 import * as Location from 'expo-location';
+import CartContext from '../context/CartContext';
 
-const ServiceProviderCard = ({ item }) => {
+const ServiceProviderCard = ({ item, inCart }) => {
 
     const navigation = useNavigation();
 
     const { getSpecificServiceReviews } = useContext(CategoryContext);
+
+    const { addInCart, removeFromCart } = useContext(CartContext);
+
     const [address, setAddress] = useState();
 
-    // const handleCall = () => {
-    //     const phoneUrl = `tel:${item.phno}`;
-    //     Linking.canOpenURL(phoneUrl)
-    //         .then((supported) => {
-    //             if (!supported) {
-    //                 console.error(`Phone call is not available on this device`);
-    //             } else {
-    //                 return Linking.openURL(phoneUrl);
-    //             }
-    //         })
-    //         .catch((err) => console.error('An error occurred', err));
-    // }
+    const [addOrRemove, setAddOrRemove] = useState(inCart);
+
+
+    const handlAddorRemoveFromCart = () => {
+
+        console.log(addOrRemove);
+
+        addOrRemove ? removeFromCart(item.id) : addInCart(item.id)
+
+        setAddOrRemove(!addOrRemove)
+    }
 
 
     const distance = Math.round(item.distance * 100) / 100;
@@ -65,13 +68,6 @@ const ServiceProviderCard = ({ item }) => {
                         {item.description}
                     </Text>
 
-
-                    {/* <TouchableOpacity style={{ flexDirection: "row", alignItems: "center" }} onPress={handleCall}>
-                        <Ionicons name="call" size={17} color="#00ff00" style={{ fontSize: 15, marginRight: 5 }} />
-                        <Text>
-                            {item.phno}
-                        </Text>
-                    </TouchableOpacity> */}
                     <Text style={{ fontSize: 15, fontWeight: "500" }}>
                         ₹ {item.serviceCharge}
                     </Text>
@@ -79,9 +75,9 @@ const ServiceProviderCard = ({ item }) => {
 
                 <View style={styles.imgBtn}>
                     <Image style={styles.servImg} resizeMode='contain' source={{ uri: `data:${item.image.contentType};base64,${item.image.data}` }} alt='service img' />
-                    <TouchableOpacity style={styles.btn}>
+                    <TouchableOpacity style={styles.btn} onPress={handlAddorRemoveFromCart}>
                         <Text>
-                            ADD
+                            {addOrRemove ? `REMOVE` : `ADD`}
                         </Text>
                     </TouchableOpacity>
                 </View>

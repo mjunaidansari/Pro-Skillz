@@ -7,7 +7,7 @@ const DealsItem = ({ item }) => {
     const navigation = useNavigation();
 
     const handleCardClick = (item) => {
-        navigation.navigate("SlugService", { item });
+        // navigation.navigate("SlugService", { item });
     }
 
     return (
@@ -20,7 +20,7 @@ const DealsItem = ({ item }) => {
                         <Text numberOfLines={2}>{item.description}</Text>
                     </View>
                     <TouchableOpacity style={styles.btn}>
-                        <Text style={{ color: "white" }}>ADD</Text>
+                        <Text style={{ color: "white" }}>VIEW DETAILS</Text>
                     </TouchableOpacity>
                 </View>
             </View>

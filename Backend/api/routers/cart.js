@@ -64,6 +64,8 @@ cartRouter.put('/', async (req, res) => {
 	const user = req.user
 	const { serviceId } = req.body
 
+	console.log("This is service ID from be : ", serviceId);
+
 	if (!user)
 		return res
 			.status(401)
@@ -81,6 +83,8 @@ cartRouter.put('/', async (req, res) => {
 			})
 
 	const service = await Service.findById(serviceId)
+
+	// console.log("service id akjsdjkl asd: ", service._id);
 
 	// checking if the given service is already present in the cart
 	if (cart.services.includes(serviceId)) {
