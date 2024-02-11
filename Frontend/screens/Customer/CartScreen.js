@@ -25,7 +25,9 @@ const CartScreen = () => {
         navigation.navigate("Home");
     }
 
-    if (!cart && !cart.services) {
+    console.log("This is Cart Screen : ", cart);
+
+    if (!cart && !cart.services || cart.services.length == 0) {
         return (
             <View style={[styles.container, { alignItems: "center", justifyContent: "center" }]}>
                 <Ionicons name='cart-outline' size={50} color="#3B37FF" />
@@ -44,7 +46,7 @@ const CartScreen = () => {
             <View style={styles.container}>
                 <ScrollView showsVerticalScrollIndicator={false}>
                     <View>
-                        <CartCards />
+                        {/* <CartCards /> */}
 
                         {
                             cart.services.map((item) => {

@@ -65,7 +65,13 @@ const CategorySlugScreen = ({ route }) => {
                     {
                         data ?
                             data.getServiceCards.map((serviceItem) => (
-                                <ServiceProviderCard item={serviceItem} key={serviceItem.id} />
+                                cart.services && cart.services.length > 0 ?
+                                    cart.services.includes(serviceItem.id)
+                                        ?
+                                        <ServiceProviderCard item={serviceItem} key={serviceItem.id} inCart={true} /> :
+                                        <ServiceProviderCard item={serviceItem} key={serviceItem.id} inCart={false} /> :
+                                    <ServiceProviderCard item={serviceItem} key={serviceItem.id} inCart={false} />
+
                             ))
                             : <Text>No services available</Text>
                     }

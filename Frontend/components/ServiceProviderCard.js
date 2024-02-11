@@ -7,7 +7,7 @@ import CategoryContext from '../context/CategoryContext';
 import * as Location from 'expo-location';
 import CartContext from '../context/CartContext';
 
-const ServiceProviderCard = ({ item }) => {
+const ServiceProviderCard = ({ item, inCart }) => {
 
     const navigation = useNavigation();
 
@@ -17,7 +17,7 @@ const ServiceProviderCard = ({ item }) => {
 
     const [address, setAddress] = useState();
 
-    const [addOrRemove, setAddOrRemove] = useState(false);
+    const [addOrRemove, setAddOrRemove] = useState(inCart);
 
     // const handleCall = () => {
     //     const phoneUrl = `tel:${item.phno}`;
