@@ -5,12 +5,14 @@ import ReviewCard from '../../components/ReviewCard';
 import ButtonsPS from '../../components/ButtonsPS';
 import CategoryContext from '../../context/CategoryContext';
 import { useNavigation } from '@react-navigation/native';
+import CartContext from '../../context/CartContext';
 
 const ServiceSlugScreen = ({ route }) => {
 
     const { item, address, distance } = route.params;
 
     const { reviews } = useContext(CategoryContext);
+    const { addInCart, removeFromCart } = useContext(CartContext);
     // console.log("This is a particular service review: ", reviews);
     // console.log("ITem: ", item);
 
@@ -18,6 +20,16 @@ const ServiceSlugScreen = ({ route }) => {
 
     const handleVisitProvider = () => {
         navigation.navigate("SPProfile");
+    }
+
+    const handleRemoveService = () => {
+        removeFromCart(item.id);
+        navigation.goBack();
+    }
+
+    const handleAddService = () => {
+        addInCart(item.id);
+        navigation.goBack();
     }
 
     return (
@@ -35,6 +47,10 @@ const ServiceSlugScreen = ({ route }) => {
                             </Text>
                             <Ratings rating={item.rating} />
                         </View>
+
+                        <Text style={{ fontSize: 20, fontWeight: "bold" }}>
+                            ₹{item.serviceCharge}/-
+                        </Text>
 
                         <View style={[styles.margins]}>
                             <Text style={{ fontWeight: "500" }}>
@@ -59,14 +75,10 @@ const ServiceSlugScreen = ({ route }) => {
                                 {item.description}
                             </Text>
                         </View>
-
-                        <TouchableOpacity style={{ marginVertical: 20 }}>
-                            <ButtonsPS title={`Add Service   ₹${item.serviceCharge}`} />
-                        </TouchableOpacity>
                     </View>
 
                     <View style={styles.description}>
-                        <Text style={styles.titles}>
+                        <Text style={[styles.titles, { marginTop: 20 }]}>
                             Reviews
                         </Text>
 
@@ -103,6 +115,6 @@ const styles = StyleSheet.create({
     titles: {
         fontSize: 20,
         fontWeight: "500",
-        marginVertical: 5
+        marginVertical: 5,
     }
 })

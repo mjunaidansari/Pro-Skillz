@@ -62,13 +62,15 @@ cartRouter.put('/', async (req, res) => {
 
 	const service = await Service.findById(serviceId)
 
+	// console.log("service id akjsdjkl asd: ", service._id);
+
 	// checking if the given service is already present in the cart
 	if (cart.services.includes(serviceId)) {
 		return res.json(cart)
 	}
 
 	// adding service to the cart
-	cart.services.push(service)
+	cart.services.push(serviceId)
 	// incrementing total price of the cart
 	cart.totalPrice += service.serviceCharge
 	// updating time stamp

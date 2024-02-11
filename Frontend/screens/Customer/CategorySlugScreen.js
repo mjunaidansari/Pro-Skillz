@@ -15,7 +15,13 @@ const CategorySlugScreen = ({ route }) => {
 
     const { longLat } = useContext(LocationContext);
 
-    const { cart } = useContext(CartContext);
+
+    const { cart, getAllServicesFromCart } = useContext(CartContext);
+
+    useEffect(() => {
+        getAllServicesFromCart();
+    }, [])
+
 
     const GET_SERVICES = gql`
     query GetServiceCards($serviceCategoryName: String!, $coordinates: [Float]!) {
@@ -53,7 +59,11 @@ const CategorySlugScreen = ({ route }) => {
 
     return (
         <View style={styles.container} >
-            <ScrollView showsVerticalScrollIndicator={false} style={cart.totalPrice > 0 ? { marginBottom: 100 } : { marginBottom: 0 }}>
+            <ScrollView showsVerticalScrollIndicator={false}
+                style={
+                    cart ?
+                        cart.totalPrice > 0 ? { marginBottom: 100 } : { marginBottom: 0 }
+                        : { marginBottom: 0 }}>
                 <Image style={styles.imgBanner} source={{ uri: `data:${item.image.contentType};base64,${item.image.data}` }} alt='category banner' />
 
 
@@ -79,7 +89,6 @@ const CategorySlugScreen = ({ route }) => {
             </ScrollView>
 
 
-            {console.log(cart.totalPrice)}
             {
 
                 cart.totalPrice ? cart.totalPrice > 0 ?

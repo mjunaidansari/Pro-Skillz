@@ -19,21 +19,11 @@ const ServiceProviderCard = ({ item, inCart }) => {
 
     const [addOrRemove, setAddOrRemove] = useState(inCart);
 
-    // const handleCall = () => {
-    //     const phoneUrl = `tel:${item.phno}`;
-    //     Linking.canOpenURL(phoneUrl)
-    //         .then((supported) => {
-    //             if (!supported) {
-    //                 console.error(`Phone call is not available on this device`);
-    //             } else {
-    //                 return Linking.openURL(phoneUrl);
-    //             }
-    //         })
-    //         .catch((err) => console.error('An error occurred', err));
-    // }
-
 
     const handlAddorRemoveFromCart = () => {
+
+        console.log(addOrRemove);
+
         addOrRemove ? removeFromCart(item.id) : addInCart(item.id)
 
         setAddOrRemove(!addOrRemove)
@@ -78,13 +68,6 @@ const ServiceProviderCard = ({ item, inCart }) => {
                         {item.description}
                     </Text>
 
-
-                    {/* <TouchableOpacity style={{ flexDirection: "row", alignItems: "center" }} onPress={handleCall}>
-                        <Ionicons name="call" size={17} color="#00ff00" style={{ fontSize: 15, marginRight: 5 }} />
-                        <Text>
-                            {item.phno}
-                        </Text>
-                    </TouchableOpacity> */}
                     <Text style={{ fontSize: 15, fontWeight: "500" }}>
                         ₹ {item.serviceCharge}
                     </Text>

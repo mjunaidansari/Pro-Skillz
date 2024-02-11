@@ -1,13 +1,21 @@
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import React from 'react'
 import ButtonsPS from './ButtonsPS'
+import { useNavigation } from '@react-navigation/native'
 
 const Cart = ({ totalPrice }) => {
+
+    const navigation = useNavigation();
+
+    const handleGotoCart = () => {
+        navigation.navigate("Cart");
+    }
+
     return (
         <View style={styles.container}>
             <Text style={styles.txt}>₹{totalPrice}</Text>
 
-            <TouchableOpacity style={styles.cartBtn}>
+            <TouchableOpacity style={styles.cartBtn} onPress={handleGotoCart}>
                 <Text style={{ fontSize: 17, color: "#fff", fontWeight: "bold" }}>
                     View Cart
                 </Text>
