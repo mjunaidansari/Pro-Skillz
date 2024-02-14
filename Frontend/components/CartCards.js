@@ -47,7 +47,8 @@ const CartCards = ({ item }) => {
     return (
         <View style={styles.cardCont}>
             <View style={{ flex: 1, }}>
-                <Image style={styles.cardImg} source={require("../assets/idli.png")} alt='service img' />
+                {/* <Image style={styles.cardImg} source={require("../assets/idli.png")} alt='service img' /> */}
+                <Image style={styles.cardImg} source={{ uri: `data:${serviceCard.image.contentType};base64,${serviceCard.image.data}` }} alt='category banner' resizeMode='contain' />
             </View>
             <View style={{ flex: 2, marginLeft: 16, height: 120, justifyContent: "space-between" }}>
                 <View>

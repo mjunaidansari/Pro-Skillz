@@ -8,6 +8,8 @@ const CategoryState = (props) => {
     const [catServices, setCatServices] = useState([]);
     const [reviews, setReviews] = useState([]);
 
+    console.log(category);
+
     const getAllCategories = async () => {
 
         try {
@@ -19,6 +21,8 @@ const CategoryState = (props) => {
             });
 
             const allCategories = await response.json();
+
+            console.log("sl jadaslkdj sa", allCategories);
 
             setCategory(allCategories);
         }

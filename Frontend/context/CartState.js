@@ -7,6 +7,9 @@ const CartState = (props) => {
 
     const [cart, setCart] = useState({});
 
+    // console.log(API_HOST);
+    console.log("khadkawdk", cart);
+
     const getAllServicesFromCart = async () => {
         try {
 
@@ -21,6 +24,8 @@ const CartState = (props) => {
             });
 
             const allServices = await response.json();
+
+            console.log(allServices);
 
             setCart(allServices);
         }
