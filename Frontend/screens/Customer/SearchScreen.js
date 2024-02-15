@@ -1,37 +1,57 @@
-import { Image, StyleSheet, Text, View } from 'react-native';
-import React from 'react';
+import { Image, ScrollView, StyleSheet, Text, View } from 'react-native';
 import SearchBar from '../../components/SearchBar';
-import { MaterialIcons } from '@expo/vector-icons';
 import { Ionicons } from '@expo/vector-icons';
+import { useContext } from 'react';
+import SearchContext from '../../context/SearchContext';
 
 const SearchScreen = () => {
+
+    const { searchData } = useContext(SearchContext);
+
+    console.log(searchData);
+
     return (
         <View style={styles.container}>
             <SearchBar />
             <View>
-                <Text style={{ fontSize: 20, fontWeight: "bold", marginBottom: 10 }}>
-                    Recents
-                </Text>
-
-                {/* <View style={styles.history}>
-                    <MaterialIcons name="history" size={24} color="black" style={{ marginRight: 10 }} />
-                    <Text>Salon</Text>
-                </View> */}
-
-                <View style={styles.searchRes}>
-                    <Image source={require("../../assets/idli.png")} alt='service img' height={75} width={75} style={{ marginRight: 15 }} />
-                    <View>
-                        <Text style={{ fontSize: 20, fontWeight: 500 }}>
-                            Service Name
-                        </Text>
-                        <View style={{ flexDirection: "row", marginVertical: 5 }}>
-                            <Ionicons name="star" size={15} color="#3B37FF" />
-                            <Text>
-                                4.5
-                            </Text>
+                {
+                    searchData === null ?
+                        <View style={styles.history}>
+                            <Ionicons name="search" size={50} color="#3B37FF" />
+                            <Text style={{ fontSize: 20, fontWeight: 500 }}>No Service Found</Text>
                         </View>
-                    </View>
-                </View>
+
+                        :
+
+                        searchData.length === 0 ?
+                            <View style={styles.history}>
+                                <Ionicons name="search" size={50} color="#3B37FF" />
+                                <Text style={{ fontSize: 20, fontWeight: 500 }}>Search Services</Text>
+                            </View>
+
+                            :
+
+                            searchData.map((item, index) => {
+                                return (
+                                    <ScrollView showsVerticalScrollIndicator={false}>
+                                        <View style={styles.searchRes} key={index}>
+                                            <Image source={{ uri: `data:${item.icon.contentType};base64,${item.icon.data}` }} alt='service img' height={75} width={75} style={{ marginRight: 15 }} />
+                                            <View>
+                                                <Text style={{ fontSize: 20, fontWeight: 500 }}>
+                                                    {item.name}
+                                                </Text>
+                                                {/* <View style={{ flexDirection: "row", marginVertical: 5 }}>
+                                        <Ionicons name="star" size={15} color="#3B37FF" />
+                                        <Text>
+                                        {item.ra}
+                                        </Text>
+                                    </View> */}
+                                            </View>
+                                        </View>
+                                    </ScrollView>
+                                )
+                            })
+                }
             </View>
         </View>
     )
@@ -46,8 +66,10 @@ const styles = StyleSheet.create({
         padding: 16
     },
     history: {
-        flexDirection: "row",
-        marginVertical: 5
+        height: "100%",
+        alignItems: "center",
+        justifyContent: "center",
+        top: -50
     },
     searchRes: {
         flexDirection: "row",

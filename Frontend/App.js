@@ -13,6 +13,7 @@ import CategoryState from './context/CategoryState';
 import CallInApp from "./CallInApp";
 import CartState from './context/CartState';
 import { ApolloProvider, ApolloClient, InMemoryCache } from '@apollo/client';
+import SearchState from './context/SearchState';
 
 SplashScreen.preventAutoHideAsync();
 
@@ -49,13 +50,15 @@ export default function App() {
         <ApolloProvider client={client}>
           <LocationState>
             <CategoryState>
-              <CartState>
-                <NavigationContainer>
-                  {/* <SplashScreen /> */}
+              <SearchState>
+                <CartState>
+                  <NavigationContainer>
+                    {/* <SplashScreen /> */}
 
-                  <CallInApp />
-                </NavigationContainer>
-              </CartState>
+                    <CallInApp />
+                  </NavigationContainer>
+                </CartState>
+              </SearchState>
             </CategoryState>
           </LocationState>
         </ApolloProvider>
