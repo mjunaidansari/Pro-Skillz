@@ -1,14 +1,27 @@
-import { Image, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { Image, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import SearchBar from '../../components/SearchBar';
 import { Ionicons } from '@expo/vector-icons';
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 import SearchContext from '../../context/SearchContext';
+import { useNavigation } from '@react-navigation/native';
 
 const SearchScreen = () => {
 
-    const { searchData } = useContext(SearchContext);
+    const { searchData, updateSearchData } = useContext(SearchContext);
 
-    console.log(searchData);
+    const navigation = useNavigation();
+
+    // console.log(searchData);
+
+    const handleSearchCat = (item) => {
+        navigation.navigate("SlugCategory", { item })
+    }
+
+    useEffect(() => {
+        if (searchData.length > 0) {
+            updateSearchData([])
+        }
+    }, [])
 
     return (
         <View style={styles.container}>
@@ -34,20 +47,14 @@ const SearchScreen = () => {
                             searchData.map((item, index) => {
                                 return (
                                     <ScrollView showsVerticalScrollIndicator={false}>
-                                        <View style={styles.searchRes} key={index}>
+                                        <TouchableOpacity style={styles.searchRes} key={index} onPress={() => handleSearchCat(item)}>
                                             <Image source={{ uri: `data:${item.icon.contentType};base64,${item.icon.data}` }} alt='service img' height={75} width={75} style={{ marginRight: 15 }} />
                                             <View>
                                                 <Text style={{ fontSize: 20, fontWeight: 500 }}>
                                                     {item.name}
                                                 </Text>
-                                                {/* <View style={{ flexDirection: "row", marginVertical: 5 }}>
-                                        <Ionicons name="star" size={15} color="#3B37FF" />
-                                        <Text>
-                                        {item.ra}
-                                        </Text>
-                                    </View> */}
                                             </View>
-                                        </View>
+                                        </TouchableOpacity>
                                     </ScrollView>
                                 )
                             })
