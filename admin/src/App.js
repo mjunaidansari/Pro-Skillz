@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Route, Routes, Link, Navigate } from 'react-router-dom'; 
 
-import LoginForm from './components/LoginForm';
+import LoginPage from './pages/LoginPage';
 
 
 const App = () => {
@@ -43,7 +43,7 @@ const App = () => {
 	<>
 		<Router>
 			<Routes>
-				<Route path="/login" element={<LoginForm setAdmin = {setAdmin}/>}/>
+				<Route path="/login" element={<LoginPage setAdmin = {setAdmin}/>}/>
 				<Route path="/main" element={<LoggedIn/>}/>
 			</Routes>
 			<Navigate exact from="/" to={admin ? "/main" : "/login"} />
