@@ -8,6 +8,7 @@ const LoginPage = (props) => {
 
 	const [username, setUsername] = useState('')
 	const [password, setPassword] = useState('')
+	const [loginError, setLoginError] = useState('')
 
 	const navigate = useNavigate()
 
@@ -29,7 +30,9 @@ const LoginPage = (props) => {
 			setAdmin(admin.token)
 			setUsername('')
 			setPassword('')
+			setLoginError('')
 		} catch(exception) {
+			setLoginError('Invalid Username or Password')
 			console.log(exception)
 		}
 
@@ -42,6 +45,8 @@ const LoginPage = (props) => {
 			setUsername={setUsername}
 			password={password}
 			setPassword={setPassword}
+			loginError={loginError}
+			setLoginError={setLoginError}
 		/>
 	)
 
