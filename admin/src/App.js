@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Route, Routes, Link, Navigate } from 'react-router-dom'; 
 
 import LoginPage from './pages/LoginPage';
+import MainPage from './pages/MainPage';
 
 
 const App = () => {
@@ -29,26 +30,25 @@ const App = () => {
 	/** COMPONENTS */
 
 	// sample comp
-	const LoggedIn = () => {
-		return (
-			<>
-				{admin}
-				<button onClick={handleLogout}>Logout</button>
-			</>
-		)
-	}
+	// const LoggedIn = () => {
+	// 	return (
+	// 		<>
+	// 			{admin}
+	// 			<button onClick={handleLogout}>Logout</button>
+	// 		</>
+	// 	)
+	// }
 
 	return (
-	
-	<>
-		<Router>
-			<Routes>
-				<Route path="/login" element={<LoginPage setAdmin = {setAdmin}/>}/>
-				<Route path="/main" element={<LoggedIn/>}/>
-			</Routes>
-			<Navigate exact from="/" to={admin ? "/main" : "/login"} />
-		</Router>
-	</>
+	<Router>
+	{/* <Navigate exact from="/" to={admin ? "/main" : "/login"} /> */}
+	<Navigate exact from="/" to="/main" />
+		<Routes>
+			<Route path="/login" element={<LoginPage setAdmin = {setAdmin}/>}/>
+			{/* <Route path="/main" element={<LoggedIn/>}/> */}
+			<Route path="/main" element={<MainPage/>}/>
+		</Routes>
+	</Router>
 		
 	)
 
