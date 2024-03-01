@@ -8,7 +8,7 @@ import { SidebarContext } from "./Sidebar";
 
 const Logout = ({name}) => {
 
-	const [hidden, setHidden] = useState(false);
+	const [hidden, setHidden] = useState(true);
 
 	const toggleVisibility = () => setHidden(!hidden)
 

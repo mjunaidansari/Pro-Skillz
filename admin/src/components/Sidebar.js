@@ -1,4 +1,4 @@
-import { createContext, useState } from "react"
+import { createContext, useEffect, useState } from "react"
 
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import Logout from "./Logout";
@@ -13,9 +13,25 @@ const Sidebar = ( {children} ) => {
 		setExpanded(!expanded)
 	}
 
+	// checking the width of screen to hide the sidebar
+	const checkViewportWidth = () => {
+
+		const viewportWidth = window.innerWidth || document.documentElement.clientWidth
+		const min = 600;
+
+		if(viewportWidth < min) {
+			setExpanded(false)
+		}
+
+	}
+
+	useEffect(() => {
+		checkViewportWidth()
+	}, [])
+
 	return (
 
-		<aside className={`h-screen bg-gradient-to-tr from-indigo-500 to-indigo-700 ${expanded?"w-56":"w-16"}`}>
+		<aside className={`h-dvh bg-gradient-to-tr from-indigo-500 to-indigo-700 ${expanded?"w-56":"w-16"}`}>
 			<nav className="h-full flex flex-col border-r shadow-sm">
 				
 				{/* logo and button */}

@@ -13,7 +13,6 @@ const SidebarItem = ({icon, text, active}) => {
 			font-medium text-white rounded-md cursor-pointer
 			transition-colors
 			${active
-				// ? "bg-gradient-to-tr from-indigo-800 to-indigo-900"
 				? "bg-indigo-800"
 				: "hover:bg-indigo-800"
 			}
