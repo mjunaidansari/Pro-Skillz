@@ -50,7 +50,7 @@ const Sidebar = ( {children} ) => {
 
 				<SidebarContext.Provider value={{expanded}}>
 					{/* nav links */}
-					<ul className="flex-1 px-3 overflow-y-auto">{children}</ul>
+					<div className="flex-1 px-3 overflow-y-auto text-gray-300">{children}</div>
 					{/* admin and logout */}
 					<Logout name={"Junaid Ansari"}/>
 				</SidebarContext.Provider>

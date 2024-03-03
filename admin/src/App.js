@@ -3,13 +3,14 @@ import { BrowserRouter as Router, Route, Routes, Link, Navigate } from 'react-ro
 
 import LoginPage from './pages/LoginPage';
 import MainPage from './pages/MainPage';
+import UsersPage from './pages/UsersPage';
 
 
 const App = () => {
 
 	/** HOOKS */
 
-	const [admin, setAdmin] = useState(null)
+	const [admin, setAdmin] = useState({name: "junaid"})
 
 	// hook to see if admin is already logged in
 	useEffect(() => {
@@ -46,7 +47,13 @@ const App = () => {
 		<Routes>
 			<Route path="/login" element={<LoginPage setAdmin = {setAdmin}/>}/>
 			{/* <Route path="/main" element={<LoggedIn/>}/> */}
-			<Route path="/main" element={<MainPage/>}/>
+			<Route path="/main/*" element={<MainPage/>}>
+				<Route path='/dashboard' element={<UsersPage/>}/>
+				<Route path='/users' element={<UsersPage/>}/>
+				<Route path='/providers' element={<UsersPage/>}/>
+				<Route path='/settings' element={<UsersPage/>}/>
+			</Route>
+			<Route path="/users" element={<LoginPage/>}/>
 		</Routes>
 	</Router>
 		
