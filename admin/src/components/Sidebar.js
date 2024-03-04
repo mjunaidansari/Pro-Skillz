@@ -32,7 +32,7 @@ const Sidebar = ( {children} ) => {
 	return (
 
 		<aside className={`h-dvh bg-gradient-to-tr from-indigo-500 to-indigo-700 ${expanded?"w-56":"w-16"}`}>
-			<nav className="h-full flex flex-col border-r shadow-sm">
+			<nav className="h-full w-full flex flex-col border-r shadow-sm">
 				
 				{/* logo and button */}
 				<div className="p-4 pb-2 flex justify-between items-center">

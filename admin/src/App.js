@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
-import { BrowserRouter as Router, Route, Routes, Link, Navigate } from 'react-router-dom'; 
+import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom'; 
 
 import LoginPage from './pages/LoginPage';
 import MainPage from './pages/MainPage';
-import UsersPage from './pages/UsersPage';
+import SamplePage from './pages/SamplePage'
 
 
 const App = () => {
@@ -11,6 +11,7 @@ const App = () => {
 	/** HOOKS */
 
 	const [admin, setAdmin] = useState({name: "junaid"})
+	// const [admin, setAdmin] = useState(null)
 
 	// hook to see if admin is already logged in
 	useEffect(() => {
@@ -41,19 +42,21 @@ const App = () => {
 	// }
 
 	return (
-	<Router>
-	{/* <Navigate exact from="/" to={admin ? "/main" : "/login"} /> */}
-	<Navigate exact from="/" to="/main" />
+	<Router forcerefresh={true}>
+	{/* <Navigate from="/" to={admin ? "/main" : "/login"} /> */}
+		{/* <Navigate exact from="/" to="/main" /> */}
 		<Routes>
-			<Route path="/login" element={<LoginPage setAdmin = {setAdmin}/>}/>
-			{/* <Route path="/main" element={<LoggedIn/>}/> */}
-			<Route path="/main/*" element={<MainPage/>}>
-				<Route path='/dashboard' element={<UsersPage/>}/>
-				<Route path='/users' element={<UsersPage/>}/>
-				<Route path='/providers' element={<UsersPage/>}/>
-				<Route path='/settings' element={<UsersPage/>}/>
-			</Route>
-			<Route path="/users" element={<LoginPage/>}/>
+			{admin === null ? (
+				<Route path="*" element={<LoginPage setAdmin={setAdmin} />} />
+			) : (
+				// If admin is logged in, navigate to MainPage
+				<>
+					{/* Redirect from root to /main */}
+					<Route path="/" element={<Navigate to="/main" />} />
+					<Route path="/main/*" element={<MainPage />} />
+				</>
+			)}
+			<Route path="*" element={<p>No Path Found</p>}/>
 		</Routes>
 	</Router>
 		

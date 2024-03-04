@@ -9,6 +9,7 @@ const SidebarItem = ({icon, text, path, active}) => {
 
 	return (
 		<>
+		{/* <Link to='/main/providers' className={` */}
 		<Link to={`/main/${path}`} className={`
 			relative flex items-center py-2 px-3 my-1
 			font-medium rounded-md cursor-pointer
