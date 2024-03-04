@@ -1,13 +1,13 @@
-const UsersPage = ({title}) => {
+const SamplePage = ({title}) => {
 
 	console.log('Sample page works for ', title)
 
 	return (
-		<div className="bg-red-700 w-full h-full">
+		<div className="flex w-full h-full items-center justify-center text-4xl font-bold">
 			{title}
 		</div>
 	)
 
 }
 
-export default UsersPage
+export default SamplePage

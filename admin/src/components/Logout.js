@@ -1,4 +1,6 @@
 import { useState, useContext, useEffect, useRef } from "react";
+import { Link } from "react-router-dom";
+
 import { FaUser } from "react-icons/fa";
 
 import LogoutDropdown from "./LogoutDropdown";
@@ -31,7 +33,10 @@ const Logout = ({name}) => {
 	  }, []);
 
 	return (
-		<div className={`${expanded?"block text-gray-300":"hidden"}`} ref={dropdownRef}>
+		<div 
+			className={`${expanded?"block text-gray-300":"hidden"}`} 
+			ref={dropdownRef}
+		>
 			<LogoutDropdown hidden={hidden}/>
 			<div 
 				className={`

@@ -42,24 +42,22 @@ const App = () => {
 	// }
 
 	return (
-	<Router forcerefresh={true}>
-	{/* <Navigate from="/" to={admin ? "/main" : "/login"} /> */}
-		{/* <Navigate exact from="/" to="/main" /> */}
-		<Routes>
-			{admin === null ? (
-				<Route path="*" element={<LoginPage setAdmin={setAdmin} />} />
-			) : (
-				// If admin is logged in, navigate to MainPage
-				<>
-					{/* Redirect from root to /main */}
-					<Route path="/" element={<Navigate to="/main" />} />
-					<Route path="/main/*" element={<MainPage />} />
-				</>
-			)}
-			<Route path="*" element={<p>No Path Found</p>}/>
-		</Routes>
-	</Router>
-		
+		<Router>
+			<Routes>
+				{admin === null ? (
+					<Route path="*" element={<LoginPage setAdmin={setAdmin} />} />
+				) : (
+					// If admin is logged in, navigate to MainPage
+					<>
+						{/* Redirect from root to /main */}
+						<Route path="/" element={<Navigate to="/main" />} />
+						<Route path="/main/*" element={<MainPage />}/>
+						<Route path="/profile" element={<SamplePage title={"Admin Profile"}/>}/>
+					</>
+				)}
+				<Route path="*" element={<p>No Path Found</p>}/>
+			</Routes>
+		</Router>	
 	)
 
 }
