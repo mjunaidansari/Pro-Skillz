@@ -1,13 +1,12 @@
 import { useContext, useState } from "react"
-import { Link } from "react-router-dom";
-
-import { IoSettings } from "react-icons/io5";
+import { Link, useLocation } from "react-router-dom";
 
 import { SidebarContext } from "./Sidebar";
 
 const SidebarItem = ({icon, text, path}) => {
 
-	const [active, setActive] = useState(true)
+	const location = useLocation()
+	const isActive = location.pathname === `/main/${path}`
 
 	const { expanded } = useContext(SidebarContext)
 
@@ -15,11 +14,10 @@ const SidebarItem = ({icon, text, path}) => {
 		<>
 		<Link
 			to={`/main/${path}`} 
-			onClick={() => setActive(!active)}
 			className={`
 				relative flex items-center py-2 px-3 my-1
 				font-medium rounded-md cursor-pointer
-				${active
+				${isActive
 					? "bg-indigo-800 text-white"
 					: "hover:text-white hover:bg-indigo-800 "
 				}

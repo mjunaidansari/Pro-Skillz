@@ -8,6 +8,7 @@ import { FaUsers, FaUserAstronaut } from "react-icons/fa";
 import Sidebar from "../components/Sidebar"
 import SidebarItem from "../components/SidebarItem"
 import SamplePage from './SamplePage';
+import Dashboard from './Dashboard';
 
 const MainPage = () => {
 
@@ -27,7 +28,7 @@ const MainPage = () => {
 			</Sidebar>
 			<div className='w-full'>
 				<Routes>
-					<Route path="/dashboard" element={<SamplePage title={"Dashboard"}/>}/>
+					<Route path="/dashboard" element={<Dashboard/>}/>
 					<Route path="/users" element={<SamplePage title={"Users"}/>}/>
 					<Route path="/providers" element={<SamplePage title={"Providers"}/>}/>
 					<Route index path="/settings" element={<SamplePage title={"Settings"}/>}/>
