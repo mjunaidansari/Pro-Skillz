@@ -1,35 +1,26 @@
+import { useQuery } from "@apollo/client"
+
+import { ENTITY_COUNT } from "../services/gql/queries"
 
 import CountCard from "../components/CountCard"
+import Loading from "../components/Loading"
 
 const Dashboard = () => {
 
-	const entityCounts = [
-		{
-			name: "Users",
-			count: 10,
-		},
-		{
-			name: "Providers",
-			count: 10,
-		},
-		{
-			name: "Categories",
-			count: 10,
-		},
-		{
-			name: "Services",
-			count: 10,
-		},
-
-		
-	]
+	const {loading, error, data} = useQuery(ENTITY_COUNT)
+	if(!loading){
+		console.log(data.getEntityCount)
+	}
 
 	return (
-		<div className="bg-gray-200">
-			<div className="flex justify-between my-5 mx-16">
-				{entityCounts.map(entity => (
-					<CountCard name={entity.name} count={entity.count}/>
-				))}
+		<div className="bg-gray-200 h-full">
+			<div className="h-dvh flex justify-between gap-5 py-5 mx-16 max-sm:flex-col max-sm:mx-5 overflow-y-auto">
+				{loading?(
+					<Loading/>
+				):(data.getEntityCount.map(entity => (
+						<CountCard name={entity.name} count={entity.count}/>
+					))
+				)}
 			</div>
 		</div>
 	)

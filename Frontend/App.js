@@ -33,7 +33,8 @@ export default function App() {
   }, [])
 
   const client = new ApolloClient({
-    uri: 'http://192.168.29.78:4000/',
+    // uri: 'http://192.168.29.78:4000/',
+    uri: 'http://192.168.1.116:4000/',
     cache: new InMemoryCache(),
   });
 

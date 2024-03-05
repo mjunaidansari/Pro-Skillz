@@ -1,14 +1,16 @@
+import { Link } from "react-router-dom"
 const CountCard = ({name, count}) => {
 
 	return (
-		<div class="bg-white rounded-md border border-gray-100 px-16 py-5 shadow-lg shadow-black/5">
-			<div class="flex justify-between mb-6">
+		<div className="bg-white rounded-md border border-gray-100 w-1/5 max-sm:w-full pl-5 py-5 shadow-lg shadow-black/5 h-fit">
+			<div className="flex justify-between mb-6">
 				<div>
-					<div class="text-2xl font-semibold mb-1">{count}</div>
-					<div class="text-sm font-medium text-gray-400">{name}</div>
+					<div className="text-2xl font-semibold mb-1">{count}</div>
+					<div className="text-sm font-medium text-gray-400">{name}</div>
 				</div>
 			</div>
-			<a href="" class="text-[#f84525] font-medium text-sm hover:text-red-800">View</a>
+			<Link to={`/main/${name.toLowerCase()}`} className="text-[#f84525] font-medium text-sm hover:text-red-800">View</Link>
+			{/* <Link to={`/main/${name.toLowerCase()}`} className="text-indigo-800 font-medium text-sm hover:text-indigo-950">View</Link> */}
 		</div>
 	)
 

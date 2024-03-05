@@ -1,14 +1,16 @@
 import { useEffect } from 'react';
 import { Route, Routes, useNavigate} from 'react-router-dom';
 
-import { MdDashboard } from "react-icons/md";
+import { MdDashboard, MdHomeRepairService } from "react-icons/md";
 import { IoIosSettings } from "react-icons/io";
 import { FaUsers, FaUserAstronaut } from "react-icons/fa";
+import { BiSolidCategoryAlt } from "react-icons/bi";
 
 import Sidebar from "../components/Sidebar"
 import SidebarItem from "../components/SidebarItem"
 import SamplePage from './SamplePage';
 import Dashboard from './Dashboard';
+import UsersPage from './UsersPage';
 
 const MainPage = () => {
 
@@ -19,19 +21,24 @@ const MainPage = () => {
 	}, [])
 
 	return (
-		<div className='flex w-full h-full'>
+		<div className='flex'>
 			<Sidebar>
-				<SidebarItem icon={<MdDashboard/>} text="Dashboard" path="dashboard" active={true}/>
-				<SidebarItem icon={<FaUsers/>} text="Users" path="users" active={false}/>
-				<SidebarItem icon={<FaUserAstronaut/>} text="Providers" path="providers" active={false}/>
-				<SidebarItem icon={<IoIosSettings/>} text="Settings" path="settings" active={false}/>
+				<SidebarItem icon={<MdDashboard/>} text="Dashboard" path="dashboard"/>
+				<SidebarItem icon={<FaUsers/>} text="Users" path="users"/>
+				<SidebarItem icon={<FaUserAstronaut/>} text="Providers" path="providers"/>
+				<SidebarItem icon={<BiSolidCategoryAlt/>} text="Categories" path="categories"/>
+				<SidebarItem icon={<MdHomeRepairService/>} text="Services" path="services"/>
+				<SidebarItem icon={<IoIosSettings/>} text="Settings" path="settings" />
 			</Sidebar>
 			<div className='w-full'>
+			{/* <div> */}
 				<Routes>
 					<Route path="/dashboard" element={<Dashboard/>}/>
-					<Route path="/users" element={<SamplePage title={"Users"}/>}/>
+					<Route path="/users" element={<UsersPage/>}/>
 					<Route path="/providers" element={<SamplePage title={"Providers"}/>}/>
-					<Route index path="/settings" element={<SamplePage title={"Settings"}/>}/>
+					<Route path="/categories" element={<SamplePage title={"Categories"}/>}/>
+					<Route path="/services" element={<SamplePage title={"Services	"}/>}/>
+					<Route path="/settings" element={<SamplePage title={"Settings"}/>}/>
 				</Routes>
 			</div>
 		</div>
