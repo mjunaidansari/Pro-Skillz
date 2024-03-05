@@ -9,7 +9,7 @@ userRouter.get('/', async (req, res) => {
 	// if (user)
 	// 	return res.status(200).json(user)
 
-	const users = await User.find({})
+	const users = await User.find({ role: "user"})
 	res.status(200).json(users)
 })
 
