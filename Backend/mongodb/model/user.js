@@ -36,6 +36,10 @@ const schema = mongoose.Schema({
 	updatedAt: {
 		type: Date,
 		default: Date.now
+	},
+	profilePicture: {
+		data: Buffer,
+		contentType: String,
 	}
 
 })
@@ -45,7 +49,7 @@ schema.set('toJSON', {
 	transform: (document, returnedObject) => {
 		returnedObject.id = returnedObject._id.toString()
 		delete returnedObject._id
-		delete returnedObject.__v	
+		delete returnedObject.__v
 	}
 
 })

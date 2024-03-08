@@ -1,0 +1,7 @@
+POST http://localhost:5000/api/login/serviceProvider/alternate
+Content-Type: application/json
+
+{
+	"firstname": "Provider5",
+	"password": "provider5"
+}
