@@ -8,9 +8,10 @@ import { BiSolidCategoryAlt } from "react-icons/bi";
 
 import Sidebar from "../components/Sidebar"
 import SidebarItem from "../components/SidebarItem"
-import SamplePage from './SamplePage';
-import Dashboard from './Dashboard';
-import UsersPage from './UsersPage';
+import SamplePage from './SamplePage'
+import Dashboard from './Dashboard'
+import UsersPage from './UsersPage'
+import UserProfile from './UserProfile'
 
 const MainPage = () => {
 
@@ -35,6 +36,7 @@ const MainPage = () => {
 				<Routes>
 					<Route path="/dashboard" element={<Dashboard/>}/>
 					<Route path="/users" element={<UsersPage/>}/>
+					<Route path="/users/:id" element={<UserProfile/>}/>
 					<Route path="/providers" element={<SamplePage title={"Providers"}/>}/>
 					<Route path="/categories" element={<SamplePage title={"Categories"}/>}/>
 					<Route path="/services" element={<SamplePage title={"Services	"}/>}/>

@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import userServices from "../services/user"
+import { Link } from "react-router-dom";
 
 import { FaSort } from "react-icons/fa";
 
@@ -18,7 +19,7 @@ const TableHead = ({name, sort, imp}) => {
 
 }
 
-const TableRow = ({firstname, lastname, phone, createdAt, updatedAt}) => {
+const TableRow = ({id, firstname, lastname, phone, createdAt, updatedAt}) => {
 
 	return (
 		<tr className="bg-white border-b text-gray-600 max-sm:text-xs hover:bg-indigo-50">
@@ -40,7 +41,7 @@ const TableRow = ({firstname, lastname, phone, createdAt, updatedAt}) => {
 				{updatedAt}
 			</td>
 			<td className="px-6 py-4 text-right">
-				<a href="#" className="font-medium text-blue-600 dark:text-blue-500 hover:underline">View Profile</a>
+				<Link to={`/main/users/${id}`} className="font-medium text-blue-600 dark:text-blue-500 hover:underline">View Profile</Link>
 			</td>
 		</tr>
 	)	
@@ -69,7 +70,8 @@ const UsersTable = ({ users }) => {
 					<TableRow firstname="Junaid" lastname="Ansari" phone="1234567890" createdAt="01-01-2001" updatedAt="01-01-2001" />  */}
 
 					{users.map(user => (
-						<TableRow 
+						<TableRow
+							id={user.id}
 							firstname={user.firstname}
 							lastname={user.lastname}
 							phone={user.phone}
