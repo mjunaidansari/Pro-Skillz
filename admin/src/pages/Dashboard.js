@@ -13,12 +13,12 @@ const Dashboard = () => {
 	}
 
 	return (
-		<div className="bg-gray-200 h-full">
+		<div className="h-full">
 			<div className="h-dvh flex justify-between gap-5 py-5 mx-16 max-sm:flex-col max-sm:mx-5 overflow-y-auto">
 				{loading?(
 					<Loading/>
 				):(data.getEntityCount.map(entity => (
-						<CountCard name={entity.name} count={entity.count}/>
+						<CountCard key={entity.name} name={entity.name} count={entity.count}/>
 					))
 				)}
 			</div>

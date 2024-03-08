@@ -19,13 +19,25 @@ const TableHead = ({name, sort, imp}) => {
 
 }
 
-const TableRow = ({id, firstname, lastname, phone, createdAt, updatedAt}) => {
+const TableRow = ({id, profilePicture, firstname, lastname, phone, createdAt, updatedAt}) => {
 
 	return (
 		<tr className="bg-white border-b text-gray-600 max-sm:text-xs hover:bg-indigo-50">
 			<th scope="row" className="px-6 py-4 max-sm:pl-3 font-medium text-gray-900 whitespace-nowrap">
 				<div className="flex items-center">
-					<img class="w-10 h-10 max-sm:w-7 max-sm:h-7 rounded-full" src="https://docs.material-tailwind.com/img/face-1.jpg" alt="Rounded avatar"></img>
+					{profilePicture?(
+						<img 
+							className="w-10 h-10 max-sm:w-7 max-sm:h-7 rounded-full" 
+							src={`data:${profilePicture.contentType};base64,${profilePicture.data}`} 
+							alt="Rounded avatar"
+						/>
+					):(
+						<img 
+							className="w-10 h-10 max-sm:w-7 max-sm:h-7 rounded-full" 
+							src="https://docs.material-tailwind.com/img/face-1.jpg" 
+							alt="Rounded avatar"
+						/>
+					)}
 					<label className="ml-6 max-sm:ml-2">
 						{firstname + " " + lastname}
 					</label>
@@ -50,6 +62,12 @@ const TableRow = ({id, firstname, lastname, phone, createdAt, updatedAt}) => {
 
 const UsersTable = ({ users }) => {
 
+	const dateOptions = { 
+		year: 'numeric', 
+		month: 'long', 
+		day: 'numeric' 
+	  };
+
 	return (
 
 		<div className="relative overflow-x-auto shadow-lg shadow-black/5 rounded-lg">
@@ -64,19 +82,16 @@ const UsersTable = ({ users }) => {
 					</tr>
 				</thead>
 				<tbody>
-					{/* <TableRow firstname="Junaid" lastname="Ansari" phone="1234567890" createdAt="01-01-2001" updatedAt="01-01-2001" /> 
-					<TableRow firstname="Junaid" lastname="Ansari" phone="1234567890" createdAt="01-01-2001" updatedAt="01-01-2001" /> 
-					<TableRow firstname="Junaid" lastname="Ansari" phone="1234567890" createdAt="01-01-2001" updatedAt="01-01-2001" /> 
-					<TableRow firstname="Junaid" lastname="Ansari" phone="1234567890" createdAt="01-01-2001" updatedAt="01-01-2001" />  */}
-
 					{users.map(user => (
 						<TableRow
-							id={user.id}
+							key={user._id}
+							id={user._id}
+							profilePicture={user.profilePicture}
 							firstname={user.firstname}
 							lastname={user.lastname}
 							phone={user.phone}
-							createdAt={user.createdAt}
-							updatedAt={user.updatedAt}
+							createdAt={new Date(user.createdAt).toLocaleDateString('en-US', dateOptions)}
+							updatedAt={new Date(user.updatedAt).toLocaleDateString('en-US', dateOptions)}
 						/> 
 					))}
 

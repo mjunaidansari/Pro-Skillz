@@ -31,7 +31,7 @@ const MainPage = () => {
 				<SidebarItem icon={<MdHomeRepairService/>} text="Services" path="services"/>
 				<SidebarItem icon={<IoIosSettings/>} text="Settings" path="settings" />
 			</Sidebar>
-			<div className='w-full'>
+			<div className='w-full bg-gray-300'>
 			{/* <div> */}
 				<Routes>
 					<Route path="/dashboard" element={<Dashboard/>}/>

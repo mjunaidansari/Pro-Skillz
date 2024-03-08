@@ -23,7 +23,7 @@ const UsersPage = () => {
 	console.log(users)
 
 	return (
-		<div className="bg-gray-300 h-full px-10 py-7 max-sm:px-5">
+		<div className="h-full px-10 py-7 max-sm:px-5">
 			{users? <UsersTable users={users}/> : <Loading/>}
 			{/* <Loading></Loading> */}
 		</div>
