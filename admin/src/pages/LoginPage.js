@@ -2,7 +2,7 @@ import { useState } from "react"
 import { useNavigate } from "react-router-dom" 
 
 import LoginForm from "../components/LoginForm"
-import loginServices from '../services/login' 
+import loginServices from '../services/api/login' 
 
 const LoginPage = (props) => {
 

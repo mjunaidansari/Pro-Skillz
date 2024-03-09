@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react"
 
-import UsersTable from "../components/UsersTable"
+import UsersTable from "../components/UserProfile/UsersTable"
 import Loading from "../components/Loading"
 
-import userServices from "../services/user"
+import userServices from "../services/api/user"
 
 
 const UsersPage = () => {

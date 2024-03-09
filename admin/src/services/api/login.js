@@ -1,5 +1,5 @@
 import axios from "axios"
-import config from '../config/config'
+import config from '../../config/config'
 
 const baseUrl = `${config.apiUrl}/api/login/admin`
 

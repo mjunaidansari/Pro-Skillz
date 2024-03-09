@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Route, Routes, useNavigate} from 'react-router-dom';
 
 import { MdDashboard, MdHomeRepairService } from "react-icons/md";
@@ -6,8 +6,8 @@ import { IoIosSettings } from "react-icons/io";
 import { FaUsers, FaUserAstronaut } from "react-icons/fa";
 import { BiSolidCategoryAlt } from "react-icons/bi";
 
-import Sidebar from "../components/Sidebar"
-import SidebarItem from "../components/SidebarItem"
+import Sidebar from "../components/Sidebar/Sidebar"
+import SidebarItem from "../components/Sidebar/SidebarItem"
 import SamplePage from './SamplePage'
 import Dashboard from './Dashboard'
 import UsersPage from './UsersPage'
@@ -21,9 +21,16 @@ const MainPage = () => {
 		navigate('/main/dashboard');
 	}, [])
 
+	const [expanded, setExpanded] = useState(true)
+
+	const toggleExpanded = () => {
+		setExpanded(!expanded)
+	}
+
+
 	return (
-		<div className='flex'>
-			<Sidebar>
+		<div className='flex h-full'>
+			<Sidebar expanded={expanded} setExpanded={setExpanded}>
 				<SidebarItem icon={<MdDashboard/>} text="Dashboard" path="dashboard"/>
 				<SidebarItem icon={<FaUsers/>} text="Users" path="users"/>
 				<SidebarItem icon={<FaUserAstronaut/>} text="Providers" path="providers"/>
@@ -31,8 +38,7 @@ const MainPage = () => {
 				<SidebarItem icon={<MdHomeRepairService/>} text="Services" path="services"/>
 				<SidebarItem icon={<IoIosSettings/>} text="Settings" path="settings" />
 			</Sidebar>
-			<div className='w-full bg-gray-300'>
-			{/* <div> */}
+			<div className={`overflow-y-auto w-full h-dvh bg-gray-300 ${expanded?'ml-56':'ml-16'}`}>
 				<Routes>
 					<Route path="/dashboard" element={<Dashboard/>}/>
 					<Route path="/users" element={<UsersPage/>}/>

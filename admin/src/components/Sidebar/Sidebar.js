@@ -5,9 +5,9 @@ import Logout from "./Logout";
 
 export const SidebarContext = createContext()
 
-const Sidebar = ( {children} ) => {
+const Sidebar = ( {expanded, setExpanded, children} ) => {
 
-	const [expanded, setExpanded] = useState(true)
+	// const [expanded, setExpanded] = useState(true)
 
 	const toggleExpanded = () => {
 		setExpanded(!expanded)
@@ -31,7 +31,7 @@ const Sidebar = ( {children} ) => {
 
 	return (
 
-		<aside className={`h-dvh bg-gradient-to-tr from-indigo-500 to-indigo-700 ${expanded?"w-56":"w-16"}`}>
+		<aside className={`fixed h-dvh bg-gradient-to-tr from-indigo-500 to-indigo-700 ${expanded?"w-56":"w-16"}`}>
 			<nav className="h-full w-full flex flex-col border-r shadow-sm">
 				
 				{/* logo and button */}

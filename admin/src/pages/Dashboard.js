@@ -2,7 +2,7 @@ import { useQuery } from "@apollo/client"
 
 import { ENTITY_COUNT } from "../services/gql/queries"
 
-import CountCard from "../components/CountCard"
+import CountCard from "../components/Dashboard/CountCard"
 import Loading from "../components/Loading"
 
 const Dashboard = () => {

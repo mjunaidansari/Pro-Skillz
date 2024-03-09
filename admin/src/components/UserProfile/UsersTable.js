@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import userServices from "../services/user"
+import userServices from "../../services/api/user"
 import { Link } from "react-router-dom";
 
 import { FaSort } from "react-icons/fa";
