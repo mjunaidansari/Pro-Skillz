@@ -6,4 +6,6 @@ const baseUrl = `${config.apiUrl}/api/user`
 
 const getAll = () =>  axios.get(baseUrl)
 
-export default {getAll}
+const get = (id) => axios.get(baseUrl + `/${id}`)
+
+export default { getAll, get }

@@ -66,7 +66,7 @@ const UsersTable = ({ users }) => {
 		year: 'numeric', 
 		month: 'long', 
 		day: 'numeric' 
-	  };
+	};
 
 	return (
 
