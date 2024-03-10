@@ -2,7 +2,8 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom"
 
 import userServices from "../services/api/user"
-import bookedServicesApi from "../services/api/bookedServices";
+import bookedServicesApi from "../services/api/bookedServices"
+import cartServices from "../services/api/cart"
 
 import Loading from '../components/Loading'
 import UserProfileCard from "../components/UserProfile/UserProfileCard";
@@ -14,7 +15,7 @@ const UserProfile = () => {
 
 	const [user, setUser] = useState(null)
 	const [bookedServices, setBookedServices] = useState(null)
-	const [users, setUsers] = useState(null)
+	const [cart, setCart] = useState(null)
 
 	const { id } = useParams()
 
@@ -38,18 +39,17 @@ const UserProfile = () => {
 
 	}, [])
 
-	console.log(bookedServices)
-
+	// fetching cart items
 	useEffect(() => {
 
-		userServices
-			.getAll()
-			.then(result => setUsers(result.data))
+		cartServices
+			.getWithUserId(id)
+			.then(result => setCart(result.data))
 			.catch(error => console.log(error))
 
 	}, [])
 
-	if(user!==null) console.log(users)
+	if(cart!==null) console.log(cart)
 
 	return (
 
@@ -57,11 +57,10 @@ const UserProfile = () => {
 			{user?(
 				<div className="grid grid-cols-3 grid-rows-3 grid-flow-row gap-10 p-10 ">
 					<UserProfileCard user={user}/>
-					<UserCartCard/>
+					{cart?(<UserCartCard cart={cart}/>):<Loading/>}
 					<UserRecentServiceCard/>
 					{bookedServices?<UserBookedServicesTableCard bookedServices={bookedServices}/>:<Loading/>}
 					{/* <div className="bg-black text-white col-span-2"> hello </div> */}
-					{/* {id} */}
 				</div>
 			):(
 				<Loading/>

@@ -22,8 +22,7 @@ const UsersPage = () => {
 
 	return (
 		<div className="h-full px-10 py-7 max-sm:px-5">
-			{users? <UsersTable users={users}/> : <Loading/>}
-			{/* <Loading></Loading> */}
+			{users?<UsersTable users={users}/>:<Loading/>}
 		</div>
 	)
 

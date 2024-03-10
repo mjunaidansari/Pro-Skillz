@@ -22,7 +22,7 @@ const UserProfileCard = ({ user }) => {
 	};
 
 	return (
-		<div className="block row-span-3 bg-white rounded-2xl shadow-lg shadow-gray-400 h-fit">
+		<div className="block row-span-3 bg-white rounded-2xl shadow-lg shadow-gray-400 h-fit	">
 
 			<div className="flex items-center justify-center mt-8">
 				{user.profilePicture?(
