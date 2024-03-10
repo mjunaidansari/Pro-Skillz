@@ -1,5 +1,7 @@
 import UserCartTable from "./UserCartTable"
 
+import ServicePopover from "../ServicePopover"
+
 const UserCartCard = ({ cart }) => {
 
 	const dateOptions = { 
@@ -21,8 +23,8 @@ const UserCartCard = ({ cart }) => {
 				<UserCartTable cartServices={cart.services}/>
 			</div>
 
-			<div className="flex mb-10">
-				<div className="mx-10 w-full">
+			<div className="flex mx-20 mb-10 text-sm">
+				<div className="w-full">
 					<label className="font-bold">
 						TimeStamp: 
 					</label>
@@ -30,7 +32,7 @@ const UserCartCard = ({ cart }) => {
 						{new Date(cart.timestamp).toLocaleDateString('en-US', dateOptions)}
 					</label>
 				</div>
-				<div className="mx-10 w-full">
+				<div className="w-full">
 					<label className="font-bold" >
 						Total Price: 
 					</label>
@@ -38,12 +40,10 @@ const UserCartCard = ({ cart }) => {
 						{cart.totalPrice}
 					</label>
 				</div>
-
 			</div>
 
 			
-			
-
+			<ServicePopover/>
 
 		</div>
 	)

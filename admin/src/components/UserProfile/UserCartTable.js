@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { FaSort } from "react-icons/fa";
+import ServicePopover from "../ServicePopover";
 
 const TableHead = ({name, sort, imp}) => {
 
@@ -44,7 +45,8 @@ const TableRow = ({id, name, serviceCharge}) => {
 				{serviceCharge}
 			</td>
 			<td className="px-6 py-4 text-right">
-				<Link to={`/main/users/${id}`} className="font-medium text-blue-600 dark:text-blue-500 hover:underline">View Profile</Link>
+				{/* <Link to={`/main/users/${id}`} className="font-medium text-blue-600 hover:underline">View Profile</Link> */}
+				<ServicePopover/>
 			</td>
 		</tr>
 	)	
@@ -55,8 +57,8 @@ const UserCartTable = ({ cartServices }) => {
 
 	return (
 
-		<div className="relative overflow-y-auto my-5 h-64 scro">
-			<table className="w-full text-sm text-left rtl:text-right text-gray-400">
+		<div className="relative my-5 h-64 overflow-y-auto z-0">
+			<table className="w-full text-sm text-left rtl:text-right text-gray-400 overflow-y-auto">
 				<thead className="text-xs text-gray-700 uppercase bg-white border-b-2">
 					<tr>
 						<TableHead name={"Name"} imp={true}/>
@@ -75,6 +77,50 @@ const UserCartTable = ({ cartServices }) => {
 
 						/> 
 					))}
+					
+					{cartServices.map(cartService => (
+						<TableRow
+							key={cartService._id}
+							id={cartService._id}
+							// image={bookedService.service.image}
+							name={cartService.name}
+							serviceCharge={cartService.serviceCharge}
+
+						/> 
+					))}
+					
+					{cartServices.map(cartService => (
+						<TableRow
+							key={cartService._id}
+							id={cartService._id}
+							// image={bookedService.service.image}
+							name={cartService.name}
+							serviceCharge={cartService.serviceCharge}
+
+						/> 
+					))}
+					
+					{cartServices.map(cartService => (
+						<TableRow
+							key={cartService._id}
+							id={cartService._id}
+							// image={bookedService.service.image}
+							name={cartService.name}
+							serviceCharge={cartService.serviceCharge}
+
+						/> 
+					))}
+					
+					{cartServices.map(cartService => (
+						<TableRow
+							key={cartService._id}
+							id={cartService._id}
+							// image={bookedService.service.image}
+							name={cartService.name}
+							serviceCharge={cartService.serviceCharge}
+
+						/> 
+					))}	
 
 				</tbody>
 			</table>

@@ -11,6 +11,8 @@ import UserBookedServicesTableCard from "../components/UserProfile/UserBookedSer
 import UserCartCard from "../components/UserProfile/UserCartCard";
 import UserRecentServiceCard from "../components/UserProfile/UserRecentServiceCard";
 
+import ServicePopover from "../components/ServicePopover";
+
 const UserProfile = () => {
 
 	const [user, setUser] = useState(null)
