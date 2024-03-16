@@ -45,8 +45,8 @@ const TableRow = ({id, name, serviceCharge}) => {
 				{serviceCharge}
 			</td>
 			<td className="px-6 py-4 text-right">
-				{/* <Link to={`/main/users/${id}`} className="font-medium text-blue-600 hover:underline">View Profile</Link> */}
-				<ServicePopover/>
+				<Link to={`/main/users/${id}`} className="font-medium text-blue-600 hover:underline">View Service</Link>
+				{/* <ServicePopover/> */}
 			</td>
 		</tr>
 	)	
@@ -57,7 +57,7 @@ const UserCartTable = ({ cartServices }) => {
 
 	return (
 
-		<div className="relative my-5 h-64 overflow-y-auto z-0">
+		<div className="relative my-5 h-64 overflow-scroll">
 			<table className="w-full text-sm text-left rtl:text-right text-gray-400 overflow-y-auto">
 				<thead className="text-xs text-gray-700 uppercase bg-white border-b-2">
 					<tr>
