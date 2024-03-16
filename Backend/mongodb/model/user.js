@@ -40,7 +40,13 @@ const schema = mongoose.Schema({
 	profilePicture: {
 		data: Buffer,
 		contentType: String,
-	}
+	},
+	recentServices: [
+		{
+			type: mongoose.Schema.Types.ObjectId,
+			ref: 'Service',
+		}
+	]
 
 })
 

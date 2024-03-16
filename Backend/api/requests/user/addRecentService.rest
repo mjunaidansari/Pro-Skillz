@@ -1,0 +1,7 @@
+POST http://localhost:5000/api/user/recentServices
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwaG9uZSI6Iis5MTk2NTMzMTMwODIiLCJpZCI6IjY1N2RhN2M0MTYzN2RhODE5ZWRjMDllNCIsImlhdCI6MTcxMDYxMjQzMywiZXhwIjoxNzQyMTQ4NDMzfQ.DUyg8PK7f4Mn2QngsXTt3_MBGdqylzaTmbNCLia8-QI
+Content-Type: application/json
+
+{
+	"serviceId": "6589ad275443b26d958d1825"
+}

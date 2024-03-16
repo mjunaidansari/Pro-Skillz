@@ -83,6 +83,30 @@ userRouter.put('/:id', async (req, res) => {
 	res.json(updatedUser)
 })
 
+// to add service to recent services
+userRouter.post('/recentServices', async (req, res) => {
+
+    const user = req.user
+	const { serviceId } = req.body
+
+	if (!user)
+		return res
+			.status(401)
+			.json({
+				error: 'Invalid User!'
+			})
+
+	if (user.recentServices.includes(serviceId))
+			return res.json(user)
+
+	user.recentServices.push(serviceId)
+	const updatedUser = await user.save()
+	
+	res.json(updatedUser)
+
+
+})
+
 userRouter.post('/image', async (req, res) => {
 
 	const user = req.user

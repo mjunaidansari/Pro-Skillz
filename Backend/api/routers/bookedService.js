@@ -8,6 +8,7 @@ bookedServiceRouter.get('/', async (req, res) => {
 
 	const bookedServices = await BookedService
 											.find({})
+											.populate('service')
 	res.json(bookedServices)
 
 }) 
@@ -35,6 +36,11 @@ bookedServiceRouter.get('/user/:id', async (req, res) => {
 
 	const bookedServices = await BookedService
 											.find({user: req.params.id})
+											.populate('service', {
+												name: 1,
+												image: 1
+											})
+
 	res.status(200).json(bookedServices)
 
 })
