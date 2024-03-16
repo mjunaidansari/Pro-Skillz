@@ -1,4 +1,6 @@
-const UserRecentServiceCard = () => {
+import UserRecentServiceTable from "./UserRecentServiceTable"
+
+const UserRecentServiceCard = ({ recentServices }) => {
 
 	return (
 		
@@ -9,6 +11,9 @@ const UserRecentServiceCard = () => {
 				<div className="h-px bg-gray-400"></div>
 			</div>
 
+			<div className="mx-10">
+				<UserRecentServiceTable recentServices={recentServices}/>
+			</div>
 		</div>
 	)
 

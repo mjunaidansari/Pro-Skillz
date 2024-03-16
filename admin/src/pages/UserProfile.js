@@ -51,18 +51,17 @@ const UserProfile = () => {
 
 	}, [])
 
-	if(cart!==null) console.log(cart)
+	if(user!==null) console.log(user)
 
 	return (
 
 		<>
 			{user?(
-				<div className="grid grid-cols-3 grid-rows-3 grid-flow-row gap-10 p-10 ">
+				<div className="grid grid-cols-3 grid-flow-row gap-10 p-10 ">
 					<UserProfileCard user={user}/>
 					{cart?(<UserCartCard cart={cart}/>):<Loading/>}
-					<UserRecentServiceCard/>
+					{user.recentServices?(<UserRecentServiceCard recentServices={user.recentServices}/>):<Loading/>}
 					{bookedServices?<UserBookedServicesTableCard bookedServices={bookedServices}/>:<Loading/>}
-					{/* <div className="bg-black text-white col-span-2"> hello </div> */}
 				</div>
 			):(
 				<Loading/>
