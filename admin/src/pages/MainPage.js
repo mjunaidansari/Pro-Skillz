@@ -10,6 +10,7 @@ import Sidebar from "../components/Sidebar/Sidebar"
 import SidebarItem from "../components/Sidebar/SidebarItem"
 import SamplePage from './SamplePage'
 import Dashboard from './Dashboard'
+import Categories from './Categories';
 import UsersPage from './UsersPage'
 import UserProfile from './UserProfile'
 
@@ -44,7 +45,8 @@ const MainPage = () => {
 					<Route path="/users" element={<UsersPage/>}/>
 					<Route path="/users/:id" element={<UserProfile/>}/>
 					<Route path="/providers" element={<SamplePage title={"Providers"}/>}/>
-					<Route path="/categories" element={<SamplePage title={"Categories"}/>}/>
+					{/* <Route path="/categories" element={<SamplePage title={"Categories"}/>}/> */}
+					<Route path="/categories" element={<Categories/>}/>
 					<Route path="/services" element={<SamplePage title={"Services	"}/>}/>
 					<Route path="/settings" element={<SamplePage title={"Settings"}/>}/>
 				</Routes>
