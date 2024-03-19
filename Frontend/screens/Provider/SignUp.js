@@ -1,32 +1,53 @@
 import { View, Text, TouchableOpacity, StyleSheet, ScrollView, LogBox } from 'react-native'
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import SignUpP from '../../assets/icons/SignUpP.svg'
 import InputF from '../../components/InputF'
 import ButtonsPS from '../../components/ButtonsPS'
 import { useNavigation } from '@react-navigation/native'
 import AuthContext from '../../context/AuthContext'
 import DropDownPicker from 'react-native-dropdown-picker';
+import { API_HOST } from "@env";
 
 LogBox.ignoreAllLogs();
 
 const SignUp = () => {
 
+    let catName = [];
+
+    useEffect(() => {
+        const getAllCategoriesName = async () => {
+
+            try {
+                const response = await fetch(`${API_HOST}/api/serviceCategory?action=name`, {
+                    method: "GET",
+                    headers: {
+                        "Content-Type": "application/json",
+                    }
+                });
+
+                const allCategoriesName = await response.json();
+
+                allCategoriesName.map((val) => {
+                    catName.push({ label: val.name, value: val.name })
+                })
+
+                console.log(catName);
+
+                setItems(catName)
+            }
+            catch (err) {
+                console.log("Get all Categories error : ", err.message);
+            }
+        }
+
+        getAllCategoriesName();
+    }, [])
+
     const navigation = useNavigation();
 
     const [open, setOpen] = useState(false);
     const [value, setValue] = useState(null);
-    const [items, setItems] = useState([
-        { label: 'Laundary', value: 'apple' },
-        { label: 'Cleaning', value: 'Cleaning' },
-        { label: 'MakeUp', value: 'MakeUp' },
-        { label: 'Repairs', value: 'Repairs' },
-        { label: 'Plumbing', value: 'Plumbing' },
-        { label: 'Saloon', value: 'Saloon' },
-        { label: 'Moving', value: 'Moving' },
-        { label: 'Caterers', value: 'Caterers' },
-        { label: 'AirConditioning', value: 'Air Conditioning' },
-        { label: 'Furniture', value: 'Furniture' },
-    ]);
+    const [items, setItems] = useState([]);
 
     const { updateLoginStateS } = useContext(AuthContext);
 
@@ -95,6 +116,7 @@ const styles = StyleSheet.create({
         height: "100%",
         alignItems: "center",
         justifyContent: "center",
+        backgroundColor: "#fff"
     },
 
     containerM: {

@@ -15,11 +15,16 @@ const CartScreen = () => {
 
     const { location } = useContext(LocationContext);
 
+
     useEffect(() => {
         getAllServicesFromCart();
     }, [])
 
     const navigation = useNavigation();
+
+    const handleReview = () => {
+        navigation.navigate("ServiceReview");
+    }
 
     const handleNoItemcartBtn = () => {
         navigation.navigate("Home");
@@ -107,7 +112,7 @@ const CartScreen = () => {
                     </View>
                 </View>
             </ScrollView>
-            <TouchableOpacity style={styles.checkoutBtn}>
+            <TouchableOpacity style={styles.checkoutBtn} onPress={handleReview}>
                 <CheckoutButton />
             </TouchableOpacity>
         </View>

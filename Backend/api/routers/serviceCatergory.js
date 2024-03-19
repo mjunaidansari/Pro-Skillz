@@ -1,36 +1,47 @@
 const serviceCategoryRouter = require('express').Router()
 
+const { json } = require('body-parser');
 const ServiceCategory = require('../../mongodb/model/serviceCategory')
 
 serviceCategoryRouter.get('/', async (req, res) => {
 
-	const serviceCategories = await ServiceCategory
-		.find({})
-	// .populate('services')
+	const action = req.query.action;
 
-	// converting images data to base64 for objects having images
-	const serviceCategories64 = serviceCategories.map(serviceCategory => {
+	console.log("This is action : ", action);
 
-		if (serviceCategory.image.data) {
-			const serviceCategory64 = {
-				...serviceCategory.toObject(),
-				image: {
-					data: serviceCategory.image.data.toString('base64'),
-					contentType: serviceCategory.image.contentType
-				},
-				icon: {
-					data: serviceCategory.icon.data.toString('base64'),
-					contentType: serviceCategory.icon.contentType
-				},
+	if (req.query.action === 'name') {
+		const serviceCategories = await ServiceCategory.find({}, { "name": 1 })
+
+		res.status(200).json(serviceCategories)
+	}
+	else {
+		const serviceCategories = await ServiceCategory
+			.find({})
+		// .populate('services')
+
+		// converting images data to base64 for objects having images
+		const serviceCategories64 = serviceCategories.map(serviceCategory => {
+
+			if (serviceCategory.image.data) {
+				const serviceCategory64 = {
+					...serviceCategory.toObject(),
+					image: {
+						data: serviceCategory.image.data.toString('base64'),
+						contentType: serviceCategory.image.contentType
+					},
+					icon: {
+						data: serviceCategory.icon.data.toString('base64'),
+						contentType: serviceCategory.icon.contentType
+					},
+				}
+				return serviceCategory64
+			} else {
+				return serviceCategory
 			}
-			return serviceCategory64
-		} else {
-			return serviceCategory
-		}
 
-	})
-
-	res.json(serviceCategories64)
+		})
+		res.json(serviceCategories64)
+	}
 })
 
 serviceCategoryRouter.get('/:id', async (req, res) => {

@@ -22,8 +22,6 @@ const CategoryState = (props) => {
 
             const allCategories = await response.json();
 
-            console.log("sl jadaslkdj sa", allCategories);
-
             setCategory(allCategories);
         }
         catch (err) {
