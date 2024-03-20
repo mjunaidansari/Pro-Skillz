@@ -1,4 +1,4 @@
-import { View, Text, TouchableOpacity, StyleSheet, ScrollView, LogBox } from 'react-native'
+import { View, Text, TouchableOpacity, StyleSheet, ScrollView, LogBox, Alert } from 'react-native'
 import React, { useContext, useEffect, useState } from 'react'
 import SignUpP from '../../assets/icons/SignUpP.svg'
 import InputF from '../../components/InputF'
@@ -6,17 +6,50 @@ import ButtonsPS from '../../components/ButtonsPS'
 import { useNavigation } from '@react-navigation/native'
 import AuthContext from '../../context/AuthContext'
 import DropDownPicker from 'react-native-dropdown-picker';
+import * as Location from 'expo-location';
+import LocationContext from '../../context/LocationContext';
 import { API_HOST } from "@env";
 
 LogBox.ignoreAllLogs();
 
 const SignUp = () => {
 
-    let catName = [];
+    const [open, setOpen] = useState(false);
+    const [category, setCategory] = useState(null);
+    const [items, setItems] = useState([]);
+    const [firstName, setFirstName] = useState('');
+    const [lastName, setLastName] = useState('');
+    const [phone, setPhone] = useState('');
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [locationEnabled, setLocationEnabled] = useState(null)
+
+    const navigation = useNavigation();
+
+    const { setLongLat, longLat } = useContext(LocationContext);
 
     useEffect(() => {
-        const getAllCategoriesName = async () => {
+        const checkLocationPermissions = async () => {
+            let { status } = await Location.requestForegroundPermissionsAsync();
 
+            if (status === 'denied') {
+                Alert.alert('Allow Location access to sign up as Service Provider');
+                navigation.goBack();
+            }
+
+            const enabled = await Location.hasServicesEnabledAsync();
+
+            if (!enabled) {
+                navigation.goBack();
+            }
+
+            let locationC = await Location.getCurrentPositionAsync({});
+
+            setLongLat([locationC.coords.latitude, locationC.coords.longitude])
+
+        };
+
+        const getAllCategoriesName = async () => {
             try {
                 const response = await fetch(`${API_HOST}/api/serviceCategory?action=name`, {
                     method: "GET",
@@ -27,32 +60,53 @@ const SignUp = () => {
 
                 const allCategoriesName = await response.json();
 
-                allCategoriesName.map((val) => {
-                    catName.push({ label: val.name, value: val.name })
-                })
+                const catName = allCategoriesName.map(val => ({
+                    label: val.name,
+                    value: val.name
+                }));
 
-                console.log(catName);
-
-                setItems(catName)
-            }
-            catch (err) {
+                setItems(catName);
+            } catch (err) {
                 console.log("Get all Categories error : ", err.message);
             }
-        }
+        };
 
+        checkLocationPermissions();
         getAllCategoriesName();
-    }, [])
+    }, [navigation]);
 
-    const navigation = useNavigation();
+    const updateState = async () => {
+        try {
+            const response = await fetch(`${API_HOST}/api/serviceProvider`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(
+                    {
+                        "firstname": firstName,
+                        "lastname": lastName,
+                        "phone": phone,
+                        "email": email,
+                        "password": password,
+                        "categories": [category],
+                        "coordinates": longLat
+                    }
+                )
+            });
 
-    const [open, setOpen] = useState(false);
-    const [value, setValue] = useState(null);
-    const [items, setItems] = useState([]);
+            const authSPCheck = await response.json();
 
-    const { updateLoginStateS } = useContext(AuthContext);
+            console.log(authSPCheck);
 
-    const updateState = (val) => {
-        updateLoginStateS(val)
+            if (authSPCheck) {
+                Alert.alert("Successfully Regsitered now Login!")
+                navigation.navigate("Login")
+            }
+        }
+        catch (err) {
+            console.log("Some error occured : ", err.message);
+        }
     }
 
     return (
@@ -64,13 +118,13 @@ const SignUp = () => {
 
                     <View>
                         <View style={styles.inpF}>
-                            <InputF title="First Name" />
+                            <InputF title="First Name" value={firstName} onChangeText={setFirstName} />
                         </View>
                         <View style={styles.inpF}>
-                            <InputF title="Last Name" />
+                            <InputF title="Last Name" value={lastName} onChangeText={setLastName} />
                         </View>
                         <View style={styles.inpF}>
-                            <InputF title="Phone" inpM="tel" />
+                            <InputF title="Phone" inpM="tel" value={phone} onChangeText={setPhone} />
                         </View>
                         <View style={styles.inpF}>
                             <DropDownPicker
@@ -78,30 +132,30 @@ const SignUp = () => {
                                 placeholder='Category'
                                 placeholderStyle={{ opacity: 0.55, marginLeft: 7 }}
                                 open={open}
-                                value={value}
+                                value={category}
                                 items={items}
                                 setOpen={setOpen}
-                                setValue={setValue}
+                                setValue={setCategory}
                                 setItems={setItems}
                             />
                         </View>
                         <View style={styles.inpF}>
-                            <InputF title="Email" inpM="email" />
+                            <InputF title="Email" inpM="email" value={email} onChangeText={setEmail} />
                         </View>
                         <View style={styles.inpF}>
-                            <InputF title="Password" password={true} />
+                            <InputF title="Password" password={true} value={password} onChangeText={setPassword} />
                         </View>
-
-                        <TouchableOpacity style={styles.btn} onPress={() => updateState(true)}>
-                            <ButtonsPS title="Sign Up" />
-                        </TouchableOpacity>
-
-                        <TouchableOpacity onPress={() => { navigation.navigate("Login") }}>
-                            <Text style={styles.txtL}>
-                                Already have an account ? Log in
-                            </Text>
-                        </TouchableOpacity>
                     </View>
+
+                    <TouchableOpacity style={styles.btn} onPress={() => updateState()}>
+                        <ButtonsPS title="Sign Up" />
+                    </TouchableOpacity>
+
+                    <TouchableOpacity onPress={() => { navigation.navigate("Login") }}>
+                        <Text style={styles.txtL}>
+                            Already have an account? Log in
+                        </Text>
+                    </TouchableOpacity>
                 </ScrollView>
             </View>
         </View>

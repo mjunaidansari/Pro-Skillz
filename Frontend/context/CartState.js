@@ -8,7 +8,6 @@ const CartState = (props) => {
     const [cart, setCart] = useState({});
 
     // console.log(API_HOST);
-    console.log("khadkawdk", cart);
 
     const getAllServicesFromCart = async () => {
         try {
