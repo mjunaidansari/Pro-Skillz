@@ -22,7 +22,6 @@ const SignUp = () => {
     const [phone, setPhone] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [locationEnabled, setLocationEnabled] = useState(null)
 
     const navigation = useNavigation();
 
