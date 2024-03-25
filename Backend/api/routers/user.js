@@ -34,7 +34,8 @@ userRouter.get('/testHTML', async (req, res) => {
 
 userRouter.get('/:id', async (req, res) => {
 
-	const user = await User.findById(req.params.id)	
+	// const user = await User.findById(req.params.id)
+	const user = await User.findById(req.params.id).populate('recentServices', {name: 1, serviceCharge: 1})
 	if (user)
 		if(user.profilePicture) {
 			const user64 = {
