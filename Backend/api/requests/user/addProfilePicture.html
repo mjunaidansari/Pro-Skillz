@@ -1,0 +1,119 @@
+<html>
+
+<head>
+	<meta charset="UTF-8">
+</head>
+
+<body>
+	<h1>Image Picker and Uploader</h1>
+
+	<br>
+	JWT Token: <input type="text" id="token" />
+
+		<br><br>
+		<input type="file" accept="image/" multiple id="imageInput" onchange="handleImageSelection()">
+
+	<br><br>
+	<!-- <button id="sendMultiple" onclick="sendMultipleToServer()">Send multiple</button> -->
+	<!-- <button id="sendMultiple" onclick="sendToServer()">Send</button> -->
+
+	<br><br>
+	<!-- <input type="text" id="imageId"/> -->
+	<button onclick="displayImage()">Get Image</button>
+	<div id="imageContainer"></div>
+
+	<script>
+
+		const images = []
+
+			// for single image
+			function handleImageSelection() {
+				const input = document.getElementById('imageInput');
+				const file = input.files[0];
+
+				if (file) {
+					const reader = new FileReader();
+					reader.onload = (e) => {
+						const base64String = e.target.result.split(',')[1];
+						const contentType = e.target.result.split(';')[0].replace('data:', '');
+						console.log('Content Type: ', base64String,  contentType)
+						sendToServer(base64String, contentType);
+					}
+					reader.readAsDataURL(file);
+				}
+			}
+
+			// for multiple images
+			// function handleImageSelection() {
+			// 	const input = document.getElementById('imageInput')
+				
+			// 	for (const file of input.files) {
+			// 		const reader = new FileReader()
+			// 		reader.onload = e => {
+			// 			const data = e.target.result.split(',')[1];
+			// 			const contentType = e.target.result.split(';')[0].replace('data:', '');
+			// 			// console.log(base64String, contentType)
+			// 			images.push({data, contentType})
+			// 		}
+			// 		reader.readAsDataURL(file)
+			// 	}
+			// 	console.log(images)
+
+			// }
+
+		function sendToServer(base64String, contentType) {
+			console.log('Base64 String: ', base64String);
+				const jwtToken = document.getElementById('token').value
+
+			fetch('http://localhost:5000/api/user/image', {
+				method: 'POST',
+				headers: {
+					'Authorization': 'Bearer ' + jwtToken,
+					'Content-Type': 'application/json',
+				},
+				body: JSON.stringify({imageBase64: base64String, contentType})
+			})
+			.then(response => response.json())
+			.then(data => {
+				console.log('Server response: ', data)
+			})
+			.catch(error => {
+				console.error('Error: ', error);
+			})
+		}
+
+		async function displayImage() {
+
+			const jwtToken = document.getElementById('token').value
+
+			try {
+				// const response = await fetch(`http://localhost:3000/api/image/${imageId}`, {
+				const response = await fetch(`http://localhost:3000/api/serviceProvider/image`, {
+					method: 'GET',
+					headers: {
+						'Authorization': 'Bearer ' + jwtToken,
+						'Content-Type': 'application/json'
+					}
+				})
+
+				if (!response.ok) {
+					throw new Error('Failed to fetch image');
+				}
+
+				const imageData = await response.json();
+				const imageElement = document.createElement('img')
+
+				console.log(imageData)
+				console.log('data:image/jpeg;base64,' + imageData.data)
+				imageElement.src = 'data:' + imageData.contentType + ';base64,' + imageData.data;
+				document.getElementById('imageContainer').appendChild(imageElement);
+
+			} catch (error) {
+				console.log('Error: ', error)
+			}
+		}
+
+	</script>
+</body>
+
+</html>

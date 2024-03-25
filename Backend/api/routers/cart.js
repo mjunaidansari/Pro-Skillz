@@ -2,6 +2,7 @@ const cartRouter = require('express').Router()
 
 const Cart = require('../../mongodb/model/cart')
 const Service = require('../../mongodb/model/service')
+const User = require('../../mongodb/model/user')
 
 cartRouter.get('/', async (req, res) => {
 
@@ -14,11 +15,33 @@ cartRouter.get('/', async (req, res) => {
 
 	}
 
+	res.status(404).json({
+		error: 'Cart not found!'
+	})
 
-	const carts = await Cart
-		.find({})
 
-	res.status(200).json(carts)
+	// const carts = await Cart
+	// 	.find({})
+
+	// res.status(200).json(carts)
+
+})
+
+// getting cart of user with user id
+cartRouter.get('/user/:id', async (req, res) => {
+
+	const user = await User.findById(req.params.id)
+
+	if (user) {
+
+		const cart = await Cart.findOne({ user: user.id }).populate('services', {name: 1, serviceCharge: 1})
+		return res.status(200).json(cart)
+
+	}
+
+	res.status(404).json({
+		error: 'Cart not found!'
+	})
 
 })
 

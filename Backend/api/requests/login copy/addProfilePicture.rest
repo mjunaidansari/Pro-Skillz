@@ -1,0 +1,7 @@
+POST http://localhost:5000/api/serviceProvider/image
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwaG9uZSI6Ijk2NTMzMTMwODIiLCJpZCI6IjY1ODlhNzYzNDk4NTczNDdkYWUzNTZjZiIsImlhdCI6MTcwNjMzOTk0NCwiZXhwIjoxNzM3ODc1OTQ0fQ.YyfqC1TXAzw93ieV_9qJbvL2DZQydgESvYQiet3lyuE
+Content-Type: application/json
+
+{
+	
+}

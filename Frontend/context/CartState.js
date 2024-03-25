@@ -7,7 +7,9 @@ const CartState = (props) => {
 
     const [cart, setCart] = useState({});
 
-    // console.log(API_HOST);
+
+	console.log('API_HOST: ', API_HOST, cart)
+
 
     const getAllServicesFromCart = async () => {
         try {
@@ -79,28 +81,28 @@ const CartState = (props) => {
     }
 
 
-    // const getCartServiceInfo = async (service_id) => {
-    //     try {
-    //         const response = await fetch(`${API_HOST}/api/service/${service_id}`, {
-    //             method: "GET",
-    //             headers: {
-    //                 "Content-Type": "application/json",
-    //             }
-    //         });
+    const getCartServiceInfo = async (service_id) => {
+        try {
+            const response = await fetch(`${API_HOST}/api/service/${service_id}`, {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                }
+            });
 
-    //         const getService = await response.json();
+            const getService = await response.json();
 
-    //         setCartService(getService);
+            setCartService(getService);
 
-    //         // console.log("Cart Service info :", getService);
-    //     }
-    //     catch (err) {
-    //         console.log("Get Cart Service info error : ", err.message);
-    //     }
-    // }
+            // console.log("Cart Service info :", getService);
+        }
+        catch (err) {
+            console.log("Get Cart Service info error : ", err.message);
+        }
+    }
 
     return (
-        <CartContext.Provider value={{ cart, getAllServicesFromCart, addInCart, removeFromCart }}>
+        <CartContext.Provider value={{ cart, getAllServicesFromCart, addInCart, removeFromCart, getCartServiceInfo }}>
             {props.children}
         </CartContext.Provider>
     )

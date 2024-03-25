@@ -4,6 +4,7 @@ const { merge } = require('lodash')
 const test = require('../graphql/types/test')
 const location = require('../graphql/types/location')
 const serviceCard = require('../graphql/types/serviceCard')
+const entityCount = require('../graphql/types/entityCount')
 
 // queries
 const allObj = require('../graphql/queries/allObj')
@@ -13,6 +14,7 @@ const allLocations = require('../graphql/queries/location/allLocations')
 const nearMe = require('../graphql/queries/location/nearMe')
 const filterLocation = require('../graphql/queries/location/filterLocation')
 const getServiceCards = require('../graphql/queries/getServiceCards')
+const getEntityCount = require('./queries/admin/getEntityCount')
 
 // mutations
 const editObj = require('../graphql/mutations/editObj')
@@ -28,7 +30,9 @@ const typeDefs = [
 	nearMe.typeDefs,
 	filterLocation.typeDefs,
 	serviceCard.typeDefs,
-	getServiceCards.typeDefs
+	getServiceCards.typeDefs,
+	entityCount.typeDefs,
+	getEntityCount.typeDefs
 
 ]
 
@@ -43,7 +47,8 @@ const resolvers = merge(
 	nearMe.resolvers,
 	filterLocation.resolvers,
 	serviceCard.resolvers,
-	getServiceCards.resolvers
+	getServiceCards.resolvers,
+	getEntityCount.resolvers,
 )
 
 module.exports = {
