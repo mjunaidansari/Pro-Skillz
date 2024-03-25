@@ -1,7 +1,5 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import AuthContext from "./AuthContext";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-
 
 const AuthState = (props) => {
 

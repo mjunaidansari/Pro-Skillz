@@ -17,7 +17,7 @@ const Login = () => {
 
     const { updateLoginStateS } = useContext(AuthContext);
 
-    const loginSignUp = async (val) => {
+    const loginSignUp = async () => {
 
         try {
 

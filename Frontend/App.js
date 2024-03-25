@@ -12,6 +12,7 @@ import LocationState from './context/LocationState';
 import CategoryState from './context/CategoryState';
 import CallInApp from "./CallInApp";
 import CartState from './context/CartState';
+import BookedServicesState from './context/BookedServicesState';
 import { ApolloProvider, ApolloClient, InMemoryCache } from '@apollo/client';
 import SearchState from './context/SearchState';
 import { API_HOST_GQL } from "@env";
@@ -56,13 +57,14 @@ export default function App() {
             <CategoryState>
               <SearchState>
                 <CartState>
-                  <NavigationContainer>
-                    {/* <SplashScreen /> */}
-
-                    <CallInApp />
-                  </NavigationContainer>
+                  <BookedServicesState>
+                    <NavigationContainer>
+                      {/* <SplashScreen /> */}
+                      <CallInApp />
+                    </NavigationContainer>
+                  </BookedServicesState>
                 </CartState>
-              </SearchState>
+              </SearchState >
             </CategoryState>
           </LocationState>
         </ApolloProvider>
