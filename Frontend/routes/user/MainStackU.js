@@ -9,6 +9,7 @@ import ServiceSlugScreen from '../../screens/Customer/ServiceSlugScreen';
 import AllDeals from '../../screens/Customer/AllDeals';
 import AllRecentServices from '../../screens/Customer/AllRecentServices';
 import ServicceProviderProfileScreen from '../../screens/Customer/ServicceProviderProfileScreen';
+import ServiceReview from '../../screens/Customer/ServiceReview';
 
 export default function MainStackU() {
 
@@ -44,6 +45,9 @@ export default function MainStackU() {
                 options={{ headerShown: false }} />
 
             <Stack.Screen name="AllReccents" component={AllRecentServices}
+                options={{ headerShown: false }} />
+
+            <Stack.Screen name="ServiceReview" component={ServiceReview}
                 options={{ headerShown: false }} />
         </Stack.Navigator>
     )

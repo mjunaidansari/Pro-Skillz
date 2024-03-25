@@ -13,6 +13,8 @@ import CategoryState from './context/CategoryState';
 import CallInApp from "./CallInApp";
 import CartState from './context/CartState';
 import { ApolloProvider, ApolloClient, InMemoryCache } from '@apollo/client';
+import SearchState from './context/SearchState';
+import { API_HOST_GQL } from "@env";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -33,8 +35,10 @@ export default function App() {
   }, [])
 
   const client = new ApolloClient({
-    // uri: 'http://192.168.29.78:4000/',
-    uri: 'http://192.168.1.116:4000/',
+
+    uri: 'http://192.168.29.78:4000/',
+    uri: `${API_HOST_GQL}:4000/`,
+
     cache: new InMemoryCache(),
   });
 
@@ -50,13 +54,15 @@ export default function App() {
         <ApolloProvider client={client}>
           <LocationState>
             <CategoryState>
-              <CartState>
-                <NavigationContainer>
-                  {/* <SplashScreen /> */}
+              <SearchState>
+                <CartState>
+                  <NavigationContainer>
+                    {/* <SplashScreen /> */}
 
-                  <CallInApp />
-                </NavigationContainer>
-              </CartState>
+                    <CallInApp />
+                  </NavigationContainer>
+                </CartState>
+              </SearchState>
             </CategoryState>
           </LocationState>
         </ApolloProvider>
@@ -73,6 +79,3 @@ const styles = StyleSheet.create({
     paddingTop: StatusBar.currentHeight || 0,
   }
 })
-
-
-//9653313082

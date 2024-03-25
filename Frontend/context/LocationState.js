@@ -9,6 +9,8 @@ const LocationState = (props) => {
 
     // console.log(location[0].formattedAddress);
 
+    // console.log(longLat);
+
     return (
         <LocationContext.Provider value={{ location, setLocation, setLongLat, longLat }}>
             {props.children}

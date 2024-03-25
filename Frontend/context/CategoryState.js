@@ -10,6 +10,9 @@ const CategoryState = (props) => {
 
 	console.log('API_HOST: ', API_HOST, [])
 
+    console.log(category);
+
+
     const getAllCategories = async () => {
 
         try {
