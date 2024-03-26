@@ -57,6 +57,8 @@ const CategorySlugScreen = ({ route }) => {
     if (loading) return <Text>Loading...</Text>;
     if (error) return <Text>Error: {error.message}</Text>;
 
+    console.log("Graph QL : ", item);
+
     return (
         <View style={styles.container} >
             <ScrollView showsVerticalScrollIndicator={false}
@@ -64,7 +66,8 @@ const CategorySlugScreen = ({ route }) => {
                     cart ?
                         cart.totalPrice > 0 ? { marginBottom: 100 } : { marginBottom: 0 }
                         : { marginBottom: 0 }}>
-                <Image style={styles.imgBanner} source={{ uri: `data:${item.image.contentType};base64,${item.image.data}` }} alt='category banner' />
+                <Image style={styles.imgBanner} source={{ uri: `data:${item.icon.contentType};base64,${item.icon.data}` }} alt='category banner' />
+
 
 
                 <Text style={styles.txt}>

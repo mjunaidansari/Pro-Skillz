@@ -1,19 +1,7 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import AuthContext from "./AuthContext";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-
 
 const AuthState = (props) => {
-
-    // useEffect(() => {
-    //     async function check() {
-    //         if (await AsyncStorage.getItem("loggedUser") != null) {
-    //             updateDirectLogin(true);
-    //         }
-    //     }
-    //     check();
-
-    // }, [])
 
     const [directLogin, setDirectLogin] = useState(null);
     const [authType, setAuthType] = useState(null); // true

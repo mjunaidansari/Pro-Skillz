@@ -1,19 +1,51 @@
 import { View, Text, Button, StyleSheet, KeyboardAvoidingView, Platform, ScrollView, TouchableOpacity } from 'react-native'
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import { useNavigation } from '@react-navigation/core'
 import UserLoginIcon from '../../assets/icons/UserLoginIcon.svg'
 import InputF from '../../components/InputF'
 import ButtonsPS from '../../components/ButtonsPS'
 import AuthContext from '../../context/AuthContext'
+import { API_HOST } from "@env"
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
 const Login = () => {
 
     const navigation = useNavigation();
 
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
+
     const { updateLoginStateS } = useContext(AuthContext);
 
-    const loginSignUp = (val) => {
-        updateLoginStateS(val)
+    const loginSignUp = async () => {
+
+        try {
+
+            const response = await fetch(`${API_HOST}/api/login/serviceProvider/alternate`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(
+                    {
+                        "firstname": username,
+                        "password": password,
+                    }
+                )
+            });
+
+            const authSPCheck = await response.json();
+
+            console.log(authSPCheck.token);
+
+            await AsyncStorage.setItem('loggedServiceProvider', JSON.stringify(authSPCheck.token))
+
+            updateLoginStateS(true)
+        }
+        catch (err) {
+            console.log("Some error occured : ", err.message);
+        }
+
     }
 
     return (
@@ -27,13 +59,13 @@ const Login = () => {
                     </Text>
 
                     <View style={styles.inpF}>
-                        <InputF title="User Name/Email" inpM="email" />
+                        <InputF title="User Name/Email" inpM="email" value={username} onChangeText={setUsername} />
                     </View>
                     <View style={styles.inpF}>
-                        <InputF title="Password" password={true} />
+                        <InputF title="Password" password={true} value={password} onChangeText={setPassword} />
                     </View>
 
-                    <TouchableOpacity style={styles.btn} onPress={() => loginSignUp(true)}>
+                    <TouchableOpacity style={styles.btn} onPress={() => loginSignUp()}>
                         <ButtonsPS title="Login with OTP" />
                     </TouchableOpacity>
 
@@ -61,7 +93,8 @@ const styles = StyleSheet.create({
         width: "100%",
         height: "100%",
         alignItems: "center",
-        justifyContent: "center"
+        justifyContent: "center",
+        backgroundColor: "#fff"
     },
 
     containerM: {

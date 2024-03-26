@@ -1,12 +1,42 @@
-import React, { useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { View, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
+import CategoryContext from '../context/CategoryContext';
+import SearchContext from '../context/SearchContext';
 
 const SearchBar = () => {
+  const { category, getAllCategories } = useContext(CategoryContext);
+  const { updateSearchData } = useContext(SearchContext);
   const [searchText, setSearchText] = useState('');
 
   const handleClear = () => {
     setSearchText('');
+    updateSearchData([]);
+  };
+
+  if (category.length === 0) {
+    getAllCategories();
+  }
+
+  const handleSearch = (text) => {
+    setSearchText(text);
+
+    if (text.trim() === '') {
+      handleClear();
+    }
+    else {
+      const filteredData = category.filter((item) =>
+        item.name.toLowerCase().includes(text.toLowerCase())
+      );
+      // console.log(filteredData);
+      if (filteredData.length === 0) {
+        updateSearchData(null);
+      }
+      else {
+        updateSearchData(filteredData);
+      }
+    }
+
   };
 
   return (
@@ -18,7 +48,7 @@ const SearchBar = () => {
           placeholder="Search..."
           placeholderTextColor="#888"
           value={searchText}
-          onChangeText={(text) => setSearchText(text)}
+          onChangeText={handleSearch}
         />
         {searchText !== '' && (
           <TouchableOpacity onPress={handleClear}>

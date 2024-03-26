@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react'
+import React, { useContext } from 'react'
 import AuthContext from '../../context/AuthContext';
 import AuthStackU from '../../routes/Other/AuthStackU';
 import AuthSatckSP from '../../routes/Other/AuthStackSP';
