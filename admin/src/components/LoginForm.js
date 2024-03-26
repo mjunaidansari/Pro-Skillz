@@ -38,6 +38,7 @@ const LoginForm = (props) => {
 							className="block border-2 border-gray-400 pl-2 py-1 w-full rounded-md focus:border-black "
 						/>
 						<button
+							type="button"
 							onClick={() => setPasswordVisible(!passwordVisible)}
 							className="absolute inset-y-0 right-0 flex items-center px-2 text-gray-500"
 						>
@@ -58,6 +59,7 @@ const LoginForm = (props) => {
 					<button
 						id="login-button"
 						type="submit"
+						onClick={handleLogin}
 						className="bg-blue-400 py-1 px-8 mt-6 rounded-full max-sm:w-full"
 					>Login</button>
 				</form>

@@ -10,8 +10,8 @@ const App = () => {
 
 	/** HOOKS */
 
-	const [admin, setAdmin] = useState({name: "junaid"})
-	// const [admin, setAdmin] = useState(null)
+	// const [admin, setAdmin] = useState({name: "junaid"})
+	const [admin, setAdmin] = useState(null)
 
 	// hook to see if admin is already logged in
 	useEffect(() => {
