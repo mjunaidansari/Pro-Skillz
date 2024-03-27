@@ -14,6 +14,7 @@ const ServiceCard = ({ title, description, imageUrl, }) => {
 
   return (
     <View style={styles.card} onTouchEnd={handlePress}>
+      <Text>Bruh</Text>
       <Image source={{ uri: imageUrl }} style={styles.image} />
       <View style={styles.textContainer}>
         <Text style={styles.title}>{title}</Text>
