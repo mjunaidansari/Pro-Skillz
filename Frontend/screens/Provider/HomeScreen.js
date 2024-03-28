@@ -13,7 +13,6 @@ const HomePage = () => {
 
     useEffect(() => {
         updateBookedServices();
-
     }, [])
 
     useEffect(() => {
@@ -25,7 +24,7 @@ const HomePage = () => {
     }, [bookedServices])
 
     return (
-        <View>
+        <View style={styles.container}>
             <Text>Pending Tasks :</Text>
 
             {
@@ -44,4 +43,11 @@ const HomePage = () => {
 
 export default HomePage
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({
+    container: {
+        backgroundColor: "#fff",
+        flex: 1,
+        padding: 20
+    }
+
+})

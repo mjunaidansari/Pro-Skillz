@@ -11,4 +11,6 @@ const Duejobs = () => {
 
 export default Duejobs
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({
+
+})
