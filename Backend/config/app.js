@@ -26,6 +26,8 @@ require('express-async-errors')
 
 const app = express()
 
+app.use(express.static('build'))
+
 app.use(cors({
 	origin: "*"
 }))
