@@ -37,7 +37,7 @@ export default function App() {
 
   const client = new ApolloClient({
 
-    uri: 'http://192.168.29.78:4000/',
+    // uri: 'http://192.168.207.192:4000/',
     uri: `${API_HOST_GQL}:4000/`,
 
     cache: new InMemoryCache(),

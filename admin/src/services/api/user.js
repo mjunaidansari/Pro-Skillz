@@ -4,7 +4,7 @@ import config from '../../config/config'
 
 const baseUrl = `${config.apiUrl}/api/user`
 
-const getAll = () =>  axios.get(baseUrl)
+const getAll = () => axios.get(baseUrl)
 
 const get = (id) => axios.get(`${baseUrl}/${id}`)
 
