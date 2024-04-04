@@ -1,4 +1,4 @@
-import { ScrollView, StyleSheet, Text, TouchableHighlight, TouchableNativeFeedback, TouchableOpacity, View } from 'react-native';
+import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import React, { useContext, useEffect, useState } from 'react';
 import CartCards from '../../components/CartCards';
 import { Ionicons } from '@expo/vector-icons';

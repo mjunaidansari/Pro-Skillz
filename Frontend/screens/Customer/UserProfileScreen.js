@@ -75,7 +75,7 @@ export default UserProfileScreen
 const styles = StyleSheet.create({
     container: {
         backgroundColor: "#fff",
-        flex: 1
+        flex: 1,
     },
     headerCont: {
         backgroundColor: "#3B37FF",
