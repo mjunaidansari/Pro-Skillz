@@ -26,7 +26,6 @@ otpRouter.post('/generate', async (req, res) => {
 		.messages
 		.create({
 			body: `Your OTP is ${otp}`, 
-			// from: '+14155240612', 
 			from: '+13202887666', 
 			to: phone
 		})
