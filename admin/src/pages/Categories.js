@@ -31,10 +31,6 @@ const Categories = () => {
 				<div className="h-full grid grid-cols-3 grid-flow-row gap-10 p-10 overflow-y-auto">
 					{categories.map(category => <CategoryCard key={category.id} category={category}/>)}
 					<AddCategoryBox/>
-					{/* {categories.map(category => <CategoryCard/>)}
-					{categories.map(category => <CategoryCard/>)}
-					{categories.map(category => <CategoryCard/>)} */}
-					{/* <CategoryCard/> */}
 				</div>
 			):(
 				<Loading/>
