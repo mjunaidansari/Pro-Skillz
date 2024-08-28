@@ -2,5 +2,5 @@ POST http://localhost:5000/api/otp/generate
 Content-Type: application/json
 
 {
-	"phone": "+919653313082"
+	"phone": "+917219306956"
 }

@@ -1,7 +1,7 @@
-PUT  http://localhost:5000/api/user/657da7c41637da819edc09e4
+PUT  http://localhost:5000/api/user/65c3ab375ba3b5f9109cf49c
 Content-Type: application/json
 
 {
-	"firstname": "John",
+	"firstname": "Jane",
 	"lastname": "Doe"
 }

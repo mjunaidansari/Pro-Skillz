@@ -1,4 +1,5 @@
 const serviceCategoryRouter = require('express').Router()
+const path = require('path')
 
 const { json } = require('body-parser');
 const ServiceCategory = require('../../mongodb/model/serviceCategory')
@@ -43,6 +44,13 @@ serviceCategoryRouter.get('/', async (req, res) => {
 		res.json(serviceCategories64)
 	}
 })
+
+serviceCategoryRouter.get('/testHTML', async (req, res) => {
+
+	res.sendFile(path.join(__dirname, '../requests/serviceCategory/addImage.html'))
+
+})
+
 
 serviceCategoryRouter.get('/:id', async (req, res) => {
 
@@ -165,5 +173,58 @@ serviceCategoryRouter.put('/image/:id', async (req, res) => {
 	res.json(updatedServiceCategory)
 
 })
+
+serviceCategoryRouter.get('/icon/:id', async (req, res) => {
+	const serviceCategory = await ServiceCategory.findById(req.params.id);
+
+	if (!serviceCategory)
+			return res
+					.status(404)
+					.json({
+							error: 'Service Category not found!'
+					});
+
+	if (!serviceCategory.icon || !serviceCategory.icon.data)
+			return res
+					.status(404)
+					.json({
+							error: 'Icon image not found!'
+					});
+
+	const imageData = {
+		data: serviceCategory.icon.data.toString('base64'),
+		contentType: serviceCategory.icon.contentType
+	}
+	
+	res.json(imageData)
+
+});
+
+serviceCategoryRouter.get('/image/:id', async (req, res) => {
+	const serviceCategory = await ServiceCategory.findById(req.params.id);
+
+	if (!serviceCategory)
+			return res
+					.status(404)
+					.json({
+							error: 'Service Category not found!'
+					});
+
+	if (!serviceCategory.icon || !serviceCategory.icon.data)
+			return res
+					.status(404)
+					.json({
+							error: 'Image not found!'
+					});
+
+	const imageData = {
+		data: serviceCategory.image.data.toString('base64'),
+		contentType: serviceCategory.image.contentType
+	}
+	
+	res.json(imageData)
+	
+});
+
 
 module.exports = serviceCategoryRouter

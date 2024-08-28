@@ -1,4 +1,5 @@
 const serviceRouter = require('express').Router()
+const path = require('path')
 
 const User = require('../../mongodb/model/user')
 const ServiceProvider = require('../../mongodb/model/serviceProvider')
@@ -31,6 +32,12 @@ serviceRouter.get('/', async (req, res) => {
 	})
 
 	res.json(services64)
+
+})
+
+serviceRouter.get('/testHTML', async (req, res) => {
+
+	res.sendFile(path.join(__dirname, '../requests/service/addImage.html'))
 
 })
 
@@ -168,23 +175,23 @@ serviceRouter.put('/:id', async (req, res) => {
 serviceRouter.put('/image/:id', async (req, res) => {
 
 	const { imageBase64, contentType } = req.body
-	const user = req.user
+	// const user = req.user
 
-	if (!user)
-		return res
-			.status(401)
-			.json({
-				error: 'Invalid User!'
-			})
+	// if (!user)
+	// 	return res
+	// 		.status(401)
+	// 		.json({
+	// 			error: 'Invalid User!'
+	// 		})
 
-	const serviceProvider = await ServiceProvider.findOne({ user: user.id })
+	// const serviceProvider = await ServiceProvider.findOne({ user: user.id })
 
-	if (!serviceProvider)
-		return res
-			.status(401)
-			.json({
-				error: 'Service Provdier not found!'
-			})
+	// if (!serviceProvider)
+	// 	return res
+	// 		.status(401)
+	// 		.json({
+	// 			error: 'Service Provdier not found!'
+	// 		})
 
 	const service = await Service.findById(req.params.id)
 
@@ -206,5 +213,32 @@ serviceRouter.put('/image/:id', async (req, res) => {
 	res.json(updatedService)
 
 })
+
+serviceRouter.get('/image/:id', async (req, res) => {
+	const service = await Service.findById(req.params.id);
+
+	if (!service)
+			return res
+					.status(404)
+					.json({
+							error: 'Service not found!'
+					});
+
+	if (!service.image || !service.image.data)
+			return res
+					.status(404)
+					.json({
+							error: 'Image not found!'
+					});
+
+	const imageData = {
+		data: service.image.data.toString('base64'),
+		contentType: service.image.contentType
+	}
+	
+	res.json(imageData)
+
+});
+
 
 module.exports = serviceRouter

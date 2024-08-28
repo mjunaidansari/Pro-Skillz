@@ -1,0 +1,97 @@
+<html>
+
+<head>
+	<meta charset="UTF-8">
+</head>
+
+<body>
+	<h1>Image Picker and Uploader</h1>
+
+	<br>
+	ID: <input type="text" id="id" />
+	Icon/Image: <input type="text" id="place" />
+
+		<br><br>
+		<input type="file" accept="image/" multiple id="imageInput" onchange="handleImageSelection()">
+
+	<br><br>
+	<!-- <input type="text" id="imageId"/> -->
+	<button onclick="displayImage()">Get Image</button>
+	<div id="imageContainer"></div>
+
+	<script>
+
+		const images = []
+
+		// for single image
+		function handleImageSelection() {
+			const input = document.getElementById('imageInput');
+			const file = input.files[0];
+
+			if (file) {
+				const reader = new FileReader();
+				reader.onload = (e) => {
+					const base64String = e.target.result.split(',')[1];
+					const contentType = e.target.result.split(';')[0].replace('data:', '');
+					console.log('Content Type: ', base64String,  contentType)
+					sendToServer(base64String, contentType);
+				}
+				reader.readAsDataURL(file);
+			}
+		}
+
+		function sendToServer(base64String, contentType) {
+			console.log('Base64 String: ', base64String);
+				const id = document.getElementById('id').value
+				const place = document.getElementById('place').value
+
+			fetch(`http://localhost:5000/api/serviceCategory/${place}/${id}`, {
+				method: 'PUT',
+				headers: {
+					'Content-Type': 'application/json',
+				},
+				body: JSON.stringify({imageBase64: base64String, contentType})
+			})
+			.then(response => response.json())
+			.then(data => {
+				console.log('Server response: ', data)
+			})
+			.catch(error => {
+				console.error('Error: ', error);
+			})
+		}
+
+		async function displayImage() {
+
+			const id = document.getElementById('id').value
+			const place = document.getElementById('place').value
+
+			try {
+				const response = await fetch(`http://localhost:5000/api/serviceCategory/${place}/${id}`, {
+					method: 'GET',
+					headers: {
+						'Content-Type': 'application/json'
+					}
+				})
+
+				if (!response.ok) {
+					throw new Error('Failed to fetch image');
+				}
+
+				const imageData = await response.json();
+				const imageElement = document.createElement('img')
+
+				console.log(imageData)
+				console.log('data:image/jpeg;base64,' + imageData.data)
+				imageElement.src = 'data:' + imageData.contentType + ';base64,' + imageData.data;
+				document.getElementById('imageContainer').appendChild(imageElement);
+
+			} catch (error) {
+				console.log('Error: ', error)
+			}
+		}
+
+	</script>
+</body>
+
+</html>
